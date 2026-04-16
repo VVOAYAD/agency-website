@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regulate Your Nervous System in 30 Days — The Complete Guide</title>
+<meta name="description" content="A step-by-step guide to calm your nervous system, reduce anxiety, and reclaim your energy in just 30 days. By Alvvo Ayad.">
+<meta property="og:title" content="Regulate Your Nervous System in 30 Days">
+<meta property="og:description" content="A step-by-step guide to calm your nervous system, reduce anxiety, and reclaim your energy in 30 days.">
+<meta property="og:type" content="product">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+<style>
+:root {
+  --bg: #0a0a0e;
+  --surface: #111116;
+  --surface-2: #19191f;
+  --surface-3: #1f1f28;
+  --text: #e4e4ec;
+  --text-dim: #7c7c90;
+  --text-bright: #ffffff;
+  --border: #252530;
+  --border-2: #2e2e3d;
+  --g1: #34d399;
+  --g2: #3b82f6;
+  --g3: #a78bfa;
+  --g4: #f472b6;
+  --accent: #34d399;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+::selection { background: var(--g1); color: var(--bg); }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* Grain */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 999;
+}
+
+/* Ambient glow */
+.glow { position: fixed; border-radius: 50%; filter: blur(160px); pointer-events: none; z-index: 0; }
+.glow-a { width: 600px; height: 600px; background: rgba(52,211,153,0.06); top: -250px; right: -150px; }
+.glow-b { width: 500px; height: 500px; background: rgba(59,130,246,0.05); bottom: 10%; left: -200px; }
+
+/* Container */
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+/* ========== NAV ========== */
+nav {
+  position: fixed; top: 0; width: 100%;
+  padding: 20px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 100;
+  background: rgba(10,10,14,0.85);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s;
+}
+nav.scrolled { border-bottom-color: var(--border); }
+.nav-brand { text-decoration: none; font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 600; color: var(--text-bright); letter-spacing: 0.3px; }
+.nav-cta {
+  font-size: 13px; color: var(--bg); background: var(--g1);
+  padding: 8px 20px; border-radius: 8px; text-decoration: none;
+  font-weight: 600; transition: all 0.3s;
+}
+.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(52,211,153,0.3); }
+
+/* ========== HERO ========== */
+.hero { padding: 160px 0 80px; text-align: center; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 18px;
+  background: linear-gradient(135deg, rgba(52,211,153,0.08), rgba(59,130,246,0.08));
+  border: 1px solid rgba(52,211,153,0.15);
+  border-radius: 100px;
+  font-size: 13px; font-weight: 500; color: var(--g1);
+  margin-bottom: 32px;
+  animation: fadeUp 0.8s ease 0.1s both;
+}
+.hero-badge .dot { width: 6px; height: 6px; background: var(--g1); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+.hero h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(32px, 6vw, 54px);
+  font-weight: 700; line-height: 1.12;
+  color: var(--text-bright);
+  margin-bottom: 24px; letter-spacing: -1.5px;
+  animation: fadeUp 0.8s ease 0.2s both;
+}
+.glow-text {
+  background: linear-gradient(135deg, var(--g1), var(--g2), var(--g3));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+.hero-sub {
+  font-size: 18px; color: var(--text-dim); line-height: 1.75;
+  max-width: 520px; margin: 0 auto 40px;
+  animation: fadeUp 0.8s ease 0.35s both;
+}
+
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 36px;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  color: var(--bg); font-weight: 700; font-size: 16px;
+  text-decoration: none; border-radius: 12px; border: none; cursor: pointer;
+  transition: all 0.35s;
+  box-shadow: 0 0 0 0 rgba(52,211,153,0);
+  font-family: 'Outfit', sans-serif;
+}
+.cta-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(52,211,153,0.25); }
+
+.hero-price {
+  margin-top: 16px;
+  font-size: 14px; color: var(--text-dim);
+  animation: fadeUp 0.8s ease 0.55s both;
+}
+.hero-price .old-price { text-decoration: line-through; color: var(--text-dim); opacity: 0.5; }
+
+/* ========== SECTION BASICS ========== */
+section { padding: 80px 0; }
+
+.section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 16px;
+}
+
+.section-heading {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700; color: var(--text-bright);
+  line-height: 1.2; letter-spacing: -0.5px;
+  margin-bottom: 20px;
+}
+
+.section-sub {
+  font-size: 16px; color: var(--text-dim); line-height: 1.75;
+  max-width: 560px; margin-bottom: 48px;
+}
+
+/* ========== PAIN POINTS ========== */
+.pain-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  margin-bottom: 48px;
+}
+.pain-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s;
+}
+.pain-card:hover { border-color: var(--border-2); transform: translateY(-2px); }
+.pain-icon { font-size: 24px; margin-bottom: 12px; }
+.pain-title { font-weight: 600; color: var(--text-bright); font-size: 15px; margin-bottom: 6px; }
+.pain-desc { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+
+/* ========== WHAT'S INSIDE ========== */
+.chapter-list { list-style: none; }
+.chapter-item {
+  display: flex; gap: 20px; align-items: flex-start;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+}
+.chapter-item:first-child { border-top: 1px solid var(--border); }
+.chapter-num {
+  font-family: 'Sora', sans-serif;
+  font-size: 14px; font-weight: 700;
+  color: var(--g1); min-width: 36px;
+  background: rgba(52,211,153,0.08);
+  padding: 6px 0; border-radius: 8px; text-align: center;
+}
+.chapter-text h3 { font-size: 16px; font-weight: 600; color: var(--text-bright); margin-bottom: 4px; }
+.chapter-text p { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+
+/* ========== TRANSFORMATION ========== */
+.transform-grid {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px;
+  align-items: stretch;
+}
+.transform-col {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px 24px;
+}
+.transform-col.before { border-color: rgba(244,114,182,0.2); }
+.transform-col.after { border-color: rgba(52,211,153,0.2); }
+.transform-col h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 14px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+.transform-col.before h3 { color: var(--g4); }
+.transform-col.after h3 { color: var(--g1); }
+.transform-col li {
+  font-size: 14px; color: var(--text-dim); line-height: 1.7;
+  list-style: none; padding: 6px 0;
+  padding-left: 20px; position: relative;
+}
+.transform-col.before li::before { content: '✕'; position: absolute; left: 0; color: var(--g4); font-size: 12px; }
+.transform-col.after li::before { content: '✓'; position: absolute; left: 0; color: var(--g1); font-weight: 700; }
+.transform-arrow {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; color: var(--text-dim);
+}
+
+/* ========== PRICING BOX ========== */
+.price-box {
+  background: var(--surface);
+  border: 1px solid rgba(52,211,153,0.2);
+  border-radius: 20px;
+  padding: 48px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.price-box::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3));
+}
+.price-big {
+  font-family: 'Sora', sans-serif;
+  font-size: 56px; font-weight: 700; color: var(--text-bright);
+  margin: 16px 0 8px;
+}
+.price-big .currency { font-size: 28px; vertical-align: super; color: var(--g1); }
+.price-compare {
+  font-size: 14px; color: var(--text-dim); margin-bottom: 32px;
+}
+.price-compare s { opacity: 0.5; }
+.price-features {
+  list-style: none; text-align: left; max-width: 380px; margin: 0 auto 32px;
+}
+.price-features li {
+  font-size: 15px; color: var(--text); padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 12px;
+}
+.price-features li::before {
+  content: '✓'; color: var(--g1); font-weight: 700; font-size: 14px;
+}
+.guarantee {
+  margin-top: 20px;
+  font-size: 13px; color: var(--text-dim);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+
+/* ========== ABOUT ========== */
+.about-box {
+  display: flex; gap: 28px; align-items: flex-start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+}
+.about-avatar {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--g1), var(--g2));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Sora', sans-serif; font-weight: 700; font-size: 24px;
+  color: var(--bg); flex-shrink: 0;
+}
+.about-text h3 { font-size: 18px; font-weight: 600; color: var(--text-bright); margin-bottom: 4px; }
+.about-handle { font-size: 13px; color: var(--g1); margin-bottom: 12px; }
+.about-text p { font-size: 14px; color: var(--text-dim); line-height: 1.7; }
+
+/* ========== FAQ ========== */
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+}
+.faq-item:first-child { border-top: 1px solid var(--border); }
+.faq-q {
+  font-size: 15px; font-weight: 600; color: var(--text-bright);
+  cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+}
+.faq-q::after { content: '+'; font-size: 20px; color: var(--text-dim); transition: transform 0.3s; }
+.faq-item.open .faq-q::after { transform: rotate(45deg); color: var(--g1); }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s;
+  font-size: 14px; color: var(--text-dim); line-height: 1.7;
+}
+.faq-item.open .faq-a { max-height: 200px; padding-top: 12px; }
+
+/* ========== FINAL CTA ========== */
+.final-cta {
+  text-align: center;
+  padding: 80px 0 120px;
+}
+.final-cta h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700; color: var(--text-bright);
+  margin-bottom: 16px; letter-spacing: -0.5px;
+}
+.final-cta p {
+  font-size: 16px; color: var(--text-dim);
+  margin-bottom: 32px; max-width: 460px; margin-left: auto; margin-right: auto;
+}
+
+/* ========== FOOTER ========== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  text-align: center;
+  font-size: 13px; color: var(--text-dim);
+}
+footer a { color: var(--g1); text-decoration: none; }
+
+/* ========== REVEAL ANIMATION ========== */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 640px) {
+  nav { padding: 16px 20px; }
+  .hero { padding: 130px 0 60px; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .transform-grid { grid-template-columns: 1fr; }
+  .transform-arrow { transform: rotate(90deg); padding: 8px 0; }
+  .price-box { padding: 36px 24px; }
+  .about-box { flex-direction: column; align-items: center; text-align: center; }
+  .price-big { font-size: 44px; }
+}
+</style>
+</head>
+<body>
+
+<div class="glow glow-a"></div>
+<div class="glow glow-b"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-brand">alvvoayad</a>
+  <!-- REPLACE_CHECKOUT_URL: Replace the href below with your Lemon Squeezy checkout link -->
+  <a href="#get" class="nav-cta lemonsqueezy-button">Get the Guide — $6.99</a>
+</nav>
+
+<!-- HERO -->
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-badge" style="animation:fadeUp 0.8s ease 0.1s both;">
+      <span class="dot"></span> Digital Guide — Instant Download
+    </div>
+    <h1 style="animation:fadeUp 0.8s ease 0.2s both;">
+      Regulate Your<br>Nervous System<br>in <span class="glow-text">30 Days</span>
+    </h1>
+    <p class="hero-sub">
+      You're not broken. Your nervous system is stuck in survival mode. This guide gives you the exact daily practices to shift from fight-or-flight to calm, focused, and fully alive.
+    </p>
+    <!-- REPLACE_CHECKOUT_URL: Replace the href below with your Lemon Squeezy checkout link -->
+    <a href="#get" class="cta-btn lemonsqueezy-button" style="animation:fadeUp 0.8s ease 0.5s both;">
+      Get Instant Access — $6.99 →
+    </a>
+    <p class="hero-price" style="animation:fadeUp 0.8s ease 0.55s both;">
+      <span class="old-price">$19.99</span> &nbsp;Launch price — won't last.
+    </p>
+  </section>
+
+  <!-- PAIN POINTS -->
+  <section class="reveal">
+    <p class="section-label">Sound Familiar?</p>
+    <h2 class="section-heading">Your body is trying to tell you something</h2>
+    <p class="section-sub">If any of these feel like your daily reality, your nervous system is dysregulated — and it's costing you everything.</p>
+
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon">⚡</div>
+        <div class="pain-title">Constant Anxiety</div>
+        <div class="pain-desc">That tight chest, racing thoughts, and feeling like something bad is about to happen — even when nothing is wrong.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🔋</div>
+        <div class="pain-title">Chronic Exhaustion</div>
+        <div class="pain-desc">You sleep 8 hours but wake up drained. Your body is burning energy just trying to keep you safe.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🌊</div>
+        <div class="pain-title">Emotional Overwhelm</div>
+        <div class="pain-desc">Small things trigger big reactions. You snap at people you love, then feel guilty for hours.</div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🧊</div>
+        <div class="pain-title">Feeling Numb</div>
+        <div class="pain-desc">You've shut down to cope. Nothing excites you. You're going through the motions but not really living.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INSIDE -->
+  <section class="reveal">
+    <p class="section-label">What's Inside</p>
+    <h2 class="section-heading">30 days of guided nervous system work</h2>
+    <p class="section-sub">Not theory. Not fluff. Daily practices you can do in 10-15 minutes that compound into deep, lasting change.</p>
+
+    <ul class="chapter-list">
+      <li class="chapter-item">
+        <span class="chapter-num">01</span>
+        <div class="chapter-text">
+          <h3>Understanding Your Nervous System</h3>
+          <p>Why you're stuck in survival mode and how the body stores stress. The science made simple.</p>
+        </div>
+      </li>
+      <li class="chapter-item">
+        <span class="chapter-num">02</span>
+        <div class="chapter-text">
+          <h3>Week 1 — Building Safety</h3>
+          <p>Breathwork, grounding, and somatic exercises to signal safety to your body for the first time.</p>
+        </div>
+      </li>
+      <li class="chapter-item">
+        <span class="chapter-num">03</span>
+        <div class="chapter-text">
+          <h3>Week 2 — Releasing Stored Tension</h3>
+          <p>How to discharge stuck survival energy through movement, shaking, and emotional release practices.</p>
+        </div>
+      </li>
+      <li class="chapter-item">
+        <span class="chapter-num">04</span>
+        <div class="chapter-text">
+          <h3>Week 3 — Rewiring Patterns</h3>
+          <p>Replacing reactive patterns with conscious responses. Nervous system reprogramming in daily life.</p>
+        </div>
+      </li>
+      <li class="chapter-item">
+        <span class="chapter-num">05</span>
+        <div class="chapter-text">
+          <h3>Week 4 — Integration & Expansion</h3>
+          <p>Locking in your new baseline. Building a maintenance practice that keeps you regulated for life.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- TRANSFORMATION -->
+  <section class="reveal">
+    <p class="section-label">The Shift</p>
+    <h2 class="section-heading">Where you are vs. where you'll be</h2>
+    <p class="section-sub">This isn't about positive thinking. It's about changing how your body responds to the world.</p>
+
+    <div class="transform-grid">
+      <div class="transform-col before">
+        <h3>Before</h3>
+        <ul>
+          <li>Waking up in survival mode</li>
+          <li>Reacting to everything emotionally</li>
+          <li>Exhausted no matter how much you rest</li>
+          <li>Constant background anxiety</li>
+          <li>Feeling disconnected from yourself</li>
+        </ul>
+      </div>
+      <div class="transform-arrow">→</div>
+      <div class="transform-col after">
+        <h3>After 30 Days</h3>
+        <ul>
+          <li>Waking up calm and grounded</li>
+          <li>Responding from clarity, not fear</li>
+          <li>Deep, restorative energy that lasts</li>
+          <li>A felt sense of safety in your body</li>
+          <li>Present, alive, and connected</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="reveal" id="get">
+    <div class="price-box">
+      <p class="section-label">Limited Launch Price</p>
+      <div class="price-big"><span class="currency">$</span>6<span style="font-size:36px;">.99</span></div>
+      <p class="price-compare"><s>$19.99</s> — 65% off for early supporters</p>
+
+      <ul class="price-features">
+        <li>Full 30-day guided program (PDF)</li>
+        <li>Daily practices — 10-15 min each</li>
+        <li>Science-backed somatic techniques</li>
+        <li>Works on phone, tablet, or print</li>
+        <li>Lifetime access — download once, keep forever</li>
+      </ul>
+
+      <!-- REPLACE_CHECKOUT_URL: Replace the href below with your Lemon Squeezy checkout link -->
+      <a href="#get" class="cta-btn lemonsqueezy-button" style="font-size:17px; padding:18px 44px;">
+        Get Instant Access — $6.99 →
+      </a>
+
+      <p class="guarantee">🔒 Secure checkout. Instant delivery. 30-day money-back guarantee.</p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="reveal">
+    <p class="section-label">Your Guide</p>
+    <h2 class="section-heading">Who wrote this?</h2>
+    <div class="about-box" style="margin-top:32px;">
+      <div class="about-avatar">A</div>
+      <div class="about-text">
+        <h3>Alvvo Ayad</h3>
+        <p class="about-handle">@alvvoayadcreates</p>
+        <p>I help people understand their nervous system and use that understanding to transform how they feel, think, and show up in life. This guide is the exact framework I've used and refined — distilled into 30 days of daily practice anyone can follow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="reveal">
+    <p class="section-label">Questions</p>
+    <h2 class="section-heading">Frequently asked</h2>
+
+    <div class="faq-list" style="margin-top:32px;">
+      <div class="faq-item">
+        <div class="faq-q">Is this for beginners?</div>
+        <div class="faq-a">Yes. You don't need any prior experience with nervous system work, breathwork, or somatic practices. Everything is explained and guided step by step.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What format is the guide?</div>
+        <div class="faq-a">It's a PDF you can read on any device — phone, tablet, laptop — or print it out. You get instant access after purchase.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How much time does it take per day?</div>
+        <div class="faq-a">10-15 minutes. Each day has one focused practice. Some days less. The goal is consistency, not hours of work.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if it doesn't work for me?</div>
+        <div class="faq-a">You have 30 days to try it. If you don't feel a difference, email for a full refund. No questions asked.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is this a subscription?</div>
+        <div class="faq-a">No. One payment, lifetime access. You pay $6.99 once and the guide is yours forever.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta reveal">
+    <h2>Your nervous system has been<br>waiting for <span class="glow-text">this</span>.</h2>
+    <p>30 days. 15 minutes a day. A completely different relationship with your body and mind.</p>
+    <!-- REPLACE_CHECKOUT_URL: Replace the href below with your Lemon Squeezy checkout link -->
+    <a href="#get" class="cta-btn lemonsqueezy-button" style="font-size:17px; padding:18px 44px;">
+      Start Your 30 Days — $6.99 →
+    </a>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <p>&copy; 2026 <a href="/">alvvoayad.com</a> — All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// FAQ toggle
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    q.parentElement.classList.toggle('open');
+  });
+});
+</script>
+
+</body>
+</html>
