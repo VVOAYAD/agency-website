@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30-Day Guide — Audio Companion</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07070b;
+  --surface: #0e0e14;
+  --surface-2: #14141c;
+  --text: #d8d8e8;
+  --text-dim: #6e6e82;
+  --text-bright: #ffffff;
+  --border: #1e1e2a;
+  --chrome-1: #b8c4d4;
+  --chrome-2: #7b8fa8;
+  --gold: #d4a96a;
+  --gold-dim: rgba(212,169,106,0.15);
+  --accent: #c9b8e8;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+::selection { background: var(--gold); color: var(--bg); }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* Grain */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 999;
+}
+
+/* Glow */
+.glow-top { position: fixed; top: -300px; left: 50%; transform: translateX(-50%); width: 800px; height: 600px; background: radial-gradient(ellipse, rgba(212,169,106,0.04), transparent 70%); pointer-events: none; z-index: 0; }
+
+/* Gate */
+.gate {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 100vh; padding: 24px; position: relative; z-index: 1;
+}
+.gate-box {
+  max-width: 380px; width: 100%; text-align: center;
+}
+.gate-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 20px; font-weight: 600; color: var(--text-bright);
+  margin-bottom: 8px; letter-spacing: -0.3px;
+}
+.gate-sub {
+  font-size: 14px; color: var(--text-dim); margin-bottom: 32px; line-height: 1.6;
+}
+.gate-input {
+  width: 100%; padding: 14px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-bright);
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  text-align: center;
+  letter-spacing: 4px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.gate-input::placeholder { color: var(--text-dim); letter-spacing: 2px; font-size: 13px; }
+.gate-input:focus { border-color: var(--gold); }
+.gate-btn {
+  margin-top: 16px; width: 100%; padding: 14px;
+  background: linear-gradient(135deg, var(--gold), var(--chrome-1));
+  border: none; border-radius: 10px;
+  color: var(--bg); font-family: 'Outfit', sans-serif;
+  font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: all 0.3s;
+}
+.gate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,169,106,0.2); }
+.gate-error {
+  margin-top: 12px; font-size: 13px; color: #e87070;
+  display: none;
+}
+
+/* Main content — hidden by default */
+.app { display: none; position: relative; z-index: 1; }
+
+/* Header */
+.header {
+  padding: 48px 24px 32px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.header-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 12px;
+}
+.header h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 600; color: var(--text-bright);
+  letter-spacing: -0.5px; margin-bottom: 8px;
+}
+.header p {
+  font-size: 14px; color: var(--text-dim); max-width: 440px; margin: 0 auto;
+}
+
+/* Week sections */
+.wrap { max-width: 600px; margin: 0 auto; padding: 0 20px; }
+
+.week-section { padding: 40px 0 0; }
+.week-label {
+  font-family: 'Sora', sans-serif;
+  font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px;
+}
+.week-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 400; font-style: italic;
+  color: var(--chrome-1); margin-bottom: 24px;
+}
+
+/* Day cards */
+.day-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.day-card:hover { border-color: rgba(212,169,106,0.3); }
+
+.day-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px;
+  cursor: pointer;
+}
+.day-info { display: flex; align-items: center; gap: 14px; }
+.day-num {
+  font-family: 'Sora', sans-serif;
+  font-size: 12px; font-weight: 600;
+  color: var(--gold);
+  background: var(--gold-dim);
+  padding: 4px 10px; border-radius: 6px;
+  min-width: 40px; text-align: center;
+}
+.day-name { font-size: 15px; font-weight: 500; color: var(--text-bright); }
+.day-duration { font-size: 12px; color: var(--text-dim); }
+
+.day-toggle {
+  font-size: 18px; color: var(--text-dim);
+  transition: transform 0.3s, color 0.3s;
+}
+.day-card.open .day-toggle { transform: rotate(45deg); color: var(--gold); }
+
+.day-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.day-card.open .day-body { max-height: 600px; }
+
+.day-content {
+  padding: 0 20px 20px;
+  border-top: 1px solid var(--border);
+}
+
+/* Audio player */
+.audio-wrap {
+  margin-top: 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+.audio-status {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 12px;
+}
+.audio-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--text-dim);
+}
+.audio-dot.ready { background: var(--gold); animation: pulse 2s infinite; }
+.audio-dot.soon { background: var(--text-dim); }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.audio-label { font-size: 13px; color: var(--text-dim); }
+.audio-label.ready { color: var(--gold); }
+
+audio {
+  width: 100%; height: 40px;
+  border-radius: 8px;
+  outline: none;
+}
+audio::-webkit-media-controls-panel { background: var(--surface); }
+
+.audio-placeholder {
+  text-align: center; padding: 8px 0;
+  font-size: 13px; color: var(--text-dim);
+  font-style: italic;
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 20px;
+  text-align: center;
+  font-size: 12px; color: var(--text-dim);
+  margin-top: 60px;
+}
+.footer a { color: var(--gold); text-decoration: none; }
+
+/* Responsive */
+@media (max-width: 480px) {
+  .day-header { padding: 14px 16px; }
+  .day-name { font-size: 14px; }
+  .day-content { padding: 0 16px 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="glow-top"></div>
+
+<!-- ACCESS GATE -->
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <p class="header-label">Audio Companion</p>
+    <h2 class="gate-title">Regulate Your Nervous System<br>in 30 Days</h2>
+    <p class="gate-sub">Enter the access code from your guide to unlock all 30 days of guided audio.</p>
+    <input type="text" class="gate-input" id="codeInput" placeholder="Access code" maxlength="12" autocomplete="off">
+    <button class="gate-btn" id="codeBtn">Unlock</button>
+    <p class="gate-error" id="codeError">Incorrect code. Check your guide's intro page.</p>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div class="app" id="app">
+  <div class="header">
+    <p class="header-label">Audio Companion</p>
+    <h1>30 Days of Guided Practice</h1>
+    <p>Read the context in your guide. When you reach the practice — press play, close your eyes, and follow along.</p>
+  </div>
+
+  <div class="wrap">
+
+    <!-- WEEK 1 -->
+    <div class="week-section">
+      <p class="week-label">Week 1</p>
+      <p class="week-title">Building Safety</p>
+
+      <div class="day-card" data-day="1">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">01</span>
+            <span class="day-name">The Body Scan</span>
+          </div>
+          <span class="day-duration">10 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body">
+          <div class="day-content">
+            <div class="audio-wrap">
+              <div class="audio-status">
+                <span class="audio-dot soon"></span>
+                <span class="audio-label">Upload your audio to /guide/audio/day-01.mp3</span>
+              </div>
+              <audio controls preload="none">
+                <source src="audio/day-01.mp3" type="audio/mpeg">
+              </audio>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-card" data-day="2">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">02</span>
+            <span class="day-name">Orienting</span>
+          </div>
+          <span class="day-duration">10 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body">
+          <div class="day-content">
+            <div class="audio-wrap">
+              <div class="audio-status">
+                <span class="audio-dot soon"></span>
+                <span class="audio-label">Upload your audio to /guide/audio/day-02.mp3</span>
+              </div>
+              <audio controls preload="none">
+                <source src="audio/day-02.mp3" type="audio/mpeg">
+              </audio>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-card" data-day="3">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">03</span>
+            <span class="day-name">Vagal Toning</span>
+          </div>
+          <span class="day-duration">12 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body">
+          <div class="day-content">
+            <div class="audio-wrap">
+              <div class="audio-status">
+                <span class="audio-dot soon"></span>
+                <span class="audio-label">Upload your audio to /guide/audio/day-03.mp3</span>
+              </div>
+              <audio controls preload="none">
+                <source src="audio/day-03.mp3" type="audio/mpeg">
+              </audio>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-card" data-day="4">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">04</span>
+            <span class="day-name">Grounding</span>
+          </div>
+          <span class="day-duration">10 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body">
+          <div class="day-content">
+            <div class="audio-wrap">
+              <div class="audio-status">
+                <span class="audio-dot soon"></span>
+                <span class="audio-label">Upload your audio to /guide/audio/day-04.mp3</span>
+              </div>
+              <audio controls preload="none">
+                <source src="audio/day-04.mp3" type="audio/mpeg">
+              </audio>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-card" data-day="5">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">05</span>
+            <span class="day-name">Co-regulation</span>
+          </div>
+          <span class="day-duration">15 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body">
+          <div class="day-content">
+            <div class="audio-wrap">
+              <div class="audio-status">
+                <span class="audio-dot soon"></span>
+                <span class="audio-label">Upload your audio to /guide/audio/day-05.mp3</span>
+              </div>
+              <audio controls preload="none">
+                <source src="audio/day-05.mp3" type="audio/mpeg">
+              </audio>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-card" data-day="6">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">06</span>
+            <span class="day-name">Breath as Signal</span>
+          </div>
+          <span class="day-duration">12 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body">
+          <div class="day-content">
+            <div class="audio-wrap">
+              <div class="audio-status">
+                <span class="audio-dot soon"></span>
+                <span class="audio-label">Upload your audio to /guide/audio/day-06.mp3</span>
+              </div>
+              <audio controls preload="none">
+                <source src="audio/day-06.mp3" type="audio/mpeg">
+              </audio>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-card" data-day="7">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">07</span>
+            <span class="day-name">Integration</span>
+          </div>
+          <span class="day-duration">15 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body">
+          <div class="day-content">
+            <div class="audio-wrap">
+              <div class="audio-status">
+                <span class="audio-dot soon"></span>
+                <span class="audio-label">Upload your audio to /guide/audio/day-07.mp3</span>
+              </div>
+              <audio controls preload="none">
+                <source src="audio/day-07.mp3" type="audio/mpeg">
+              </audio>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 2 -->
+    <div class="week-section">
+      <p class="week-label">Week 2</p>
+      <p class="week-title">Releasing What's Stored</p>
+
+      <div class="day-card" data-day="8">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">08</span>
+            <span class="day-name">Neurogenic Tremoring</span>
+          </div>
+          <span class="day-duration">15 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-08.mp3</span></div><audio controls preload="none"><source src="audio/day-08.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="9">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">09</span>
+            <span class="day-name">Shaking Practice</span>
+          </div>
+          <span class="day-duration">12 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-09.mp3</span></div><audio controls preload="none"><source src="audio/day-09.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="10">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">10</span>
+            <span class="day-name">Sound and Emotional Release</span>
+          </div>
+          <span class="day-duration">12 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-10.mp3</span></div><audio controls preload="none"><source src="audio/day-10.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="11">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">11</span>
+            <span class="day-name">Pendulation</span>
+          </div>
+          <span class="day-duration">12 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-11.mp3</span></div><audio controls preload="none"><source src="audio/day-11.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="12">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">12</span>
+            <span class="day-name">Shadow Journaling</span>
+          </div>
+          <span class="day-duration">15 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-12.mp3</span></div><audio controls preload="none"><source src="audio/day-12.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="13">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">13</span>
+            <span class="day-name">The Witness</span>
+          </div>
+          <span class="day-duration">12 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-13.mp3</span></div><audio controls preload="none"><source src="audio/day-13.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="14">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">14</span>
+            <span class="day-name">Integration</span>
+          </div>
+          <span class="day-duration">15 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-14.mp3</span></div><audio controls preload="none"><source src="audio/day-14.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <div class="week-section">
+      <p class="week-label">Week 3</p>
+      <p class="week-title">Rewiring the Pattern</p>
+
+      <div class="day-card" data-day="15">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">15</span>
+            <span class="day-name">Trigger Mapping</span>
+          </div>
+          <span class="day-duration">15 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-15.mp3</span></div><audio controls preload="none"><source src="audio/day-15.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="16">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">16</span>
+            <span class="day-name">Parts Work</span>
+          </div>
+          <span class="day-duration">15 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-16.mp3</span></div><audio controls preload="none"><source src="audio/day-16.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="17">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">17</span>
+            <span class="day-name">Reparenting</span>
+          </div>
+          <span class="day-duration">15 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-17.mp3</span></div><audio controls preload="none"><source src="audio/day-17.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="18">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">18</span>
+            <span class="day-name">Boundary as Body Practice</span>
+          </div>
+          <span class="day-duration">12 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-18.mp3</span></div><audio controls preload="none"><source src="audio/day-18.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="19">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">19</span>
+            <span class="day-name">Rewriting the Story</span>
+          </div>
+          <span class="day-duration">15 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-19.mp3</span></div><audio controls preload="none"><source src="audio/day-19.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="20">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">20</span>
+            <span class="day-name">Stillness</span>
+          </div>
+          <span class="day-duration">10 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-20.mp3</span></div><audio controls preload="none"><source src="audio/day-20.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="21">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">21</span>
+            <span class="day-name">Integration</span>
+          </div>
+          <span class="day-duration">15 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-21.mp3</span></div><audio controls preload="none"><source src="audio/day-21.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+    </div>
+
+    <!-- WEEK 4 -->
+    <div class="week-section">
+      <p class="week-label">Week 4 + 2</p>
+      <p class="week-title">Integration and Expansion</p>
+
+      <div class="day-card" data-day="22">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">22</span>
+            <span class="day-name">Morning Protocol</span>
+          </div>
+          <span class="day-duration">15 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-22.mp3</span></div><audio controls preload="none"><source src="audio/day-22.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="23">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">23</span>
+            <span class="day-name">Energy and the Field</span>
+          </div>
+          <span class="day-duration">12 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-23.mp3</span></div><audio controls preload="none"><source src="audio/day-23.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="24">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">24</span>
+            <span class="day-name">Gratitude as Regulation</span>
+          </div>
+          <span class="day-duration">10 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-24.mp3</span></div><audio controls preload="none"><source src="audio/day-24.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="25">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">25</span>
+            <span class="day-name">Intuitive Movement</span>
+          </div>
+          <span class="day-duration">15 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-25.mp3</span></div><audio controls preload="none"><source src="audio/day-25.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="26">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">26</span>
+            <span class="day-name">Shadow Integration</span>
+          </div>
+          <span class="day-duration">15 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-26.mp3</span></div><audio controls preload="none"><source src="audio/day-26.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="27">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">27</span>
+            <span class="day-name">Impermanence</span>
+          </div>
+          <span class="day-duration">12 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-27.mp3</span></div><audio controls preload="none"><source src="audio/day-27.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="28">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">28</span>
+            <span class="day-name">The Observer</span>
+          </div>
+          <span class="day-duration">12 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-28.mp3</span></div><audio controls preload="none"><source src="audio/day-28.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="29">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">29</span>
+            <span class="day-name">Your Maintenance Protocol</span>
+          </div>
+          <span class="day-duration">15 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-29.mp3</span></div><audio controls preload="none"><source src="audio/day-29.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+
+      <div class="day-card" data-day="30">
+        <div class="day-header">
+          <div class="day-info">
+            <span class="day-num">30</span>
+            <span class="day-name">Letter to Yourself</span>
+          </div>
+          <span class="day-duration">20 min</span>
+          <span class="day-toggle">+</span>
+        </div>
+        <div class="day-body"><div class="day-content"><div class="audio-wrap"><div class="audio-status"><span class="audio-dot soon"></span><span class="audio-label">Upload your audio to /guide/audio/day-30.mp3</span></div><audio controls preload="none"><source src="audio/day-30.mp3" type="audio/mpeg"></audio></div></div></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2026 <a href="/">alvvoayad.com</a> — For guide owners only.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Access code — change this to whatever you want
+const ACCESS_CODE = 'REGULATE30';
+
+// Check if already unlocked
+if (localStorage.getItem('guide_unlocked') === 'true') {
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+}
+
+// Gate logic
+document.getElementById('codeBtn').addEventListener('click', tryUnlock);
+document.getElementById('codeInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') tryUnlock();
+});
+
+function tryUnlock() {
+  const input = document.getElementById('codeInput').value.trim().toUpperCase();
+  if (input === ACCESS_CODE) {
+    localStorage.setItem('guide_unlocked', 'true');
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+  } else {
+    document.getElementById('codeError').style.display = 'block';
+    document.getElementById('codeInput').style.borderColor = '#e87070';
+    setTimeout(() => {
+      document.getElementById('codeError').style.display = 'none';
+      document.getElementById('codeInput').style.borderColor = '';
+    }, 3000);
+  }
+}
+
+// Day card toggles
+document.querySelectorAll('.day-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const card = header.parentElement;
+    card.classList.toggle('open');
+  });
+});
+</script>
+
+</body>
+</html>

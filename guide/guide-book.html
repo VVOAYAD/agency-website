@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regulate Your Nervous System in 30 Days — Alvvo Ayad</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Sora:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07070b;
+  --surface: #0e0e14;
+  --surface-2: #14141c;
+  --text: #c8c8d8;
+  --text-dim: #6e6e82;
+  --text-bright: #eeeef4;
+  --border: #1e1e2a;
+  --gold: #d4a96a;
+  --gold-dim: rgba(212,169,106,0.12);
+  --chrome: #b8c4d4;
+  --chrome-dim: rgba(184,196,212,0.08);
+  --accent: #c9b8e8;
+  --page-w: 700px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+::selection { background: var(--gold); color: var(--bg); }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Grain overlay */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── Layout ── */
+.page {
+  max-width: var(--page-w);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ── COVER ── */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -200px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(ellipse, rgba(212,169,106,0.06), transparent 70%);
+  pointer-events: none;
+}
+.cover-rule {
+  width: 60px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin-bottom: 32px;
+}
+.cover-label {
+  font-family: 'Sora', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.cover h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 700;
+  color: var(--text-bright);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  max-width: 560px;
+}
+.cover h1 span {
+  display: block;
+  background: linear-gradient(135deg, var(--gold), var(--chrome));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.cover-author {
+  margin-top: 32px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--chrome);
+  letter-spacing: 1px;
+}
+.cover-rule-bottom {
+  width: 120px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin-top: 48px;
+}
+.cover-sub {
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ── TABLE OF CONTENTS ── */
+.toc {
+  padding: 80px 0 60px;
+  page-break-before: always;
+}
+.toc-heading {
+  font-family: 'Sora', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 40px;
+}
+.toc-week {
+  margin-bottom: 32px;
+}
+.toc-week-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 15px; font-weight: 600;
+  color: var(--text-bright);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.toc-week-title em {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  color: var(--chrome);
+  margin-left: 8px;
+}
+.toc-day {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 6px 0;
+  text-decoration: none;
+  color: var(--text);
+  transition: color 0.2s;
+}
+.toc-day:hover { color: var(--gold); }
+.toc-day-num {
+  font-family: 'Sora', sans-serif;
+  font-size: 12px; font-weight: 600;
+  color: var(--gold);
+  min-width: 28px;
+}
+.toc-day-name { font-size: 15px; }
+.toc-day-dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--border);
+  margin-bottom: 4px;
+}
+
+/* ── SECTION HEADINGS ── */
+h2.section-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 600;
+  color: var(--text-bright);
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--text-bright);
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  margin-top: 28px;
+}
+
+/* ── INTRO ── */
+.intro {
+  padding: 80px 0 40px;
+  page-break-before: always;
+}
+.intro p {
+  margin-bottom: 16px;
+}
+.intro strong {
+  color: var(--text-bright);
+  font-weight: 600;
+}
+
+.state-block {
+  margin: 24px 0;
+  padding: 20px 24px;
+  border-left: 2px solid var(--gold);
+  background: var(--gold-dim);
+  border-radius: 0 8px 8px 0;
+}
+.state-block h4 {
+  font-family: 'Sora', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.state-block p {
+  margin-bottom: 0;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.insight-line {
+  margin: 28px 0;
+  padding: 16px 24px;
+  border-left: 2px solid var(--chrome);
+  font-weight: 500;
+  color: var(--text-bright);
+  font-size: 15px;
+}
+
+.access-box {
+  margin: 32px 0;
+  padding: 24px;
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  background: var(--gold-dim);
+  text-align: center;
+}
+.access-box p { margin-bottom: 4px; font-size: 14px; color: var(--text); }
+.access-box .code {
+  font-family: 'Sora', sans-serif;
+  font-size: 22px; font-weight: 700;
+  letter-spacing: 6px;
+  color: var(--gold);
+  margin-top: 8px;
+}
+.access-box .access-note {
+  font-size: 12px; color: var(--text-dim); margin-top: 8px;
+}
+
+/* ── WEEK DIVIDER ── */
+.week-divider {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 0;
+  page-break-before: always;
+}
+.week-divider .week-num {
+  font-family: 'Sora', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.week-divider h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(24px, 5vw, 36px);
+  font-weight: 700;
+  color: var(--text-bright);
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
+.week-divider .week-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: var(--chrome);
+  max-width: 480px;
+  line-height: 1.6;
+}
+.week-divider .week-rule {
+  width: 80px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin-top: 32px;
+}
+
+/* ── DAY ── */
+.day {
+  padding: 60px 0 40px;
+  page-break-before: always;
+}
+.day-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.day-badge .num {
+  font-family: 'Sora', sans-serif;
+  font-size: 11px; font-weight: 600;
+  color: var(--gold);
+  background: var(--gold-dim);
+  padding: 4px 12px;
+  border-radius: 6px;
+  letter-spacing: 1px;
+}
+.day-badge .duration {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.day h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(20px, 4vw, 28px);
+  font-weight: 600;
+  color: var(--text-bright);
+  letter-spacing: -0.3px;
+  margin-bottom: 8px;
+}
+.day .audio-note {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 28px;
+}
+.day .audio-note a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.context-block { margin-bottom: 32px; }
+.context-block p { margin-bottom: 14px; font-size: 15.5px; }
+
+.practice-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  margin: 32px 0;
+}
+.practice-box h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.practice-box h4 {
+  font-family: 'Sora', sans-serif;
+  font-size: 13px; font-weight: 600;
+  color: var(--text-bright);
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.practice-box ol, .practice-box ul {
+  padding-left: 20px;
+  margin-bottom: 12px;
+}
+.practice-box li {
+  font-size: 15px;
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+.practice-box p {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.practice-box .note {
+  margin-top: 16px;
+  padding: 14px 18px;
+  background: var(--gold-dim);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.reflection {
+  margin: 36px 0 0;
+  padding: 24px 32px;
+  text-align: center;
+  position: relative;
+}
+.reflection::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 40px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.reflection p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-style: italic;
+  color: var(--chrome);
+  line-height: 1.6;
+}
+
+/* ── CLOSING ── */
+.closing {
+  padding: 80px 0 40px;
+  page-break-before: always;
+}
+.closing h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(20px, 4vw, 28px);
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 24px;
+}
+.closing p { margin-bottom: 16px; }
+
+/* ── SOURCES ── */
+.sources {
+  padding: 60px 0 40px;
+  page-break-before: always;
+}
+.sources h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 32px;
+}
+.sources h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--text-bright);
+  margin-top: 24px;
+  margin-bottom: 10px;
+}
+.sources ul {
+  list-style: none;
+  padding: 0;
+}
+.sources li {
+  font-size: 14px;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+  padding-left: 12px;
+  border-left: 1px solid var(--border);
+}
+.sources li em { color: var(--text); }
+.sources .sources-note {
+  margin-top: 32px;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* ── BACK COVER ── */
+.back-cover {
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 0;
+  page-break-before: always;
+}
+.back-cover .rule {
+  width: 40px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin-bottom: 24px;
+}
+.back-cover .copy {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+.back-cover a {
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+/* ── PRINT STYLES ── */
+@media print {
+  body { background: #07070b !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body::after { display: none; }
+  .cover { min-height: 100vh; }
+  .week-divider { min-height: 100vh; }
+  .day { page-break-before: always; }
+  .practice-box { break-inside: avoid; }
+  .reflection { break-inside: avoid; }
+}
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  .page { padding: 0 20px; }
+  .practice-box { padding: 20px; }
+  .reflection { padding: 20px 16px; }
+  .state-block { padding: 16px 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ COVER ═══════════════════ -->
+<div class="cover">
+  <div class="cover-rule"></div>
+  <p class="cover-label">A 30-Day Practice</p>
+  <h1>Regulate Your<br>Nervous System<br><span>in 30 Days</span></h1>
+  <p class="cover-author">Alvvo Ayad</p>
+  <div class="cover-rule-bottom"></div>
+  <p class="cover-sub">alvvoayad.com</p>
+</div>
+
+<!-- ═══════════════════ TABLE OF CONTENTS ═══════════════════ -->
+<div class="page toc">
+  <p class="toc-heading">Contents</p>
+
+  <div class="toc-week">
+    <p class="toc-week-title">Week 1 <em>Building Safety</em></p>
+    <a class="toc-day" href="#day-1"><span class="toc-day-num">01</span><span class="toc-day-name">The Body Scan</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-2"><span class="toc-day-num">02</span><span class="toc-day-name">Orienting</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-3"><span class="toc-day-num">03</span><span class="toc-day-name">Vagal Toning</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-4"><span class="toc-day-num">04</span><span class="toc-day-name">Grounding</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-5"><span class="toc-day-num">05</span><span class="toc-day-name">Co-regulation</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-6"><span class="toc-day-num">06</span><span class="toc-day-name">Breath as Signal</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-7"><span class="toc-day-num">07</span><span class="toc-day-name">Integration</span><span class="toc-day-dots"></span></a>
+  </div>
+
+  <div class="toc-week">
+    <p class="toc-week-title">Week 2 <em>Releasing What's Stored</em></p>
+    <a class="toc-day" href="#day-8"><span class="toc-day-num">08</span><span class="toc-day-name">Neurogenic Tremoring</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-9"><span class="toc-day-num">09</span><span class="toc-day-name">Shaking Practice</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-10"><span class="toc-day-num">10</span><span class="toc-day-name">Sound and Emotional Release</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-11"><span class="toc-day-num">11</span><span class="toc-day-name">Pendulation</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-12"><span class="toc-day-num">12</span><span class="toc-day-name">Shadow Journaling</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-13"><span class="toc-day-num">13</span><span class="toc-day-name">The Witness</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-14"><span class="toc-day-num">14</span><span class="toc-day-name">Integration</span><span class="toc-day-dots"></span></a>
+  </div>
+
+  <div class="toc-week">
+    <p class="toc-week-title">Week 3 <em>Rewiring the Pattern</em></p>
+    <a class="toc-day" href="#day-15"><span class="toc-day-num">15</span><span class="toc-day-name">Trigger Mapping</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-16"><span class="toc-day-num">16</span><span class="toc-day-name">Parts Work</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-17"><span class="toc-day-num">17</span><span class="toc-day-name">Reparenting</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-18"><span class="toc-day-num">18</span><span class="toc-day-name">Boundary as Body Practice</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-19"><span class="toc-day-num">19</span><span class="toc-day-name">Rewriting the Story</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-20"><span class="toc-day-num">20</span><span class="toc-day-name">Stillness</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-21"><span class="toc-day-num">21</span><span class="toc-day-name">Integration</span><span class="toc-day-dots"></span></a>
+  </div>
+
+  <div class="toc-week">
+    <p class="toc-week-title">Week 4 + 2 <em>Integration and Expansion</em></p>
+    <a class="toc-day" href="#day-22"><span class="toc-day-num">22</span><span class="toc-day-name">Building Your Morning Protocol</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-23"><span class="toc-day-num">23</span><span class="toc-day-name">Energy and the Field</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-24"><span class="toc-day-num">24</span><span class="toc-day-name">Gratitude as Regulation</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-25"><span class="toc-day-num">25</span><span class="toc-day-name">Intuitive Movement</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-26"><span class="toc-day-num">26</span><span class="toc-day-name">Shadow Integration</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-27"><span class="toc-day-num">27</span><span class="toc-day-name">Impermanence</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-28"><span class="toc-day-num">28</span><span class="toc-day-name">The Observer</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-29"><span class="toc-day-num">29</span><span class="toc-day-name">Your Maintenance Protocol</span><span class="toc-day-dots"></span></a>
+    <a class="toc-day" href="#day-30"><span class="toc-day-num">30</span><span class="toc-day-name">Letter to Yourself</span><span class="toc-day-dots"></span></a>
+  </div>
+</div>
+
+<!-- ═══════════════════ INTRO ═══════════════════ -->
+<div class="page intro">
+  <h2 class="section-title">You're Not Broken. You're Stuck.</h2>
+
+  <p>The tightness in your chest when nothing is wrong. The exhaustion that eight hours of sleep can't touch. The way something minor sets you off — and then the guilt that follows. Or worse: the numbness. Present in the room but gone from yourself.</p>
+
+  <p>This isn't a personality flaw.</p>
+
+  <p>Your nervous system is locked in survival mode. It has been for so long that you've confused the alarm for who you are.</p>
+
+  <h3>What's Actually Happening</h3>
+
+  <p>Your autonomic nervous system is the oldest intelligence in your body. It was regulating your heartbeat, your breath, your digestion long before you learned to speak. Its purpose is singular: keep you alive.</p>
+
+  <p>The problem is that it learned its strategies early — when you were too young to choose, and the world was larger than your capacity to process it.</p>
+
+  <p>So it adapted. Hypervigilance. People-pleasing. Shutting down. Reactivity. Collapse. Control. These are not character defects. They are survival patterns that were written into the body before the conscious mind had any say.</p>
+
+  <p>Stephen Porges' polyvagal theory maps three states the nervous system cycles through:</p>
+
+  <div class="state-block">
+    <h4>Ventral Vagal — Safe and Connected</h4>
+    <p>This is regulation. Steady heart rate, open breath, clear thinking, emotional availability. The capacity to be present with yourself and with others without it costing you. This is where the guide is taking you.</p>
+  </div>
+
+  <div class="state-block">
+    <h4>Sympathetic — Fight or Flight</h4>
+    <p>The alarm state. Heart racing, chest tightening, scanning for threat. Reactive, irritable, wired. Cortisol and adrenaline flooding the system — even when you're sitting still with no danger in sight.</p>
+  </div>
+
+  <div class="state-block">
+    <h4>Dorsal Vagal — Shutdown</h4>
+    <p>When the alarm runs too long and escape isn't possible, the system collapses. Numbness. Flatness. Disconnection. You're here, but not really here. The body's last line of defense: disappear.</p>
+  </div>
+
+  <p>Most people reading this live somewhere between the second and third state. Wired and tired. Anxious and numb. Oscillating between overdrive and collapse without understanding why.</p>
+
+  <div class="insight-line">You cannot think your way out of a body-level pattern.</div>
+
+  <h3>Why Cognition Alone Fails</h3>
+
+  <p>Your nervous system does not process language. It processes sensation, environment, and relational cues. Affirmations do not reach it. Willpower does not regulate it.</p>
+
+  <p>Bessel van der Kolk documented this across three decades of clinical research: the body stores what the mind attempts to archive. Muscular tension from years ago. Stress held in the fascia. A gut — with more nerve endings than the spinal cord — that remembers what happened before the conscious mind was online.</p>
+
+  <p>When someone tells you to "just relax" or "let it go," they're asking you to override an ancient biological system with a sentence. It doesn't land. It was never designed to.</p>
+
+  <p>What does land is working <strong>through</strong> the body. Directly. With practices that speak the language your nervous system actually understands — breath, movement, sensation, presence.</p>
+
+  <p>That's what this guide provides.</p>
+
+  <h3>Structure</h3>
+
+  <p>Thirty days. One practice per day. Ten to fifteen minutes.</p>
+
+  <p>Each day contains:</p>
+  <ul style="padding-left:20px; margin-bottom:16px;">
+    <li><strong>Context</strong> — what we're working with and why it matters</li>
+    <li><strong>The practice</strong> — clear, step-by-step, requiring no equipment or experience</li>
+    <li><strong>A closing reflection</strong> — one idea to carry through the rest of the day</li>
+  </ul>
+
+  <p>The program moves through four phases:</p>
+
+  <p><strong>Week 1 — Building Safety.</strong> Your nervous system doesn't yet trust that the present moment is safe. We begin by giving it direct, body-level evidence that it is.</p>
+
+  <p><strong>Week 2 — Releasing What's Stored.</strong> The body holds what was never fully processed. We create conditions for it to move, discharge, and complete what got interrupted.</p>
+
+  <p><strong>Week 3 — Rewiring the Pattern.</strong> Your reactions are not you. They are old programs running on outdated information. We meet them, understand them, and begin installing new responses.</p>
+
+  <p><strong>Week 4 + 2 Days — Integration.</strong> Anchoring the new baseline into daily life. Building a personal regulation practice that holds — not perfectly, not permanently, but deeply enough that when disruption comes, recovery is faster.</p>
+
+  <h3>How to Use Each Day</h3>
+
+  <p>Every day has two parts: <strong>context</strong> (the why) and <strong>practice</strong> (the how).</p>
+
+  <p>Read the context first — it takes two to three minutes and gives you the framework for what you're about to do.</p>
+
+  <p>For the practice, you have two options:</p>
+
+  <p><strong>Option A — Read and do.</strong> Read all the practice steps once, then set the guide down and work through them from memory. Most steps are simple enough to hold.</p>
+
+  <p><strong>Option B — Press play.</strong> Every day has a guided audio companion. Open <strong>alvvoayad.com/guide/listen</strong>, enter the access code below, and press play on today's practice. Close your eyes and follow along.</p>
+
+  <div class="access-box">
+    <p>Your access code</p>
+    <p class="code">REGULATE30</p>
+    <p class="access-note">Bookmark the page. Use it every morning.</p>
+  </div>
+
+  <p>Both paths lead to the same place. Choose whichever feels more natural.</p>
+
+  <p>Before we begin, understand this:</p>
+
+  <p>This is not about fixing yourself. You were never broken. Your nervous system did exactly what it was built to do — protect you. The issue is not the system. The issue is that the threat passed, and the system never received the signal.</p>
+
+  <p>This guide is that signal.</p>
+</div>
+
+<!-- ═══════════════════ WEEK 1 DIVIDER ═══════════════════ -->
+<div class="week-divider">
+  <p class="week-num">Week One</p>
+  <h2>Building Safety</h2>
+  <p class="week-sub">Your nervous system doesn't yet believe the present moment is safe. This week, we give it proof. Not through words. Through the body.</p>
+  <div class="week-rule"></div>
+</div>
+
+<!-- DAY 1 -->
+<div class="page day" id="day-1">
+  <div class="day-badge"><span class="num">DAY 01</span><span class="duration">10 min</span></div>
+  <h2>The Body Scan</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>Before we change anything, we listen.</p>
+    <p>Most people are so disconnected from their body that they couldn't tell you where tension lives in them right now. Neck? Jaw? Chest? Stomach? They don't know — because they left the body a long time ago, and they never came back.</p>
+    <p>Peter Levine, the founder of Somatic Experiencing, built his entire framework on one principle: awareness precedes release. You cannot let go of what you haven't first acknowledged.</p>
+    <p>Today is acknowledgment.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Lie down or sit comfortably. Close your eyes.</li>
+      <li>Begin at the top of your head. Simply notice what's there. Pressure? Heat? Nothing? All answers are correct.</li>
+      <li>Move slowly downward. Forehead. Eyes. Jaw. Throat.</li>
+      <li>Pause at each area for two to three breaths. You are not trying to relax anything. You are reporting to yourself what exists.</li>
+      <li>Continue through the shoulders, chest, stomach, hips, legs, feet.</li>
+      <li>When you reach the bottom, stay still for one minute. Notice the body as a whole.</li>
+      <li>Open your eyes slowly.</li>
+    </ol>
+    <p>If you felt very little — that's information. If something felt tight, heavy, or electric — that's information too. Today isn't about changing the signal. It's about receiving it.</p>
+  </div>
+
+  <div class="reflection"><p>The body has been speaking. Today you started listening.</p></div>
+</div>
+
+<!-- DAY 2 -->
+<div class="page day" id="day-2">
+  <div class="day-badge"><span class="num">DAY 02</span><span class="duration">10 min</span></div>
+  <h2>Orienting</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>When the nervous system is in a threat state, the eyes narrow. The visual field shrinks. Everything tunnels. This is by design — a predator-focused survival mechanism that serves you well in actual danger and destroys your peace in everyday life.</p>
+    <p>Orienting is the antidote. It's the practice of deliberately using your eyes and your senses to take in your environment — slowly, curiously — signaling to the nervous system that there is no immediate threat.</p>
+    <p>Porges' research on neuroception — the body's unconscious evaluation of safety and danger — shows that environmental cues directly shift autonomic state. What your eyes find, your nervous system believes.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Sit somewhere — your room, a park, a chair by a window.</li>
+      <li>Without moving your head, let your eyes wander. Slowly. Look at objects one at a time.</li>
+      <li>Name five things you can see. Not quickly. Take five seconds with each one. Notice its color, texture, shape.</li>
+      <li>Now four things you can physically feel. The chair under you. Fabric on your skin. Air temperature. Your feet on the ground.</li>
+      <li>Three things you can hear. The distant ones first. Then closer.</li>
+      <li>Two things you can smell.</li>
+      <li>One thing you can taste.</li>
+      <li>After the sequence, sit still. Notice what shifted in your body — even slightly.</li>
+    </ol>
+    <p>This is not a grounding trick from a therapy meme. This is a neurological intervention. You are manually widening the perceptual field, which physiologically pulls the nervous system toward ventral vagal — toward safety.</p>
+  </div>
+
+  <div class="reflection"><p>Your eyes lead your nervous system. Today you led them somewhere safe.</p></div>
+</div>
+
+<!-- DAY 3 -->
+<div class="page day" id="day-3">
+  <div class="day-badge"><span class="num">DAY 03</span><span class="duration">12 min</span></div>
+  <h2>Vagal Toning</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>The vagus nerve is the longest cranial nerve in the body. It runs from the brainstem through the face, throat, heart, lungs, and gut. It is the primary communication highway between the brain and the body. When it is toned — meaning it has strong, responsive signaling — your capacity for regulation is high. When it is weak, everything feels harder than it should.</p>
+    <p>The good news: the vagus nerve responds to direct stimulation. You can strengthen it the way you strengthen a muscle — through practice.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <h4>Humming (4 minutes)</h4>
+    <ol>
+      <li>Sit upright. Take a full breath in through the nose.</li>
+      <li>On the exhale, hum at a comfortable pitch. Feel the vibration in your throat and chest.</li>
+      <li>Continue for 8–10 rounds. Each hum should be long and steady, riding the entire exhale.</li>
+    </ol>
+    <h4>Cold Water Activation (2 minutes)</h4>
+    <ol start="4">
+      <li>Splash cold water on your face — forehead, cheeks, under the eyes. Or hold a cold, wet cloth against your face for 30 seconds.</li>
+      <li>This triggers the dive reflex, a vagal response that immediately lowers heart rate and activates the parasympathetic system.</li>
+    </ol>
+    <h4>Extended Exhale Breathing (6 minutes)</h4>
+    <ol start="6">
+      <li>Inhale through the nose for 4 counts.</li>
+      <li>Exhale through the mouth for 8 counts — slow, steady, controlled.</li>
+      <li>Repeat for 12 rounds.</li>
+      <li>The extended exhale is the single most accessible way to shift from sympathetic activation to parasympathetic calm. It is not a breathing "technique." It is a direct instruction to the vagus nerve.</li>
+    </ol>
+  </div>
+
+  <div class="reflection"><p>The nerve that connects your brain to your gut responds to vibration, cold, and breath. Today you spoke its language.</p></div>
+</div>
+
+<!-- DAY 4 -->
+<div class="page day" id="day-4">
+  <div class="day-badge"><span class="num">DAY 04</span><span class="duration">10 min</span></div>
+  <h2>Grounding</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>Grounding is not a metaphor. It is a physical practice of reconnecting to gravity, weight, and the surface beneath you.</p>
+    <p>When the nervous system is activated, there is a felt sense of floating — of being unanchored, disconnected from the physical world. The body braces upward. The shoulders lift. The breath moves to the upper chest. The awareness leaves the lower body entirely.</p>
+    <p>Levine's somatic work returns to grounding repeatedly because it reverses this pattern at the sensory level. You are reminding the body: you have weight. The earth is holding you. You are here.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Stand barefoot on a solid surface. Tile, wood, grass, earth — anything you can feel.</li>
+      <li>Close your eyes. Bring your full attention to the soles of your feet.</li>
+      <li>Shift your weight to the left foot. Feel it press into the ground. Hold for ten seconds.</li>
+      <li>Shift to the right foot. Same attention. Same ten seconds.</li>
+      <li>Return to center. Both feet. Feel the full contact surface — heel, arch, ball, toes.</li>
+      <li>Now bend your knees slightly. Let your hips drop half an inch. Feel the weight settle further into the ground.</li>
+      <li>Stay here for two minutes. Breathe normally. Every time the mind pulls you away, return to the soles of the feet.</li>
+      <li>Slowly open your eyes. Notice whether your breathing has changed. Whether your shoulders have dropped.</li>
+    </ol>
+    <p>You are not doing anything to the nervous system. You are giving it a reference point. Something solid. Something that doesn't move.</p>
+  </div>
+
+  <div class="reflection"><p>Gravity has been holding you the entire time. Today you noticed.</p></div>
+</div>
+
+<!-- DAY 5 -->
+<div class="page day" id="day-5">
+  <div class="day-badge"><span class="num">DAY 05</span><span class="duration">15 min</span></div>
+  <h2>Co-regulation</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>We are not designed to regulate alone.</p>
+    <p>The nervous system is a social organ. Porges' research demonstrated that the ventral vagal system — the one responsible for safety and connection — developed specifically through relational attunement. We learned regulation through the faces, voices, and presence of the people around us.</p>
+    <p>When those people were safe, we internalized safety. When they weren't, we internalized survival.</p>
+    <p>Co-regulation is the practice of borrowing safety from another regulated nervous system. Not through conversation. Through presence.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <h4>Option A — With another person</h4>
+    <ol>
+      <li>Sit with someone you feel safe around. A friend, a partner, a family member. Someone whose presence doesn't cost you energy.</li>
+      <li>Sit close enough to feel their warmth but without physical contact unless it feels natural.</li>
+      <li>You don't need to talk. If you do, keep it to a minimum. The practice is proximity, not discussion.</li>
+      <li>For five minutes, simply be in each other's presence. Notice what your body does. Does the breath slow? Does the chest open? Does something unclench?</li>
+      <li>If it feels right, place a hand on their shoulder or arm. Feel the warmth. Let your system register another body that is not a threat.</li>
+    </ol>
+    <h4>Option B — Alone (borrowing from a voice)</h4>
+    <ol start="6">
+      <li>Find a recording of someone whose voice calms you. A teacher, a narrator, an elder. Not content — cadence. The nervous system responds to vocal tone more than words.</li>
+      <li>Sit or lie down. Close your eyes. Listen for ten minutes.</li>
+      <li>Don't analyze what they're saying. Let the voice be a signal of safety. Let it land in your chest, not your head.</li>
+    </ol>
+  </div>
+
+  <div class="reflection"><p>You were never meant to carry regulation alone. Safety was always a shared project.</p></div>
+</div>
+
+<!-- DAY 6 -->
+<div class="page day" id="day-6">
+  <div class="day-badge"><span class="num">DAY 06</span><span class="duration">12 min</span></div>
+  <h2>Breath as Signal</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>You breathe approximately 20,000 times per day. Each breath is a message to the autonomic nervous system.</p>
+    <p>Short, shallow, upper-chest breathing tells it: something is wrong. Long, slow, diaphragmatic breathing tells it: we are safe.</p>
+    <p>This is not a wellness concept. It is respiratory physiology. The mechanics of the breath directly modulate heart rate variability, which is the nervous system's measure of adaptive capacity — its ability to shift between states with flexibility rather than rigidity.</p>
+    <p>Today's practice works specifically with the exhale, which activates the parasympathetic branch. The longer the exhale relative to the inhale, the stronger the calming signal.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <h4>Phase 1 — Awareness (3 minutes)</h4>
+    <ol>
+      <li>Sit or lie down. Place one hand on your chest and one on your belly.</li>
+      <li>Breathe normally. Notice which hand moves more. If it's the chest, that's sympathetic-dominant breathing. If it's the belly, your diaphragm is engaged and you're already closer to regulation than you think.</li>
+    </ol>
+    <h4>Phase 2 — Diaphragmatic Reset (4 minutes)</h4>
+    <ol start="3">
+      <li>Inhale through the nose for 4 counts. Direct the breath downward — the belly hand should rise, the chest hand should barely move.</li>
+      <li>Exhale through the nose for 6 counts. Let the belly fall.</li>
+      <li>Repeat for 8 rounds.</li>
+    </ol>
+    <h4>Phase 3 — Extended Exhale (5 minutes)</h4>
+    <ol start="6">
+      <li>Inhale for 4 counts.</li>
+      <li>Exhale for 8 counts.</li>
+      <li>Repeat for 10 rounds.</li>
+      <li>After the final round, release all control of the breath. Sit for one minute and notice what the body chose to do on its own.</li>
+    </ol>
+  </div>
+
+  <div class="reflection"><p>Twenty thousand breaths a day. Most of them unconscious. Today you made a few of them intentional — and your nervous system heard every one.</p></div>
+</div>
+
+<!-- DAY 7 -->
+<div class="page day" id="day-7">
+  <div class="day-badge"><span class="num">DAY 07</span><span class="duration">15 min</span></div>
+  <h2>Integration</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>This is not a rest day. This is a listening day.</p>
+    <p>You've spent six days sending new signals to your nervous system — through awareness, orientation, vagal stimulation, grounding, connection, and breath. Today we pause and ask: what did the body receive?</p>
+    <p>Integration is where change solidifies. Without it, practice becomes performance. Stimulus without reflection is just more noise for a system that's already overwhelmed.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Find a quiet space. Bring a pen and paper — not a phone. Handwriting engages the nervous system differently than typing. Slower. More embodied.</li>
+      <li>Sit for two minutes in silence. Eyes closed. No agenda. Just arrive.</li>
+      <li>Write your responses to these three questions. Don't think too long. Let the hand move.</li>
+    </ol>
+    <p><strong>"What did my body tell me this week?"</strong><br>Was there a practice where you felt a shift — a softening, a release, an opening? Was there one where you felt resistance, discomfort, or nothing at all? Both are significant.</p>
+    <p><strong>"Where do I hold the most?"</strong><br>By now you may have a clearer map of your tension. Jaw? Shoulders? Stomach? Chest? Name it.</p>
+    <p><strong>"What did safety feel like in my body?"</strong><br>Not what you think safety should feel like. What it actually felt like — even if it was brief. Even if it was subtle. A slower breath. A warmer chest. A moment where everything wasn't urgent.</p>
+    <ol start="4">
+      <li>Read what you wrote. Not to analyze. To witness.</li>
+      <li>Close with one minute of silence. Hands resting. Eyes closed. Acknowledge the week you just gave yourself.</li>
+    </ol>
+  </div>
+
+  <div class="reflection"><p>The body doesn't transform through force. It transforms through attention. You gave it a week of attention. That is not small.</p></div>
+</div>
+
+<!-- ═══════════════════ WEEK 2 DIVIDER ═══════════════════ -->
+<div class="week-divider">
+  <p class="week-num">Week Two</p>
+  <h2>Releasing What's Stored</h2>
+  <p class="week-sub">Last week you built a relationship with your body. This week, your body starts to speak. Some of what it says will be uncomfortable. That discomfort is not a problem — it is the material finally moving.</p>
+  <div class="week-rule"></div>
+</div>
+
+<!-- DAY 8 -->
+<div class="page day" id="day-8">
+  <div class="day-badge"><span class="num">DAY 08</span><span class="duration">15 min</span></div>
+  <h2>Neurogenic Tremoring</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>When an animal survives a life-threatening event, its body shakes. Involuntarily. Violently, sometimes. Then it stands up, walks away, and returns to baseline. The event is complete. The charge has been discharged.</p>
+    <p>Humans are the only animals that suppress this response. We override the shaking because it looks strange, because someone told us to calm down, because we learned that losing control of the body wasn't safe. So the charge stays locked inside. For years. For decades.</p>
+    <p>David Berceli developed Trauma Release Exercises — TRE — based on this principle. The practice induces the body's natural tremoring mechanism through mild muscular fatigue, allowing stored survival energy to discharge without the need to revisit the original event.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <h4>Fatigue Phase (7 minutes)</h4>
+    <ol>
+      <li>Stand with feet shoulder-width apart.</li>
+      <li>Rise onto your toes and hold for 30 seconds. Lower. Repeat three times. Your calves should begin to burn.</li>
+      <li>Stand in a wall sit position (back flat against the wall, knees at 90 degrees). Hold for 60 seconds. Rest 20 seconds. Repeat twice.</li>
+      <li>Stand with knees bent, feet wider than shoulders. Lean to the left and hold for 30 seconds, then right for 30 seconds. Your inner thighs should be fatiguing.</li>
+    </ol>
+    <h4>Tremor Phase (8 minutes)</h4>
+    <ol start="5">
+      <li>Lie on your back. Feet flat on the floor, knees up.</li>
+      <li>Let your knees fall open slowly — just a few inches at first.</li>
+      <li>As the fatigued muscles release, tremoring may begin in the legs. Let it happen. Do not control it.</li>
+      <li>If it doesn't come, bring the knees slightly closer together and hold. The tremor often starts when the muscles are in a mildly activated position.</li>
+      <li>Let the tremoring continue for 5–8 minutes. It may stay in the legs or travel to the hips, abdomen, shoulders. Wherever it goes, follow it.</li>
+      <li>To stop, bring your knees together and rest your feet flat on the floor. Take three slow breaths.</li>
+    </ol>
+    <div class="note"><strong>Important:</strong> This is a physical discharge. Emotions may surface — tears, heat, an urge to laugh, sudden sadness. None of it needs to be understood right now. Let it pass through. That is the purpose.</div>
+  </div>
+
+  <div class="reflection"><p>Every animal knows how to complete a survival response. Today you remembered.</p></div>
+</div>
+
+<!-- DAY 9 -->
+<div class="page day" id="day-9">
+  <div class="day-badge"><span class="num">DAY 09</span><span class="duration">12 min</span></div>
+  <h2>Shaking Practice</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>Tremoring targets deep, involuntary release. Today we work with intentional shaking — using the whole body, consciously, to move stagnant energy out of tissues that have been holding it.</p>
+    <p>Levine observed that trauma lives not in the event itself but in the body's incomplete response to the event. The survival energy — the charge that was mobilized to fight or flee but never got used — remains frozen in the system. Shaking is one of the most direct ways to complete that interrupted cycle.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Stand with your feet hip-width apart, knees soft. Arms loose at your sides.</li>
+      <li>Begin to bounce. Just a gentle, rhythmic bounce from the knees. Let the arms swing.</li>
+      <li>Gradually increase the movement. Let the bouncing become shaking. Shake your hands, your wrists, your arms.</li>
+      <li>After two minutes, shake your entire body. Head to feet. Fast, loose, uncontrolled. There is no correct form. The messier, the better.</li>
+      <li>Shake for five full minutes. Set a timer. When the mind tells you to stop, don't. Five minutes is the threshold where the nervous system begins to shift from efforting to release.</li>
+      <li>After five minutes, stop abruptly. Stand completely still.</li>
+      <li>Close your eyes. Feel what's happening inside. The buzzing. The warmth. The aliveness. Stay here for three minutes.</li>
+      <li>Slowly sit or lie down. Breathe naturally for two minutes.</li>
+    </ol>
+    <p>What you feel after shaking — that vibrancy, that openness — is your nervous system recalibrating. It is energy that was stuck, now moving. Let it settle at its own pace.</p>
+  </div>
+
+  <div class="reflection"><p>Stillness after shaking. That's not calm you manufactured. That's calm you uncovered.</p></div>
+</div>
+
+<!-- DAY 10 -->
+<div class="page day" id="day-10">
+  <div class="day-badge"><span class="num">DAY 10</span><span class="duration">12 min</span></div>
+  <h2>Sound and Emotional Release</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>The throat is one of the most inhibited areas in the body. Somewhere early in life, most of us learned to swallow sound — to hold back the cry, the scream, the wail, the full-bodied expression of what we felt.</p>
+    <p>That inhibition doesn't just silence the voice. It creates a chronic contraction in the throat, jaw, and diaphragm that directly limits vagal tone. The vagus nerve runs through the throat. When the throat locks, the nerve's capacity to signal safety is compromised.</p>
+    <p>Today we use sound to open what silence closed.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <h4>Phase 1 — Sighing (3 minutes)</h4>
+    <ol>
+      <li>Sit upright. Inhale deeply through the nose.</li>
+      <li>Exhale with an audible sigh. Mouth open. Let the sound come from the belly, not the throat.</li>
+      <li>Each round, make the sigh slightly louder. Slightly longer. Not forced — invited.</li>
+      <li>By the tenth sigh, you should feel vibration in the chest.</li>
+    </ol>
+    <h4>Phase 2 — Toning (4 minutes)</h4>
+    <ol start="5">
+      <li>Inhale fully. On the exhale, let a vowel sound sustain — AH, OH, or OO. Whichever feels natural.</li>
+      <li>Hold the tone for the length of the exhale. Feel it vibrate in the chest, the throat, the skull.</li>
+      <li>Experiment with pitch. Low tones resonate in the chest and gut. High tones resonate in the head and face. Find where your body wants the vibration today.</li>
+      <li>Repeat for 8–10 rounds.</li>
+    </ol>
+    <h4>Phase 3 — Free Expression (5 minutes)</h4>
+    <ol start="9">
+      <li>This is the permission phase. Set a timer for five minutes.</li>
+      <li>Let whatever sound wants to come, come. Groaning. Humming. Wailing. Whispering. Yelling into a pillow. Crying, if it arrives.</li>
+      <li>There is no correct expression. The only instruction is: do not hold it back.</li>
+      <li>After five minutes, sit in silence for one minute. Notice the throat. Notice the chest.</li>
+    </ol>
+    <p>This is not performance. This is completion. Sound that should have moved through you — months or years ago — now has a way out.</p>
+  </div>
+
+  <div class="reflection"><p>The throat holds everything you never said. Today you said it — not in words, but in the only language the body needed.</p></div>
+</div>
+
+<!-- DAY 11 -->
+<div class="page day" id="day-11">
+  <div class="day-badge"><span class="num">DAY 11</span><span class="duration">12 min</span></div>
+  <h2>Pendulation</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>Levine introduced the concept of pendulation as the nervous system's natural rhythm — the oscillation between contraction and expansion, discomfort and ease, activation and settling.</p>
+    <p>Most people, when they encounter something uncomfortable in the body, do one of two things: they flee from it, or they fixate on it. Both responses lock the system. Pendulation teaches a third option: move between. Touch the discomfort. Return to ease. Touch it again. Return again.</p>
+    <p>This rhythm — this back-and-forth — is how the nervous system processes. It is how it digests experience the way the stomach digests food: in waves, not all at once.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Sit comfortably. Close your eyes.</li>
+      <li>Scan your body briefly. Find a place that feels good — warmth, openness, ease, softness. This is your <strong>resource</strong>. Anchor your attention there for one minute.</li>
+      <li>Now scan for a place that holds tension, discomfort, or heaviness. Not the most intense sensation — something manageable. This is your <strong>activation</strong>.</li>
+      <li>Move your attention to the activation. Stay for 20–30 seconds. Notice what happens — does the sensation shift? Intensify? Spread?</li>
+      <li>Before it becomes overwhelming, move your attention back to the resource. Stay for 30 seconds. Let the system settle.</li>
+      <li>Pendulate again. Activation for 20–30 seconds. Then resource for 30 seconds.</li>
+      <li>Repeat this cycle 5–6 times.</li>
+      <li>After the final round, rest in the resource for two minutes. Let the body integrate.</li>
+    </ol>
+    <p>This practice teaches your nervous system something it may never have learned: you can feel discomfort and return to safety. Over and over. Discomfort is not a permanent state. It is a wave — and every wave passes.</p>
+  </div>
+
+  <div class="reflection"><p>Between contraction and expansion, there is a rhythm. Your body already knows it. Today you let it practice.</p></div>
+</div>
+
+<!-- DAY 12 -->
+<div class="page day" id="day-12">
+  <div class="day-badge"><span class="num">DAY 12</span><span class="duration">15 min</span></div>
+  <h2>Shadow Journaling</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>Carl Jung wrote: "Until you make the unconscious conscious, it will direct your life and you will call it fate."</p>
+    <p>The shadow is everything you learned to reject about yourself in order to be accepted. The anger you were told was wrong. The sadness you were told was weak. The need you were told was too much.</p>
+    <p>These rejected parts didn't disappear. They went underground — into the body, into the unconscious, into the patterns you can't seem to break. The nervous system holds the shadow not as a concept but as sensation: the tightness when someone gets too close, the collapse when you feel unseen, the rage that arrives before you can name it.</p>
+    <p>Today we bring one piece of it into the light. Not to fix. To witness.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Sit with pen and paper. Take three slow breaths.</li>
+      <li>Write at the top of the page: <strong>"What am I not allowing myself to feel?"</strong></li>
+      <li>Write for seven minutes without stopping. Do not edit, curate, or make it sound good. This is not for anyone. If you get stuck, write "I don't know what to write" until something arrives. It will.</li>
+      <li>After seven minutes, stop. Read what you wrote. Circle one word or phrase that carries the most charge — the one that made something tighten in your body when you wrote it.</li>
+      <li>Write that word at the top of a new section. Below it, answer:</li>
+    </ol>
+    <p><strong>"When did I first learn to hide this?"</strong></p>
+    <p><strong>"What was the cost of hiding it?"</strong></p>
+    <p><strong>"What would it feel like to let it exist — without acting on it, without performing it — just letting it be here?"</strong></p>
+    <ol start="6">
+      <li>Sit with what you wrote for two minutes. Hands on your belly. Breath slow.</li>
+    </ol>
+    <p>This is shadow work at the somatic level. Jung mapped the territory; this practice lets you feel your way through it. The goal is not resolution. The goal is contact.</p>
+  </div>
+
+  <div class="reflection"><p>What you reject about yourself doesn't leave. It waits. Today you met it — and you didn't look away.</p></div>
+</div>
+
+<!-- DAY 13 -->
+<div class="page day" id="day-13">
+  <div class="day-badge"><span class="num">DAY 13</span><span class="duration">12 min</span></div>
+  <h2>The Witness</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>There is a part of you that has never been disturbed by any experience you've ever had. It watched the anxiety without becoming anxious. It observed the shutdown without shutting down. It was present during the worst moments and was never damaged by them.</p>
+    <p>Eckhart Tolle calls it presence. Krishnamurti called it choiceless awareness. In the nondual traditions, it is the observer — the one who notices what's being thought, rather than the one who thinks.</p>
+    <p>This is not a spiritual belief. It is a functional capacity. The ability to observe your inner state without being consumed by it is, neurologically, the hallmark of a well-regulated nervous system. When you can witness activation without being hijacked by it, you have choice. And choice is the opposite of reactivity.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Sit in a comfortable position. Close your eyes.</li>
+      <li>For the first two minutes, simply notice your breathing. Don't change it. Just observe.</li>
+      <li>When a thought arises, notice it. Don't follow it. Don't push it away. Just note: "There's a thought."</li>
+      <li>When an emotion surfaces, do the same. "There's sadness." "There's tension." "There's boredom."</li>
+      <li>When a sensation appears in the body, note it without narrative. "Pressure in the chest." "Warmth in the hands."</li>
+      <li>For ten minutes, practice being the one who notices — not the one who reacts.</li>
+      <li>Thoughts will pull you away. That is normal. Every time you catch yourself lost in a thought, you have already returned to the witness. The catching IS the practice.</li>
+      <li>After ten minutes, open your eyes slowly. Don't rush into activity. Allow one minute of quiet transition.</li>
+    </ol>
+    <p>This practice does not empty the mind. It changes your relationship to it. You stop being the content and start being the context — the space in which the content arises and passes.</p>
+  </div>
+
+  <div class="reflection"><p>Behind every thought, there is the one watching the thought. You've been that one the entire time.</p></div>
+</div>
+
+<!-- DAY 14 -->
+<div class="page day" id="day-14">
+  <div class="day-badge"><span class="num">DAY 14</span><span class="duration">15 min</span></div>
+  <h2>Integration</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>The second week opened heavier doors. Tremoring, shaking, sound, pendulating between discomfort and ease, shadow writing, witnessing. This was not comfortable work — and the body may still be processing.</p>
+    <p>Integration after deep somatic and shadow work is not optional. It is what prevents the work from becoming retraumatization. The distinction between healing and re-wounding is simple: pace.</p>
+    <p>Gabor Maté often speaks of the gap between what happened and what the body was able to digest. Today, we widen the digestive capacity. We slow down. We let what moved this week complete its journey.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Prepare pen and paper. Sit in silence for two minutes.</li>
+      <li>Reflect and write:</li>
+    </ol>
+    <p><strong>"What moved through me this week?"</strong><br>Was there a practice where something released — tears, trembling, heat, emotion? What did it feel like during? What did it feel like after?</p>
+    <p><strong>"What is my body asking for right now?"</strong><br>Rest? Movement? Quiet? Touch? Space? Don't answer from the mind. Answer from the body.</p>
+    <p><strong>"What did I learn about myself that I didn't know seven days ago?"</strong><br>Not a concept. A felt experience. Something the body showed you that the mind couldn't have figured out.</p>
+    <ol start="3">
+      <li>After writing, lie down. Place both hands on your chest. Breathe naturally for five minutes. No technique. No agenda. Let the body close this chapter at its own speed.</li>
+      <li>When you feel complete, sit up slowly.</li>
+    </ol>
+  </div>
+
+  <div class="reflection"><p>The body releases at its own pace. You don't need to understand it. You just need to let it happen.</p></div>
+</div>
+
+<!-- ═══════════════════ WEEK 3 DIVIDER ═══════════════════ -->
+<div class="week-divider">
+  <p class="week-num">Week Three</p>
+  <h2>Rewiring the Pattern</h2>
+  <p class="week-sub">You've built safety. You've released stored charge. Now we work with the patterns themselves — the automatic responses that feel like "you" but are, in reality, software that was installed without your consent. This week, you meet those programs and begin writing new ones.</p>
+  <div class="week-rule"></div>
+</div>
+
+<!-- DAY 15 -->
+<div class="page day" id="day-15">
+  <div class="day-badge"><span class="num">DAY 15</span><span class="duration">15 min</span></div>
+  <h2>Trigger Mapping</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>A trigger is not an external event. It is an internal cascade — a moment where the present collides with the unresolved past, and the nervous system responds as if the old threat is happening right now.</p>
+    <p>Richard Schwartz, the developer of Internal Family Systems therapy, observed that every reactive pattern has a protective function. The anger that appears out of proportion to the situation is protecting something. The withdrawal that happens mid-conversation is protecting something. The need to control is protecting something.</p>
+    <p>Today we don't try to change the reaction. We map it. We identify the trigger, the body response, the resulting behavior, and — if we can access it — the original experience that wrote the program.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Sit with pen and paper. Take three breaths to settle.</li>
+      <li>Think of a recent situation where you reacted disproportionately. Not your worst moment — something from the last week or two where your response was bigger, faster, or more intense than the situation warranted.</li>
+      <li>Write the following:</li>
+    </ol>
+    <p><strong>The Trigger:</strong> What happened externally? (e.g., "They didn't reply to my message for six hours.")</p>
+    <p><strong>The Body Response:</strong> What happened in your body within the first five seconds? (e.g., "Chest tightened. Jaw clenched. Heat rising in my face.")</p>
+    <p><strong>The Story:</strong> What narrative did your mind generate? (e.g., "They don't care. I'm not important. I'm going to be abandoned.")</p>
+    <p><strong>The Behavior:</strong> What did you do? (e.g., "Sent three more messages. Then went cold and distant when they finally responded.")</p>
+    <p><strong>The Echo:</strong> Does this pattern remind you of anything older? Not every trigger has a clear origin — but many do. Was there a time in childhood when this same feeling — not the event, the feeling — was present?</p>
+    <ol start="4">
+      <li>Read what you mapped. Don't judge. This is reconnaissance, not a courtroom.</li>
+      <li>Sit with both hands on your chest for two minutes. Breathe slowly. Acknowledge: this pattern served you once. It kept you safe in a time when you had no other options.</li>
+    </ol>
+  </div>
+
+  <div class="reflection"><p>You can't rewire what you can't see. Today you saw it.</p></div>
+</div>
+
+<!-- DAY 16 -->
+<div class="page day" id="day-16">
+  <div class="day-badge"><span class="num">DAY 16</span><span class="duration">15 min</span></div>
+  <h2>Parts Work</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>You are not one self. You are many.</p>
+    <p>This is not a poetic statement. Schwartz's IFS model — now supported by clinical research across trauma, anxiety, depression, and addiction — proposes that the psyche is naturally multiple. There are parts of you that protect. Parts that carry pain. Parts that manage. Parts that exile what's too much.</p>
+    <p>Jung arrived at a similar understanding decades earlier through his work on the complexes — autonomous, emotionally charged clusters of psychic content that operate below conscious awareness. When a complex is activated, it takes over. You don't decide to react — the part reacts through you.</p>
+    <p>Today we make contact with a protective part. Not to remove it or override it — to meet it, understand its function, and begin earning its trust.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Close your eyes. Take three slow breaths.</li>
+      <li>Return to the trigger you mapped yesterday — or bring to mind a recurring reactive pattern you recognize.</li>
+      <li>As you hold the pattern in mind, notice what arises inside. Not the story — the sensation. The tightness, the heat, the contraction.</li>
+      <li>Address that sensation directly — silently, internally: "I notice you. I'm here."</li>
+      <li>Ask it: "What are you protecting me from?" Don't force an answer. Sometimes it comes as an image, a memory, a felt sense. Sometimes silence. All responses are valid.</li>
+      <li>Ask: "How long have you been doing this?" Again, wait. Listen.</li>
+      <li>If an answer comes, acknowledge it: "Thank you. You've been working hard."</li>
+      <li>Ask: "What would you need from me in order to relax — even slightly?"</li>
+      <li>Sit with whatever arrives for three minutes. You don't need to resolve anything. Contact is enough.</li>
+      <li>Open your eyes. Write one paragraph about what you experienced.</li>
+    </ol>
+    <p>This practice may feel unusual. You are having a dialogue with a part of your own psyche. This is not imaginary — it is the internal equivalent of the co-regulation you practiced in Week 1. You are becoming a safe presence for your own inner system.</p>
+  </div>
+
+  <div class="reflection"><p>The parts of you that react the loudest are the ones that have been protecting you the longest. They don't need to be defeated. They need to be met.</p></div>
+</div>
+
+<!-- DAY 17 -->
+<div class="page day" id="day-17">
+  <div class="day-badge"><span class="num">DAY 17</span><span class="duration">15 min</span></div>
+  <h2>Reparenting</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>The nervous system was shaped in relationship. It learned regulation — or dysregulation — from the earliest caregiving environment. If the people around you were attuned, present, and responsive, your system internalized: "The world responds to my needs. I am safe."</p>
+    <p>If they weren't — if they were absent, overwhelmed, inconsistent, or harmful — your system internalized something different. And that internalization became the template.</p>
+    <p>Reparenting is the practice of becoming, for yourself, the quality of presence that was missing. Not retroactively. Not as a concept. As a somatic experience — felt in the body, in real time.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Sit comfortably. Place one hand on your heart and one on your belly.</li>
+      <li>Close your eyes. Recall a moment — recent or distant — where you felt alone in something that was too much. Not the worst moment of your life. Something manageable but real.</li>
+      <li>Let the sensation of that memory arise in your body. Don't amplify it. Just let it arrive.</li>
+      <li>Now imagine the version of you that is here today — regulated, aware, capable — sitting beside the version of you in that memory.</li>
+      <li>Silently, speak to that younger or earlier self. Use simple language: "I'm here." "You're not alone in this." "You didn't do anything wrong." "I can handle what you could not."</li>
+      <li>Stay with this for five minutes. Let the words land not in the head, but in the chest.</li>
+      <li>If emotion comes, let it. If the body wants to curl inward, let it. If tears arrive, they are finishing something that was interrupted.</li>
+      <li>After five minutes, take three deep breaths. Open your eyes slowly.</li>
+      <li>Sit for two additional minutes. Notice what's different — in the chest, the belly, the overall sense of the body.</li>
+    </ol>
+    <p>You are not rewriting history. You are giving the nervous system an experience it was missing — the felt sense of being accompanied. Of not being alone in the difficult moment. That single experience, repeated, changes the template.</p>
+  </div>
+
+  <div class="reflection"><p>You can't change what happened. But you can change what happens inside of you when you remember it.</p></div>
+</div>
+
+<!-- DAY 18 -->
+<div class="page day" id="day-18">
+  <div class="day-badge"><span class="num">DAY 18</span><span class="duration">12 min</span></div>
+  <h2>Boundary as Body Practice</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>A boundary is not a statement you make. It is a sensation you feel.</p>
+    <p>Before you can say "no" to someone, you need to feel the "no" in your body. Before you can hold your space in a room, you need to feel that you have space — that your body has edges, and those edges are real.</p>
+    <p>Resmaa Menakem, whose work centers the body in discussions of racialized trauma and collective nervous system patterning, emphasizes that boundaries are first experienced somatically. They are felt in the skin, the belly, the muscles of the arms and legs. Before they become words, they are postures. Stances. A quality of presence that communicates: I am here, and I take up space.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <h4>Phase 1 — Feeling the Boundary (5 minutes)</h4>
+    <ol>
+      <li>Stand with your feet shoulder-width apart. Arms at your sides.</li>
+      <li>Imagine that your body is surrounded by a sphere of personal space — extending about two feet in every direction. This is your field.</li>
+      <li>Begin to press your hands outward, slowly, at chest height — palms facing away from you. Push gently against an imaginary surface at the edge of your sphere.</li>
+      <li>Feel the engagement of your arms, shoulders, and core. This is the physical sensation of holding a boundary.</li>
+      <li>Push in all directions — forward, to the sides, behind you (reach back). Feel the fullness of the space that is yours.</li>
+    </ol>
+    <h4>Phase 2 — The No (4 minutes)</h4>
+    <ol start="6">
+      <li>Stand still. Arms at your sides.</li>
+      <li>Bring to mind a situation where you wanted to say no but didn't.</li>
+      <li>Let the feeling of that suppression arise in the body. Where does it live? Throat? Stomach? Chest?</li>
+      <li>Raise one hand in front of you — palm facing outward — and say, aloud: "No."</li>
+      <li>Say it again. Louder. Feel your feet on the ground as you say it.</li>
+      <li>Say it five times. Each time, let it come from deeper in the body. Not performative — proprioceptive. You are teaching the body that it is allowed to refuse.</li>
+    </ol>
+    <h4>Phase 3 — Settling (3 minutes)</h4>
+    <ol start="12">
+      <li>Lower your hand. Stand still. Breathe.</li>
+      <li>Notice what your body feels like when it has just held its ground. Is there relief? Tension? Both?</li>
+      <li>Sit or lie down. Rest for two minutes.</li>
+    </ol>
+  </div>
+
+  <div class="reflection"><p>A boundary isn't built in the moment you speak it. It is built in every moment you let your body practice having one.</p></div>
+</div>
+
+<!-- DAY 19 -->
+<div class="page day" id="day-19">
+  <div class="day-badge"><span class="num">DAY 19</span><span class="duration">15 min</span></div>
+  <h2>Rewriting the Story</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>Every nervous system pattern sits on top of a narrative. "I am too much." "I am not enough." "If I need something, I will be abandoned." "If I speak, I will be punished."</p>
+    <p>These narratives were not chosen. They were absorbed — through experience, through repetition, through the nervous system's interpretation of what happened and what it meant. They became invisible. Foundational. The water you swim in.</p>
+    <p>Byron Katie developed a method of inquiry — four questions applied to any believed thought — that systematically loosens the grip of unexamined narratives. Jung called the same process making the unconscious conscious: dragging the assumption into daylight where it can be examined rather than obeyed.</p>
+    <p>Today we hold one core belief up to the light.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Write down one belief that runs your life. Not something you think — something you feel is true about yourself. Examples: "I have to earn love." "My needs are a burden." "I can't trust anyone." "Something is fundamentally wrong with me."</li>
+      <li>Write it at the top of the page. Read it aloud once. Notice what happens in your body.</li>
+      <li>Ask yourself these four questions (take your time with each):</li>
+    </ol>
+    <p><strong>Is it true?</strong><br>Your first response may be "yes." Sit with it longer.</p>
+    <p><strong>Can I absolutely know it's true?</strong><br>Not whether it feels true — whether it is provably, unequivocally true. Can you be certain?</p>
+    <p><strong>What happens when I believe this thought?</strong><br>How do I behave? What do I avoid? What do I tolerate? How does my body respond — tightening, collapsing, bracing?</p>
+    <p><strong>Who would I be without this thought?</strong><br>Not who you should be. Who would you be if this thought simply wasn't there? What would open? What would be possible?</p>
+    <ol start="4">
+      <li>Write a turnaround — the opposite of the original belief. "I don't have to earn love." "My needs are not a burden." Write it and read it aloud. Notice what happens in the body.</li>
+      <li>You are not trying to install a new belief. You are loosening the certainty of the old one. That loosening is enough.</li>
+    </ol>
+  </div>
+
+  <div class="reflection"><p>The story was written before you had the capacity to question it. Today you questioned it — and the body felt the difference.</p></div>
+</div>
+
+<!-- DAY 20 -->
+<div class="page day" id="day-20">
+  <div class="day-badge"><span class="num">DAY 20</span><span class="duration">10 min</span></div>
+  <h2>Stillness</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>Lao Tzu: "To the mind that is still, the whole universe surrenders."</p>
+    <p>In a dysregulated nervous system, stillness feels dangerous. Silence feels empty. Doing nothing feels like dying. This is because the sympathetic system reads stillness as vulnerability — if I stop moving, I am exposed. If I stop producing, I have no value. If I stop scanning, I will be caught off guard.</p>
+    <p>This is the survival logic. And it is exhausting.</p>
+    <p>Today we sit with stillness — not as a meditation technique, but as a nervous system exposure. You are teaching the body that nothing needs to happen right now. That absence of stimulation is not absence of safety.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Sit in a comfortable position. No music. No phone. No guidance. No goal.</li>
+      <li>Set a timer for ten minutes.</li>
+      <li>Close your eyes.</li>
+      <li>Do nothing.</li>
+      <li>No breathing technique. No body scan. No mantra. No visualization.</li>
+      <li>When thoughts come, let them come. When feelings arise, let them arise. When the urge to move hits, notice it — and stay.</li>
+      <li>The practice is not about achieving a particular state. It is about tolerating the absence of doing.</li>
+      <li>When the timer sounds, open your eyes. Sit for one additional minute before moving.</li>
+    </ol>
+    <p>If ten minutes of silence feels unbearable, that itself is information. It tells you how uncomfortable your nervous system is with non-stimulation — how dependent it has become on motion, distraction, and productivity as regulation strategies. This is not a judgment. It is an invitation to soften the dependency.</p>
+  </div>
+
+  <div class="reflection"><p>There is nothing to fix right now. There is nothing to produce. The stillness was never empty — you were just too activated to feel what it held.</p></div>
+</div>
+
+<!-- DAY 21 -->
+<div class="page day" id="day-21">
+  <div class="day-badge"><span class="num">DAY 21</span><span class="duration">15 min</span></div>
+  <h2>Integration</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>This was the most cognitively and emotionally demanding week. Trigger mapping, parts work, reparenting, boundary practice, narrative inquiry, and stillness. These are not surface practices — they interact with the deepest layers of identity and protection.</p>
+    <p>Integration here serves a specific function: metabolizing insight into embodiment. It's possible to understand something intellectually — "my pattern comes from childhood," "I am not my triggers" — without the understanding reaching the body. The body changes not through insight alone, but through the repeated pairing of insight with sensation, presence, and safety.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Pen and paper. Two minutes of settling silence.</li>
+      <li>Write:</li>
+    </ol>
+    <p><strong>"Which pattern became most visible this week?"</strong><br>Not the most dramatic — the most recurring. The one you recognized in multiple contexts.</p>
+    <p><strong>"What is the protector behind it trying to preserve?"</strong><br>Now that you've mapped triggers, met parts, and questioned narratives: what is the function of this pattern? What is it keeping you from having to feel?</p>
+    <p><strong>"What would it mean to respond differently — once?"</strong><br>Not always. Not from now on. Once. In the next situation where this pattern activates, what would one different choice look like? Be specific.</p>
+    <ol start="3">
+      <li>After writing, lie down with your hands on your belly. Five minutes of silence. Let the body integrate what the mind explored.</li>
+      <li>Before you rise, say one sentence to yourself — internally or aloud: "I am learning a new way to respond. The old way kept me safe. The new way keeps me free."</li>
+    </ol>
+  </div>
+
+  <div class="reflection"><p>Insight without embodiment is theory. Embodiment without insight is reflex. This week you practiced both — and the body is learning the difference.</p></div>
+</div>
+
+<!-- ═══════════════════ WEEK 4 DIVIDER ═══════════════════ -->
+<div class="week-divider">
+  <p class="week-num">Week Four + 2</p>
+  <h2>Integration and Expansion</h2>
+  <p class="week-sub">The first three weeks gave you tools. This final phase makes them yours. We take what was practiced in isolation and weave it into the texture of daily life — not as a routine to follow, but as a way of being to inhabit.</p>
+  <div class="week-rule"></div>
+</div>
+
+<!-- DAY 22 -->
+<div class="page day" id="day-22">
+  <div class="day-badge"><span class="num">DAY 22</span><span class="duration">15 min</span></div>
+  <h2>Building Your Morning Protocol</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>The first thirty minutes of the day set the autonomic tone for everything that follows. Most people start with a phone — a stream of notifications, obligations, and other people's urgency — which drives the nervous system into sympathetic activation before the feet touch the floor.</p>
+    <p>A morning regulation protocol is not about productivity or optimization. It is about giving the nervous system a window of safety before the world arrives — a daily signal that says: before anything is demanded of you, you are already enough.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <p>Today you build your personal morning stack from the practices you've learned. Choose three — one from each of the first three weeks:</p>
+    <p><strong>From Week 1 (Safety):</strong> Body scan, orienting, vagal toning, grounding, co-regulation, or breath work.</p>
+    <p><strong>From Week 2 (Release):</strong> Shaking, sound release, pendulation, or the witness practice.</p>
+    <p><strong>From Week 3 (Rewiring):</strong> Parts check-in, boundary practice, stillness, or one minute of narrative inquiry.</p>
+    <p><strong>Structure:</strong></p>
+    <ol>
+      <li>Five minutes: Safety practice.</li>
+      <li>Five minutes: Release or processing practice.</li>
+      <li>Five minutes: Rewiring or presence practice.</li>
+    </ol>
+    <p>Do all three this morning. Afterward, write down the three you chose and why. This is your protocol — the daily minimum that keeps you regulated.</p>
+    <p>It will evolve. Some days you'll need more grounding. Other days, more shaking. The protocol is a starting point, not a cage.</p>
+  </div>
+
+  <div class="reflection"><p>Before the world asks anything of you, you've already given yourself what you need. That is not selfish. That is the foundation everything else is built on.</p></div>
+</div>
+
+<!-- DAY 23 -->
+<div class="page day" id="day-23">
+  <div class="day-badge"><span class="num">DAY 23</span><span class="duration">12 min</span></div>
+  <h2>Energy and the Field</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>Your nervous system does not end at your skin.</p>
+    <p>This is not a metaphor. The heart generates an electromagnetic field measurable several feet from the body. Heart rate variability — the autonomic rhythm — synchronizes between people in close proximity. Research from the HeartMath Institute has demonstrated that one person's cardiac field can be detected in another person's brainwaves during physical proximity.</p>
+    <p>When you walk into a room and "feel" the energy — the tension after an argument, the warmth of genuine welcome — you are not imagining it. Your nervous system is reading the autonomic states of other people and calibrating accordingly.</p>
+    <p>This means regulation is not purely an internal project. It extends outward. Who you spend time with, the environments you inhabit, the pace you move at — all of it is either supporting or undermining your baseline.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <h4>Phase 1 — Sensing the Field (5 minutes)</h4>
+    <ol>
+      <li>Sit with your eyes closed. Hands resting on your thighs, palms up.</li>
+      <li>Bring your attention to the space immediately around your body — not inside, around. The air touching your skin. The warmth radiating outward.</li>
+      <li>Slowly bring your palms together until they are about six inches apart. Feel the space between them. Is there warmth? Tingling? A subtle sense of density?</li>
+      <li>Slowly widen and narrow the gap. Notice where the sensation is strongest.</li>
+      <li>Expand your attention to the entire perimeter of your body. Two feet in every direction. Feel the boundary of your space.</li>
+    </ol>
+    <h4>Phase 2 — Environmental Audit (7 minutes)</h4>
+    <ol start="6">
+      <li>Open your eyes. Pen and paper.</li>
+      <li>List three environments you spend significant time in.</li>
+      <li>For each one, answer honestly: Does my body relax or tighten in this space? Do I leave with more energy or less? Is this environment supporting my regulation or costing it?</li>
+      <li>List three people you spend the most time with. Same questions.</li>
+    </ol>
+    <p>You do not need to make dramatic changes. Awareness alone begins to shift your choices. When you know what costs you, you stop paying unconsciously.</p>
+  </div>
+
+  <div class="reflection"><p>Your energy is not unlimited. Knowing where it goes is the beginning of knowing how to keep it.</p></div>
+</div>
+
+<!-- DAY 24 -->
+<div class="page day" id="day-24">
+  <div class="day-badge"><span class="num">DAY 24</span><span class="duration">10 min</span></div>
+  <h2>Gratitude as Regulation</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>Gratitude is not a sentiment. It is a physiological intervention.</p>
+    <p>Research on the autonomic effects of gratitude — including studies by Porges' colleagues and the HeartMath Institute — shows that the deliberate experience of appreciation produces measurable increases in heart rate variability, shifts autonomic balance toward parasympathetic dominance, and reduces cortisol output.</p>
+    <p>The key distinction: it must be felt, not thought. Listing things you're grateful for in your head produces minimal autonomic shift. Feeling gratitude in the body — specifically in the chest — activates vagal tone in a way that cognition alone does not.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Sit comfortably. Close your eyes. Place both hands on your chest.</li>
+      <li>Bring to mind one person, one moment, or one aspect of your life that you are genuinely grateful for. Not what you should be grateful for — what you actually feel.</li>
+      <li>Stay with it. Don't rush to the next thing. Let this one feel fully present.</li>
+      <li>Notice what happens in the chest. Warmth? Expansion? Softening? Heaviness? Stay with whatever arises.</li>
+      <li>After two minutes, bring to mind a second. Same process. Dwell with it.</li>
+      <li>After two more minutes, a third.</li>
+      <li>After the third, remove the object of gratitude and stay with the sensation itself. The warmth, the openness — let it exist without needing a reason.</li>
+      <li>Remain here for three minutes. Breathe naturally.</li>
+    </ol>
+    <p>You are training the nervous system to generate a state of openness without requiring external circumstances to produce it. Over time, this becomes a capacity — the ability to access ventral vagal regulation intentionally, even in the middle of a difficult day.</p>
+  </div>
+
+  <div class="reflection"><p>Gratitude is not a debt you owe. It is a door you open — and the body walks through it.</p></div>
+</div>
+
+<!-- DAY 25 -->
+<div class="page day" id="day-25">
+  <div class="day-badge"><span class="num">DAY 25</span><span class="duration">15 min</span></div>
+  <h2>Intuitive Movement</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>The body knows how it needs to move. The problem is, most people have never asked.</p>
+    <p>Exercise culture has taught us to override the body's signals — to push, perform, and progress according to external metrics. But the body's relationship to movement is far older than any fitness program. Before language, before thought, movement was how the organism processed emotion, discharged stress, expressed joy, and restored balance.</p>
+    <p>Today there is no protocol. There is only the question: "What does my body want to do right now?" And then the discipline to follow the answer rather than impose one.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Stand in an open space. Bare feet if possible.</li>
+      <li>Close your eyes. Take five slow breaths.</li>
+      <li>Ask your body: "What do you want to do?" And then wait.</li>
+      <li>Maybe it wants to stretch. Maybe it wants to sway. Maybe it wants to shake. Maybe it wants to curl into a ball on the floor. Maybe it wants to dance.</li>
+      <li>Move without plan or choreography for ten minutes. Set a timer so you don't have to think about when to stop.</li>
+      <li>If the movement feels silly or self-conscious, notice that — and keep going. The self-consciousness is the mind's discomfort with the body having authority. Let the body lead anyway.</li>
+      <li>When the timer sounds, stand still. Feel what's circulating inside.</li>
+      <li>Lie down for three minutes. Let the body settle.</li>
+    </ol>
+    <p>This is not exercise. This is communion. You are letting the body complete whatever it was holding, in whatever form it chooses.</p>
+  </div>
+
+  <div class="reflection"><p>The body has been waiting for permission to move the way it needs to. Today you gave it.</p></div>
+</div>
+
+<!-- DAY 26 -->
+<div class="page day" id="day-26">
+  <div class="day-badge"><span class="num">DAY 26</span><span class="duration">15 min</span></div>
+  <h2>Shadow Integration</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>On Day 12, you made initial contact with the shadow — the parts of yourself you learned to reject. Today we go further. Not into the darkness, but into the relationship.</p>
+    <p>Jung's process of individuation — the central project of his psychology — is not the elimination of the shadow. It is its integration. The anger you reject becomes destructive. The anger you integrate becomes discernment, protection, boundary. The sadness you suppress becomes depression. The sadness you integrate becomes depth, empathy, wisdom.</p>
+    <p>Every quality you exile takes a piece of your vital energy with it. Integration is the return of that energy. Not by performing the rejected quality, but by allowing it space. By acknowledging: this is also me.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Sit with pen and paper. Settle for one minute.</li>
+      <li>Write at the top of the page: <strong>"What quality have I spent my life trying not to be?"</strong> Selfish. Needy. Angry. Weak. Too intense. Too sensitive. Too cold. Too much.</li>
+      <li>Choose one. Write it.</li>
+      <li>Below it, write:</li>
+    </ol>
+    <p><strong>"When did I first learn this was unacceptable?"</strong> — What happened? Who communicated — through words or behavior — that this quality was wrong?</p>
+    <p><strong>"What did it cost me to suppress this?"</strong> — What did I lose access to by rejecting this part of myself?</p>
+    <p><strong>"What is the gift hidden inside this quality?"</strong> — Anger carries the gift of boundary. Neediness carries the gift of connection. Intensity carries the gift of depth. What does your rejected quality carry?</p>
+    <ol start="5">
+      <li>Write one sentence of acceptance: "I allow my [quality] to exist. It does not define me and it does not need to be performed. It is a part of me, and I no longer exile it."</li>
+      <li>Read it aloud. Once. Notice the body.</li>
+      <li>Sit in silence for three minutes. Hands on belly. Breathe.</li>
+    </ol>
+  </div>
+
+  <div class="reflection"><p>The shadow is not what destroys you. What destroys you is the energy you spend keeping it out.</p></div>
+</div>
+
+<!-- DAY 27 -->
+<div class="page day" id="day-27">
+  <div class="day-badge"><span class="num">DAY 27</span><span class="duration">12 min</span></div>
+  <h2>Impermanence</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>Marcus Aurelius, writing to himself in the middle of a war: "Everything that exists is already fraying at the edges, and in transition, subject to fragmentation and to rot."</p>
+    <p>This is not pessimism. It is liberation.</p>
+    <p>The nervous system clings. To states, to outcomes, to people, to versions of ourselves. That clinging is itself a form of sympathetic activation — a bracing against change, a refusal to let the moment be what it is. The body tightens around what it is afraid to lose.</p>
+    <p>Impermanence practice is the deliberate release of that grip. Not through detachment — which is another form of shutdown — but through acceptance. Through the capacity to hold something fully while knowing it will pass.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Sit comfortably. Close your eyes.</li>
+      <li>Bring to mind something you are currently holding tightly — a relationship, a goal, an outcome, an identity, a state of mind.</li>
+      <li>Feel the holding in your body. Where does it grip? Hands? Chest? Jaw? Stomach?</li>
+      <li>Now, internally, say: "This is temporary. And that is not a tragedy."</li>
+      <li>Notice what the body does. Does it tighten further? Does something soften? Does grief arise? All responses are valid.</li>
+      <li>Bring to mind something you already lost — something that felt devastating at the time. Notice: you survived it. You are here.</li>
+      <li>Say: "I survived what I was sure I couldn't. The next loss will be the same."</li>
+      <li>Sit in silence for five minutes. Let whatever arises — grief, relief, fear, peace — move through without interference.</li>
+      <li>Open your eyes slowly. Take three breaths.</li>
+    </ol>
+    <p>Regulation is not the absence of pain. It is the capacity to feel it fully and return to center. Impermanence practice trains exactly this.</p>
+  </div>
+
+  <div class="reflection"><p>What you're afraid to lose is already changing. Holding it tighter doesn't keep it — it keeps you locked. Let the hands open.</p></div>
+</div>
+
+<!-- DAY 28 -->
+<div class="page day" id="day-28">
+  <div class="day-badge"><span class="num">DAY 28</span><span class="duration">12 min</span></div>
+  <h2>The Observer</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>We return to the witness — but deeper.</p>
+    <p>On Day 13, you observed thoughts, emotions, and sensations from a place of stillness. Today we go further into the question itself: who is the one observing?</p>
+    <p>Rupert Spira describes awareness as the screen on which all experience is projected — untouched by the images, unchanged by the drama. Alan Watts spoke of it as the universe looking at itself through your eyes. The Sufi tradition calls the dissolution of the self into this awareness <em>fana</em> — the annihilation of the ego into the Real.</p>
+    <p>This is not a concept to understand. It is a direct experience — available right now — that permanently changes the relationship between you and your nervous system. Because if you are the awareness, not the content, then no activation can consume you entirely. There is always a space behind the storm.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Sit in silence. Close your eyes.</li>
+      <li>Notice your breath. Don't change it. Just notice.</li>
+      <li>Ask: "Am I the breath? Or am I the one noticing the breath?" Let the question sit. Don't answer it intellectually.</li>
+      <li>A thought will arise. Notice it. Ask: "Am I the thought? Or am I the space in which the thought appeared?"</li>
+      <li>An emotion may surface. Same question. "Am I this feeling? Or am I what feels?"</li>
+      <li>Keep returning to this inquiry — not as analysis, but as a gentle pointing inward. Where is the noticing happening? What is it made of?</li>
+      <li>If you arrive at a moment of spaciousness — a sense of open, quiet presence behind all content — rest there. Don't describe it. Don't claim it. Just be it.</li>
+      <li>Stay for ten minutes. Whenever you lose it, the fact that you noticed you lost it means you've already returned.</li>
+      <li>Open your eyes. Let the inquiry dissolve. Sit for one minute.</li>
+    </ol>
+  </div>
+
+  <div class="reflection"><p>Behind the thoughts. Behind the feelings. Behind the patterns and the pain. There is something that has never been disturbed. You've been that the entire time.</p></div>
+</div>
+
+<!-- DAY 29 -->
+<div class="page day" id="day-29">
+  <div class="day-badge"><span class="num">DAY 29</span><span class="duration">15 min</span></div>
+  <h2>Your Maintenance Protocol</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>A regulated nervous system is not a permanent achievement. It is a daily practice — like nutrition, like hygiene, like sleep. There will be disruptions. There will be days when the old patterns return with full force. This is not failure. This is the nature of a living system under real conditions.</p>
+    <p>What separates someone who heals from someone who merely has a good week is this: they built a floor. A minimum practice — simple, short, non-negotiable — that catches them when they fall and returns them to baseline before the spiral gains momentum.</p>
+    <p>Today you finalize yours.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Pen and paper. Review everything from the past 28 days.</li>
+      <li>Identify:</li>
+    </ol>
+    <p><strong>Your regulation anchor</strong> — the single practice that most reliably brings you to calm. (For most people, this is either extended exhale breathing or grounding.)</p>
+    <p><strong>Your release tool</strong> — the practice that moves energy out when it's building. (Shaking, tremoring, or sound release.)</p>
+    <p><strong>Your clarity practice</strong> — the practice that creates space between you and your reactions. (The witness, stillness, or parts check-in.)</p>
+    <ol start="3">
+      <li>Write your protocol:</li>
+    </ol>
+    <p><strong>Daily Minimum (10 minutes):</strong><br>5 minutes of [regulation anchor] + 5 minutes of [clarity practice]</p>
+    <p><strong>When Activated (add when needed):</strong><br>[Release tool] — for 3–5 minutes when you feel the charge building</p>
+    <p><strong>Weekly (once per week, any day):</strong><br>15 minutes of journaling — shadow, trigger mapping, or free writing</p>
+    <ol start="4">
+      <li>Write this protocol on a single card or page. Keep it where you'll see it.</li>
+      <li>Commit to it the way you commit to brushing your teeth. Not because it's inspiring. Because it maintains a system that works better when maintained.</li>
+    </ol>
+  </div>
+
+  <div class="reflection"><p>You don't need motivation. You need a protocol. Today you wrote one.</p></div>
+</div>
+
+<!-- DAY 30 -->
+<div class="page day" id="day-30">
+  <div class="day-badge"><span class="num">DAY 30</span><span class="duration">20 min</span></div>
+  <h2>Letter to Yourself</h2>
+  <p class="audio-note">▶ Audio guided version available at <a href="https://alvvoayad.com/guide/listen">alvvoayad.com/guide/listen</a></p>
+
+  <div class="context-block">
+    <p>Thirty days ago, you started this guide from a place of survival — tight, tired, numb, reactive, disconnected, running programs that were never yours. You didn't know what was happening inside you. Now you do.</p>
+    <p>This final day is not a celebration. It is a record. A document of who you were, what you moved through, and who you are emerging as — not a finished version, but a truer one.</p>
+  </div>
+
+  <div class="practice-box">
+    <h3>Practice</h3>
+    <ol>
+      <li>Pen and paper. No phone. Find a place where you will not be interrupted.</li>
+      <li>At the top of the page, write today's date.</li>
+      <li>Write a letter to yourself. Address it however you'd like — your name, "Dear me," whatever is natural.</li>
+      <li>Include:</li>
+    </ol>
+    <p><strong>Where you were 30 days ago.</strong> What brought you here. What your body felt like before Day 1. What you were carrying.</p>
+    <p><strong>What you discovered.</strong> The practice that surprised you. The moment something shifted. The part of yourself you met that you didn't know was there.</p>
+    <p><strong>What changed.</strong> Not what you think should have changed — what actually changed. Even if it's subtle. Especially if it's subtle.</p>
+    <p><strong>What you commit to moving forward.</strong> Not a resolution. A promise to yourself. One sentence. What will you continue?</p>
+    <ol start="5">
+      <li>Sign it.</li>
+      <li>Close your eyes. Place both hands on your chest. Take ten slow breaths.</li>
+      <li>When you open your eyes, read the letter once — to yourself, aloud if you can. Then put it somewhere safe. You may need to read it again someday.</li>
+    </ol>
+  </div>
+
+  <div class="reflection"><p>You didn't fix yourself. You came home to a body you'd been running from. And the body — patient, ancient, impossibly wise — was waiting for you the entire time.</p></div>
+</div>
+
+<!-- ═══════════════════ CLOSING ═══════════════════ -->
+<div class="page closing">
+  <h2>The Dashboard Is Yours Now</h2>
+
+  <p>Thirty days ago, your nervous system was running on survival software. You didn't choose it. You inherited it — from experience, from environment, from the body's best attempt at keeping you alive when the world was too much.</p>
+
+  <p>Now you have the map. You know the three states. You know how to build safety, how to release what's stored, how to rewire the pattern, and how to integrate so the changes hold.</p>
+
+  <p>You will dysregulate again. That is not a failure — it is a guarantee. The nervous system is not a machine to be fixed once and left alone. It is a living process that requires tending.</p>
+
+  <p>The difference between before and after this guide is not that you will never be activated. It is that you will recognize it. You will know what's happening. And you will have a way back.</p>
+
+  <div class="insight-line">Three practices. Ten minutes. Every day. That is the floor. Stand on it.</div>
+</div>
+
+<!-- ═══════════════════ SOURCES ═══════════════════ -->
+<div class="page sources">
+  <h2>Sources and Further Reading</h2>
+  <p>The framework in this guide draws from the following researchers, clinicians, and thinkers. These works shaped my understanding. Every insight in these pages is my interpretation and synthesis — go to the source for the full depth of each body of work.</p>
+
+  <h3>Nervous System and Polyvagal Theory</h3>
+  <ul>
+    <li>Stephen Porges — <em>The Polyvagal Theory</em> (2011)</li>
+    <li>Stephen Porges — <em>The Pocket Guide to the Polyvagal Theory</em> (2017)</li>
+    <li>Deb Dana — <em>The Polyvagal Theory in Therapy</em> (2018)</li>
+  </ul>
+
+  <h3>Somatic Experiencing and Trauma</h3>
+  <ul>
+    <li>Peter Levine — <em>Waking the Tiger: Healing Trauma</em> (1997)</li>
+    <li>Peter Levine — <em>In an Unspoken Voice</em> (2010)</li>
+    <li>Bessel van der Kolk — <em>The Body Keeps the Score</em> (2014)</li>
+  </ul>
+
+  <h3>Trauma Release</h3>
+  <ul>
+    <li>David Berceli — <em>The Revolutionary Trauma Release Process</em> (2008)</li>
+  </ul>
+
+  <h3>Internal Family Systems</h3>
+  <ul>
+    <li>Richard Schwartz — <em>No Bad Parts</em> (2021)</li>
+    <li>Richard Schwartz — <em>Internal Family Systems Therapy</em> (1995)</li>
+  </ul>
+
+  <h3>Shadow Work and Depth Psychology</h3>
+  <ul>
+    <li>Carl Jung — <em>The Archetypes and the Collective Unconscious</em> (1959)</li>
+    <li>Carl Jung — <em>Aion: Researches into the Phenomenology of the Self</em> (1951)</li>
+    <li>Robert Johnson — <em>Owning Your Own Shadow</em> (1991)</li>
+  </ul>
+
+  <h3>Narrative Inquiry</h3>
+  <ul>
+    <li>Byron Katie — <em>Loving What Is</em> (2002)</li>
+  </ul>
+
+  <h3>Embodiment and Racialized Trauma</h3>
+  <ul>
+    <li>Resmaa Menakem — <em>My Grandmother's Hands</em> (2017)</li>
+  </ul>
+
+  <h3>Collective Trauma</h3>
+  <ul>
+    <li>Gabor Maté — <em>The Myth of Normal</em> (2022)</li>
+    <li>Thomas Hübl — <em>Healing Collective Trauma</em> (2020)</li>
+  </ul>
+
+  <h3>Consciousness and Presence</h3>
+  <ul>
+    <li>Eckhart Tolle — <em>The Power of Now</em> (1997)</li>
+    <li>Rupert Spira — <em>The Nature of Consciousness</em> (2017)</li>
+    <li>Alan Watts — <em>The Book: On the Taboo Against Knowing Who You Are</em> (1966)</li>
+    <li>Jiddu Krishnamurti — <em>Freedom from the Known</em> (1969)</li>
+  </ul>
+
+  <h3>Contemplative and Philosophical Traditions</h3>
+  <ul>
+    <li>Marcus Aurelius — <em>Meditations</em> (c. 170 CE)</li>
+    <li>Lao Tzu — <em>Tao Te Ching</em> (c. 400 BCE)</li>
+    <li>Rumi — selected translations by Coleman Barks</li>
+  </ul>
+
+  <h3>Heart Rate Variability and Autonomic Research</h3>
+  <ul>
+    <li>HeartMath Institute — <em>Science of the Heart, Vol. 2</em> (2016)</li>
+  </ul>
+
+  <p class="sources-note">This guide is a synthesis, not a reproduction. The depth of understanding behind each practice belongs to the researchers and traditions listed above. If any of these names call to you, follow the thread — the body will tell you where to go next.</p>
+</div>
+
+<!-- ═══════════════════ BACK COVER ═══════════════════ -->
+<div class="back-cover">
+  <div class="rule"></div>
+  <p class="copy">&copy; 2026 Alvvo Ayad</p>
+  <a href="https://alvvoayad.com">alvvoayad.com</a>
+  <p class="copy" style="margin-top:4px;">@alvvoayadcreates</p>
+</div>
+
+</body>
+</html>
