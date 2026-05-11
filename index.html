@@ -10,26 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#06060A;
-  --bg-2:#0B0A0F;
-  --surface:#0E0D12;
-  --surface-2:#15100C;
-  --surface-3:#1A1620;
-  --border:#1F1D26;
-  --border-2:#2A2630;
-  --ember:#FF6A2E;
-  --ember-halo:#FFB36A;
-  --magenta:#D63FFF;
-  --cyan:#3FE5FF;
-  --bone:#F5E9D8;
-  --bone-dim:rgba(245,233,216,0.65);
-  --bone-faint:rgba(245,233,216,0.4);
-  --chrome-1:#9DA3AB;
-  --chrome-2:#5C606A;
-  --chrome-3:#1F2227;
+  --bg:#06060A;--bg-2:#0B0A0F;--surface:#0E0D12;--surface-2:#15100C;--surface-3:#1A1620;
+  --border:#1F1D26;--border-2:#2A2630;
+  --ember:#FF6A2E;--ember-halo:#FFB36A;--magenta:#D63FFF;--cyan:#3FE5FF;
+  --bone:#F5E9D8;--bone-dim:rgba(245,233,216,0.65);--bone-faint:rgba(245,233,216,0.4);
+  --chrome-1:#9DA3AB;--chrome-2:#5C606A;--chrome-3:#1F2227;
+  --wa-in:#1A1620;--wa-out:#FF6A2E;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:auto}
 ::selection{background:var(--ember);color:var(--bg)}
 body{background:var(--bg);color:var(--bone);font-family:'Geist','Inter',system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6}
 .ar{font-family:'Tajawal',sans-serif;direction:rtl}
@@ -44,7 +33,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;ba
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 28px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,10,0.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:border-color .4s}
 nav.scrolled{border-bottom-color:var(--border)}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--bone)}
-.orb-mark{width:30px;height:30px;display:block}
+.orb-mark{width:30px;height:30px;display:block;animation:chromaSpin 40s linear infinite}
+@keyframes chromaSpin{from{filter:hue-rotate(0deg)}to{filter:hue-rotate(360deg)}}
 .brand-text{font-family:'Geist',sans-serif;font-size:18px;font-weight:600;letter-spacing:-0.01em;color:var(--bone)}
 .brand-text .dot{color:var(--ember)}
 .nav-links{display:flex;gap:32px;align-items:center}
@@ -53,94 +43,104 @@ nav.scrolled{border-bottom-color:var(--border)}
 .lang-btn{font-size:12px;color:var(--bone-dim);background:transparent;border:1px solid var(--border-2);padding:6px 14px;border-radius:999px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .25s}
 .lang-btn:hover{color:var(--bone);border-color:var(--ember)}
 
-/* HERO */
-.hero{position:relative;padding:140px 0 0;text-align:center;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;overflow:hidden}
-.hero .wrap{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-bottom:240px;z-index:3;position:relative}
-.hero-badge{display:inline-flex;align-items:center;gap:10px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--bone);padding:7px 16px 7px 7px;border:1px solid var(--border-2);border-radius:999px;background:rgba(14,13,18,0.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);margin-bottom:40px;letter-spacing:0.01em}
+/* ===== STAGE — single pinned screen, 5 phases ===== */
+.stage{position:relative;height:380vh}
+.stage-pin{position:sticky;top:0;height:100vh;overflow:hidden}
+
+/* Persistent background (wave + chromatic shine) */
+.stage-bg{position:absolute;inset:0;pointer-events:none;z-index:1}
+.stage-glow{position:absolute;bottom:-180px;left:50%;transform:translateX(-50%);width:130vw;max-width:1800px;height:520px;background:radial-gradient(ellipse at center,rgba(255,106,46,0.42) 0%,rgba(255,106,46,0.14) 28%,rgba(214,63,255,0.07) 52%,transparent 70%);filter:blur(50px);animation:floorPulse 6s ease-in-out infinite}
+@keyframes floorPulse{0%,100%{opacity:0.75}50%{opacity:1}}
+.stage-artifact{position:absolute;bottom:0;left:0;right:0;height:62vh;transition:transform .8s cubic-bezier(.4,0,.2,1), opacity .8s}
+.stage-artifact svg{width:100%;height:100%;display:block;animation:waveBreathe 14s ease-in-out infinite}
+@keyframes waveBreathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.stage[data-active="1"] .stage-artifact,
+.stage[data-active="2"] .stage-artifact,
+.stage[data-active="3"] .stage-artifact,
+.stage[data-active="4"] .stage-artifact{transform:translateY(20%) scale(1.05);opacity:0.55}
+.chromatic-shine{position:absolute;top:55%;left:-30%;width:160%;height:60px;background:linear-gradient(90deg,transparent 0%,rgba(63,229,255,0.35) 28%,rgba(214,63,255,0.45) 50%,rgba(255,106,46,0.55) 72%,transparent 100%);filter:blur(14px);mix-blend-mode:screen;transform:rotate(-2.5deg);animation:chromaSweep 9s ease-in-out infinite}
+@keyframes chromaSweep{0%{transform:translateX(-30%) rotate(-2.5deg);opacity:0}15%,85%{opacity:1}50%{transform:translateX(15%) rotate(-2.5deg)}100%{transform:translateX(50%) rotate(-2.5deg);opacity:0}}
+.stage-fade{position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(180deg,transparent,var(--bg) 88%);pointer-events:none;z-index:4}
+
+/* Phases container */
+.phases{position:relative;width:100%;height:100%;z-index:3}
+.phase{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:110px 28px 100px;opacity:0;transform:translateY(30px);transition:opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.phase.active{opacity:1;transform:translateY(0);pointer-events:auto}
+.phase-inner{width:100%;max-width:1280px;margin:0 auto;position:relative}
+
+/* PHASE 0 — HERO */
+.ph-hero .phase-inner{text-align:center;max-width:1100px;display:flex;flex-direction:column;align-items:center}
+.hero-orb-mini{width:90px;height:90px;margin:0 auto 22px;position:relative;animation:orbFloat 8s ease-in-out infinite}
+.hero-orb-mini::before{content:'';position:absolute;inset:-30px;border-radius:50%;background:radial-gradient(circle at 50% 60%,rgba(255,106,46,0.55) 0%,rgba(255,106,46,0.18) 35%,transparent 65%);filter:blur(14px);animation:pulse 4s ease-in-out infinite}
+.hero-orb-mini svg{width:100%;height:100%;position:relative;z-index:1;animation:chromaSpin 32s linear infinite}
+@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes pulse{0%,100%{opacity:0.7;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--bone);padding:7px 16px 7px 7px;border:1px solid var(--border-2);border-radius:999px;background:rgba(14,13,18,0.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);margin-bottom:30px}
 .hero-badge .bicon{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--ember-halo),var(--ember));display:flex;align-items:center;justify-content:center;color:var(--bg);box-shadow:0 0 12px rgba(255,106,46,0.5)}
 .hero-badge .bicon svg{width:13px;height:13px}
-.hero-badge .blink{width:6px;height:6px;border-radius:50%;background:var(--ember);box-shadow:0 0 12px var(--ember);animation:blink 2s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-.hero h1{font-family:'Geist',sans-serif;font-size:clamp(48px,9.5vw,128px);font-weight:800;letter-spacing:-0.045em;line-height:0.96;color:var(--bone);max-width:1200px;margin:0 auto 30px}
-.hero h1 .ember{background:linear-gradient(110deg,var(--ember-halo) 0%,var(--ember) 28%,var(--magenta) 65%,var(--cyan) 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block;animation:shimmer 8s ease-in-out infinite}
+.ph-hero h1{font-family:'Geist',sans-serif;font-size:clamp(44px,8.5vw,108px);font-weight:800;letter-spacing:-0.045em;line-height:0.97;color:var(--bone);max-width:1100px;margin:0 auto 24px}
+.ph-hero h1 .ember{background:linear-gradient(110deg,var(--ember-halo) 0%,var(--ember) 28%,var(--magenta) 60%,var(--cyan) 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block;animation:shimmer 8s ease-in-out infinite}
 @keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.hero-sub{font-size:18px;font-weight:400;color:var(--bone-dim);max-width:600px;margin:0 auto 34px;line-height:1.55}
-.hero-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:36px}
+.hero-sub{font-size:17px;font-weight:400;color:var(--bone-dim);max-width:580px;margin:0 auto 28px;line-height:1.55}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:28px}
 .hero-pill{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.16em;color:var(--bone-dim);padding:7px 14px;border:1px solid var(--border-2);border-radius:999px;background:rgba(14,13,18,0.5);backdrop-filter:blur(8px)}
-.hero-cta{display:inline-flex;align-items:center;gap:14px;background:var(--bone);color:var(--bg);font-family:'Geist',sans-serif;font-size:15px;font-weight:600;padding:7px 7px 7px 24px;border-radius:999px;text-decoration:none;box-shadow:0 16px 50px rgba(255,106,46,0.25), 0 0 0 1px rgba(245,233,216,0.6);transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s}
+.hero-cta{display:inline-flex;align-items:center;gap:14px;background:var(--bone);color:var(--bg);font-family:'Geist',sans-serif;font-size:14.5px;font-weight:600;padding:7px 7px 7px 22px;border-radius:999px;text-decoration:none;box-shadow:0 16px 50px rgba(255,106,46,0.25), 0 0 0 1px rgba(245,233,216,0.6);transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s}
 .hero-cta:hover{transform:translateY(-2px);box-shadow:0 24px 70px rgba(255,106,46,0.45), 0 0 0 1px var(--ember)}
-.hero-cta .arr{width:36px;height:36px;border-radius:50%;background:var(--ember);display:flex;align-items:center;justify-content:center;color:var(--bg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex-shrink:0}
+.hero-cta .arr{width:34px;height:34px;border-radius:50%;background:var(--ember);display:flex;align-items:center;justify-content:center;color:var(--bg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex-shrink:0}
 .hero-cta:hover .arr{transform:rotate(45deg)}
 
-/* HERO ARTIFACT — big iridescent flow at the bottom */
-.hero-artifact{position:absolute;bottom:0;left:0;right:0;height:62vh;pointer-events:none;z-index:1;overflow:hidden}
-.hero-artifact svg{width:100%;height:100%;display:block;animation:waveBreathe 14s ease-in-out infinite}
-@keyframes waveBreathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-.hero-glow-floor{position:absolute;bottom:-180px;left:50%;transform:translateX(-50%);width:130vw;max-width:1800px;height:520px;background:radial-gradient(ellipse at center,rgba(255,106,46,0.45) 0%,rgba(255,106,46,0.15) 28%,rgba(214,63,255,0.08) 50%,transparent 70%);filter:blur(50px);pointer-events:none;z-index:0;animation:floorPulse 6s ease-in-out infinite}
-@keyframes floorPulse{0%,100%{opacity:0.75}50%{opacity:1}}
-.hero-fade{position:absolute;bottom:0;left:0;right:0;height:180px;background:linear-gradient(180deg,transparent,var(--bg) 88%);pointer-events:none;z-index:4}
-
-.scroll-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:10px;color:var(--bone-faint);text-transform:uppercase;letter-spacing:0.22em;display:flex;flex-direction:column;align-items:center;gap:10px;z-index:5}
-.scroll-hint .line{width:1px;height:30px;background:linear-gradient(180deg,var(--ember),transparent);animation:lineDrop 2.4s ease-in-out infinite}
-@keyframes lineDrop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-
-/* TICKER */
-.ticker-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 0;background:rgba(14,13,18,0.5);overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.ticker{display:flex;gap:56px;width:max-content;animation:scroll 50s linear infinite}
-@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ticker-item{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--bone-dim);letter-spacing:0.04em;white-space:nowrap;display:flex;align-items:center;gap:56px}
-.ticker-item::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--ember);opacity:0.6}
-
-/* SHOWCASE — pinned scroll stage */
-.showcase{position:relative;height:480vh;background:linear-gradient(180deg,var(--bg) 0%,#08080E 50%,var(--bg) 100%)}
-.showcase-stage{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
-.showcase-inner{position:relative;width:100%;max-width:1280px;margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center}
-.phase{position:absolute;inset:0 28px;display:grid;grid-template-columns:0.85fr 1.15fr;gap:60px;align-items:center;opacity:0;transform:translateY(40px);transition:opacity .65s cubic-bezier(.4,0,.2,1), transform .65s cubic-bezier(.4,0,.2,1);pointer-events:none}
-.phase.active{opacity:1;transform:translateY(0);pointer-events:auto}
-.phase-copy{padding-top:60px}
-.phase-num{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.22em;color:var(--ember);margin-bottom:18px}
-.phase-copy h2{font-family:'Geist',sans-serif;font-size:clamp(34px,4.5vw,54px);font-weight:700;letter-spacing:-0.032em;line-height:1.04;color:var(--bone);margin-bottom:20px}
-.phase-copy .lede{font-size:16px;color:var(--bone-dim);line-height:1.65;margin-bottom:24px}
-.phase-copy ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+/* PHASES 1-4 — OFFERINGS */
+.ph-offer .phase-inner{display:grid;grid-template-columns:0.82fr 1.18fr;gap:56px;align-items:center}
+.phase-copy{position:relative}
+.phase-num{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.22em;color:var(--ember);margin-bottom:16px}
+.phase-copy h2{font-family:'Geist',sans-serif;font-size:clamp(32px,4.2vw,52px);font-weight:700;letter-spacing:-0.032em;line-height:1.05;color:var(--bone);margin-bottom:18px}
+.phase-copy .lede{font-size:15.5px;color:var(--bone-dim);line-height:1.65;margin-bottom:22px}
+.phase-copy ul{list-style:none;display:flex;flex-direction:column;gap:11px}
 .phase-copy li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:var(--bone);line-height:1.5}
 .phase-copy li::before{content:'';flex-shrink:0;width:5px;height:5px;border-radius:50%;background:var(--ember);box-shadow:0 0 10px var(--ember);margin-top:9px}
 
-.phase-nav{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:5}
-.phase-nav .pd{width:42px;height:3px;border-radius:2px;background:rgba(245,233,216,0.12);transition:background .35s, transform .35s;cursor:pointer;border:none;padding:0}
-.phase-nav .pd.active{background:var(--ember);transform:scaleY(1.6)}
-.phase-counter{position:absolute;top:120px;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:11px;color:var(--bone-faint);text-transform:uppercase;letter-spacing:0.22em;z-index:5}
+/* Progress nav */
+.phase-nav{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:5}
+.phase-nav .pd{width:38px;height:3px;border-radius:2px;background:rgba(245,233,216,0.13);transition:background .35s, transform .35s;cursor:pointer;border:none;padding:0}
+.phase-nav .pd.active{background:linear-gradient(90deg,var(--ember),var(--ember-halo));transform:scaleY(1.7)}
+.phase-counter{position:absolute;top:90px;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:11px;color:var(--bone-faint);text-transform:uppercase;letter-spacing:0.22em;z-index:5}
+.scroll-hint{position:absolute;bottom:72px;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:10px;color:var(--bone-faint);text-transform:uppercase;letter-spacing:0.22em;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:5;opacity:1;transition:opacity .5s}
+.scroll-hint .line{width:1px;height:26px;background:linear-gradient(180deg,var(--ember),transparent);animation:lineDrop 2.4s ease-in-out infinite}
+@keyframes lineDrop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.stage[data-active="1"] .scroll-hint,.stage[data-active="2"] .scroll-hint,.stage[data-active="3"] .scroll-hint,.stage[data-active="4"] .scroll-hint{opacity:0;pointer-events:none}
 
-/* DEMO containers */
-.demo{position:relative;width:100%;aspect-ratio:1/0.72;max-height:75vh;border:1px solid var(--border);border-radius:24px;background:linear-gradient(160deg,var(--surface) 0%,var(--bg-2) 100%);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(245,233,216,0.04)}
+/* DEMO container */
+.demo{position:relative;width:100%;aspect-ratio:1/0.7;max-height:72vh;border:1px solid var(--border);border-radius:22px;background:linear-gradient(160deg,var(--surface) 0%,var(--bg-2) 100%);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.55), inset 0 1px 0 rgba(245,233,216,0.04)}
 .demo::after{content:'';position:absolute;inset:auto -120px -120px auto;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,106,46,0.18),transparent 70%);filter:blur(20px);pointer-events:none}
 
-/* DEMO 1 — DASHBOARD */
+/* DEMO — DASHBOARD */
 .dm-dash{height:100%;display:flex;flex-direction:column;position:relative;z-index:1}
 .dm-dash .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);background:rgba(14,13,18,0.6)}
 .dm-dash .dm-brand{display:flex;align-items:center;gap:10px;font-family:'Geist',sans-serif;font-size:13px;font-weight:600;color:var(--bone)}
 .dm-dash .dm-brand .od{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFFFFF,#9DA3AB 40%,#1F2227 80%);box-shadow:0 0 8px rgba(255,106,46,0.3)}
 .dm-dash .dm-tabs{display:flex;gap:18px}
-.dm-dash .dm-tabs span{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--bone-faint);padding:6px 0;cursor:default}
+.dm-dash .dm-tabs span{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--bone-faint);padding:6px 0}
 .dm-dash .dm-tabs span.act{color:var(--ember);border-bottom:1.5px solid var(--ember)}
 .dm-dash .dm-live{display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ember);text-transform:uppercase;letter-spacing:0.18em}
 .dm-dash .dm-live .d{width:6px;height:6px;border-radius:50%;background:var(--ember);box-shadow:0 0 10px var(--ember);animation:blink 1.4s ease-in-out infinite}
-.dm-dash .dm-body{flex:1;padding:20px;display:grid;grid-template-rows:auto 1fr auto;gap:14px;min-height:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.dm-dash .dm-body{flex:1;padding:18px 20px;display:grid;grid-template-rows:auto 1fr auto;gap:12px;min-height:0}
 .dm-dash .kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .dm-dash .kpi{background:rgba(245,233,216,0.025);border:1px solid var(--border);border-radius:12px;padding:14px}
 .dm-dash .kpi .lbl{font-family:'DM Sans',sans-serif;font-size:9.5px;text-transform:uppercase;letter-spacing:0.18em;color:var(--bone-dim);margin-bottom:6px}
-.dm-dash .kpi .val{font-family:'Geist',sans-serif;font-size:24px;font-weight:700;color:var(--bone);letter-spacing:-0.02em;line-height:1}
+.dm-dash .kpi .val{font-family:'Geist',sans-serif;font-size:23px;font-weight:700;color:var(--bone);letter-spacing:-0.02em;line-height:1}
 .dm-dash .kpi .delta{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--ember);margin-top:5px}
 .dm-dash .kpi.alt .delta{color:var(--cyan)}
-.dm-dash .chart-card{background:rgba(245,233,216,0.025);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;min-height:0;overflow:hidden}
+.dm-dash .chart-card{background:rgba(245,233,216,0.025);border:1px solid var(--border);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;min-height:0;overflow:hidden}
 .dm-dash .chart-head{display:flex;justify-content:space-between;align-items:center}
 .dm-dash .chart-head .ttl{font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:var(--bone-dim)}
-.dm-dash .chart-svg{flex:1;width:100%;min-height:80px}
-.dm-dash .chart-svg path.line{stroke:var(--ember);stroke-width:2;fill:none;stroke-linecap:round;stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 3s ease-out forwards;animation-delay:.4s}
+.dm-dash .chart-svg{flex:1;width:100%;min-height:70px}
+.dm-dash .chart-svg path.line{stroke:var(--ember);stroke-width:2;fill:none;stroke-linecap:round;stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 3s ease-out forwards;animation-delay:.3s}
 .dm-dash .chart-svg path.fill{fill:url(#chartGrad);opacity:0;animation:fadein 1.2s ease-out forwards;animation-delay:3s}
 .dm-dash .chart-svg circle.pt{fill:var(--ember);opacity:0;animation:fadein .3s ease-out forwards}
 @keyframes draw{to{stroke-dashoffset:0}}
 @keyframes fadein{to{opacity:1}}
-.dm-dash .activity{display:flex;flex-direction:column;gap:8px;max-height:90px;overflow:hidden}
+.dm-dash .activity{display:flex;flex-direction:column;gap:6px;max-height:90px;overflow:hidden}
 .dm-dash .act{display:flex;justify-content:space-between;align-items:center;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--bone-dim);padding:6px 0;border-bottom:1px solid rgba(31,29,38,0.5);opacity:0;animation:slidein .5s ease-out forwards}
 .dm-dash .act .l{display:flex;align-items:center;gap:8px}
 .dm-dash .act .l .dot{width:6px;height:6px;border-radius:50%;background:var(--ember)}
@@ -152,113 +152,138 @@ nav.scrolled{border-bottom-color:var(--border)}
 .dm-dash .act:nth-child(3){animation-delay:2.5s}
 @keyframes slidein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* DEMO 2 — AUTOMATION */
-.dm-auto{height:100%;padding:24px;display:flex;flex-direction:column;position:relative;z-index:1}
-.dm-auto .ahead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.dm-auto .at{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--bone-dim);text-transform:uppercase;letter-spacing:0.2em}
-.dm-auto .ac{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ember)}
-.dm-auto .ac .d{width:6px;height:6px;border-radius:50%;background:var(--ember);box-shadow:0 0 10px var(--ember);animation:blink 1.6s ease-in-out infinite}
-.dm-auto .canvas{flex:1;width:100%;position:relative}
-.dm-auto svg{width:100%;height:100%;display:block}
-.dm-auto .grid-bg{stroke:var(--border);stroke-width:0.5;fill:none;opacity:0.5}
-.dm-auto .link{fill:none;stroke-width:1.8}
-.dm-auto .link.o{stroke:rgba(255,106,46,0.55)}
-.dm-auto .link.m{stroke:rgba(214,63,255,0.55)}
-.dm-auto .link.c{stroke:rgba(63,229,255,0.55)}
-.dm-auto .nbox{rx:14;ry:14}
-.dm-auto .ntxt{font-family:'DM Sans',sans-serif;font-size:11px;fill:var(--bone);letter-spacing:0.05em}
-.dm-auto .nsub{font-family:'DM Sans',sans-serif;font-size:8px;fill:var(--bone-dim);letter-spacing:0.2em;text-transform:uppercase}
-.dm-auto .puls{fill:var(--ember)}
-.dm-auto .stats{display:flex;gap:22px;justify-content:center;padding-top:14px;border-top:1px solid var(--border);margin-top:12px}
-.dm-auto .stats .s{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--bone-dim);text-transform:uppercase;letter-spacing:0.18em;text-align:center}
-.dm-auto .stats .s strong{display:block;font-family:'Geist',sans-serif;font-size:20px;font-weight:700;color:var(--bone);letter-spacing:-0.02em;margin-bottom:2px}
-.dm-auto .stats .s strong.em{color:var(--ember)}
+/* DEMO — WHATSAPP BOT */
+.dm-wa{height:100%;display:grid;grid-template-rows:1fr auto;position:relative;z-index:1}
+.dm-wa .wa-chat{display:flex;flex-direction:column;height:100%;min-height:0}
+.dm-wa .wa-header{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--border);background:rgba(14,13,18,0.7)}
+.dm-wa .wa-avatar{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFFFFF,#9DA3AB 38%,#3F2A1A 80%);box-shadow:0 0 12px rgba(255,106,46,0.25);position:relative;flex-shrink:0}
+.dm-wa .wa-avatar::after{content:'';position:absolute;bottom:0;right:0;width:11px;height:11px;border-radius:50%;background:var(--ember);border:2px solid var(--surface);box-shadow:0 0 8px var(--ember)}
+.dm-wa .wa-meta{flex:1;min-width:0}
+.dm-wa .wa-name{font-family:'Geist',sans-serif;font-size:14px;font-weight:600;color:var(--bone);display:flex;align-items:center;gap:6px}
+.dm-wa .wa-name .vfd{font-size:10px;color:var(--ember)}
+.dm-wa .wa-status{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--bone-faint);display:flex;align-items:center;gap:6px;margin-top:2px}
+.dm-wa .wa-status::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ember);box-shadow:0 0 6px var(--ember);animation:blink 1.4s infinite}
+.dm-wa .wa-actions{color:var(--bone-faint);font-size:18px;letter-spacing:1px}
+.dm-wa .wa-thread{flex:1;overflow:hidden;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.dm-wa .wa-day{align-self:center;font-family:'DM Sans',sans-serif;font-size:9.5px;text-transform:uppercase;letter-spacing:0.22em;color:var(--bone-faint);padding:4px 10px;border-radius:999px;background:rgba(245,233,216,0.04);margin-bottom:6px}
+.dm-wa .wa-msg{display:flex;max-width:78%;opacity:0;animation:bubbleIn .45s cubic-bezier(.4,0,.2,1) forwards}
+.dm-wa .wa-msg.in{align-self:flex-start;animation-delay:.4s}
+.dm-wa .wa-msg.out{align-self:flex-end;animation-delay:1.1s}
+.dm-wa .wa-msg.in.q{animation-delay:1.8s}
+.dm-wa .wa-msg.out.t{animation-delay:2.4s}
+@keyframes bubbleIn{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.dm-wa .wa-bubble{padding:10px 14px;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.5;color:var(--bone)}
+.dm-wa .wa-msg.in .wa-bubble{background:var(--wa-in);border:1px solid var(--border);border-bottom-left-radius:4px}
+.dm-wa .wa-msg.out .wa-bubble{background:linear-gradient(135deg,var(--ember),#E55A20);color:var(--bg);border-bottom-right-radius:4px;font-weight:500;box-shadow:0 8px 20px rgba(255,106,46,0.25)}
+.dm-wa .wa-bubble .t{display:block;font-size:9.5px;opacity:0.6;margin-top:4px;font-family:'DM Sans',sans-serif}
+.dm-wa .wa-msg.out .wa-bubble .t{color:rgba(0,0,0,0.55)}
+.dm-wa .wa-dots{display:inline-flex;gap:4px;padding:2px 0}
+.dm-wa .wa-dots span{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,0.55);animation:typing 1.2s infinite ease-in-out}
+.dm-wa .wa-dots span:nth-child(2){animation-delay:.2s}
+.dm-wa .wa-dots span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,80%,100%{transform:scale(0.6);opacity:0.4}40%{transform:scale(1);opacity:1}}
+.dm-wa .qrs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-self:flex-end;opacity:0;animation:bubbleIn .5s cubic-bezier(.4,0,.2,1) forwards;animation-delay:3.1s}
+.dm-wa .qr{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:var(--ember);background:rgba(255,106,46,0.08);border:1px solid rgba(255,106,46,0.3);border-radius:999px;padding:6px 12px;cursor:pointer}
+.dm-wa .wa-input{display:flex;align-items:center;gap:10px;padding:12px 18px;border-top:1px solid var(--border);background:rgba(14,13,18,0.5)}
+.dm-wa .wa-input .ipl,.dm-wa .wa-input .ipr{color:var(--bone-faint);font-size:16px}
+.dm-wa .wa-input input{flex:1;background:rgba(245,233,216,0.04);border:1px solid var(--border);border-radius:999px;padding:9px 14px;color:var(--bone-dim);font-family:'DM Sans',sans-serif;font-size:12px;outline:none}
+.dm-wa .wa-stats{display:flex;justify-content:space-around;gap:12px;padding:14px 20px;border-top:1px solid var(--border);background:rgba(14,13,18,0.6)}
+.dm-wa .wa-stat{font-family:'DM Sans',sans-serif;font-size:9.5px;color:var(--bone-dim);text-transform:uppercase;letter-spacing:0.18em;text-align:center}
+.dm-wa .wa-stat strong{display:block;font-family:'Geist',sans-serif;font-size:19px;font-weight:700;color:var(--bone);letter-spacing:-0.02em;margin-bottom:2px}
+.dm-wa .wa-stat strong.em{color:var(--ember)}
 
-/* DEMO 3 — WEBSITE */
+/* DEMO — WEBSITE */
 .dm-web{height:100%;display:flex;flex-direction:column;position:relative;z-index:1}
 .dm-web .browser-bar{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--border);background:rgba(14,13,18,0.6)}
 .dm-web .browser-bar .light{width:11px;height:11px;border-radius:50%;background:var(--border-2)}
 .dm-web .browser-bar .light:first-child{background:var(--ember)}
 .dm-web .browser-bar .url{margin-left:14px;flex:1;height:26px;border-radius:6px;background:rgba(245,233,216,0.04);display:flex;align-items:center;padding:0 14px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--bone-dim);gap:8px}
 .dm-web .browser-bar .url::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--ember);box-shadow:0 0 6px var(--ember)}
-.dm-web .page{flex:1;overflow:hidden;position:relative;padding:30px 32px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 50% 30%,rgba(255,106,46,0.08),transparent 60%)}
+.dm-web .page{flex:1;overflow:hidden;position:relative;padding:28px 32px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 50% 30%,rgba(255,106,46,0.08),transparent 60%)}
 .dm-web .page .pnav{position:absolute;top:18px;left:18px;right:18px;display:flex;justify-content:space-between;align-items:center}
 .dm-web .page .plogo{font-family:'Geist',sans-serif;font-size:11px;font-weight:600;color:var(--bone);display:flex;align-items:center;gap:6px}
 .dm-web .page .plogo .pdot{width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFF,#9DA3AB 50%,#1F2227)}
 .dm-web .page .pmenu{display:flex;gap:14px;font-family:'DM Sans',sans-serif;font-size:10px;color:var(--bone-dim)}
-.dm-web .page .pemoji{font-size:54px;line-height:1;margin-bottom:18px;filter:drop-shadow(0 0 30px rgba(255,106,46,0.6))}
-.dm-web .page .ph{font-family:'Geist',sans-serif;font-size:30px;font-weight:700;letter-spacing:-0.028em;line-height:1.05;color:var(--bone);margin-bottom:14px;max-width:380px}
-.dm-web .page .ph .em{color:var(--ember)}
-.dm-web .page .ps{font-size:13px;color:var(--bone-dim);max-width:340px;line-height:1.55;margin-bottom:22px}
-.dm-web .page .pcta{background:var(--ember);color:var(--bg);font-family:'Geist',sans-serif;font-size:12px;font-weight:600;padding:11px 22px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;box-shadow:0 12px 30px rgba(255,106,46,0.35)}
-.dm-web .page .pfeats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px;max-width:460px;width:100%}
-.dm-web .page .pfeat{border:1px solid var(--border);border-radius:10px;padding:12px;background:rgba(245,233,216,0.03);font-family:'DM Sans',sans-serif;font-size:10px;color:var(--bone-dim);letter-spacing:0.06em}
-.dm-web .page .pfeat strong{display:block;font-family:'Geist',sans-serif;font-size:14px;font-weight:600;color:var(--ember);margin-bottom:4px}
+.dm-web .page .pemoji{font-size:52px;line-height:1;margin-bottom:16px;filter:drop-shadow(0 0 30px rgba(255,106,46,0.6));animation:chromaSpin 24s linear infinite}
+.dm-web .page .ph{font-family:'Geist',sans-serif;font-size:28px;font-weight:700;letter-spacing:-0.028em;line-height:1.05;color:var(--bone);margin-bottom:12px;max-width:380px}
+.dm-web .page .ph .em{background:linear-gradient(110deg,var(--ember-halo),var(--ember),var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent}
+.dm-web .page .ps{font-size:12px;color:var(--bone-dim);max-width:340px;line-height:1.55;margin-bottom:20px}
+.dm-web .page .pcta{background:var(--ember);color:var(--bg);font-family:'Geist',sans-serif;font-size:12px;font-weight:600;padding:10px 20px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;box-shadow:0 12px 30px rgba(255,106,46,0.35)}
+.dm-web .page .pfeats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px;max-width:460px;width:100%}
+.dm-web .page .pfeat{border:1px solid var(--border);border-radius:10px;padding:10px;background:rgba(245,233,216,0.03);font-family:'DM Sans',sans-serif;font-size:9.5px;color:var(--bone-dim);letter-spacing:0.06em}
+.dm-web .page .pfeat strong{display:block;font-family:'Geist',sans-serif;font-size:13px;font-weight:600;color:var(--ember);margin-bottom:3px}
 
-/* DEMO 4 — APP */
-.dm-app{height:100%;display:flex;align-items:center;justify-content:center;gap:30px;position:relative;z-index:1;padding:30px}
-.dm-app .ph{width:200px;height:400px;border:2px solid var(--border-2);border-radius:30px;padding:8px;background:#040408;position:relative;flex-shrink:0;box-shadow:0 40px 80px rgba(0,0,0,0.6)}
-.dm-app .ph::before{content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);width:60px;height:5px;border-radius:3px;background:#1A1620;z-index:2}
-.dm-app .ph.b{transform:translateY(28px) rotate(5deg);opacity:0.85}
-.dm-app .scr{height:100%;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;background:linear-gradient(165deg,rgba(255,106,46,0.18) 0%,rgba(214,63,255,0.06) 45%,#0B0A0F 100%);position:relative}
-.dm-app .scrh{padding:38px 16px 14px;display:flex;justify-content:space-between;align-items:center}
-.dm-app .scrh .ph-ttl{font-family:'Geist',sans-serif;font-size:15px;font-weight:700;color:var(--bone);letter-spacing:-0.018em}
-.dm-app .scrh .ph-av{width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFB36A,var(--ember) 60%,#3F2A1A);box-shadow:0 0 10px rgba(255,106,46,0.4)}
-.dm-app .scr-body{flex:1;padding:6px 16px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
-.dm-app .card{background:rgba(245,233,216,0.06);border:1px solid rgba(245,233,216,0.05);border-radius:12px;padding:10px}
+/* DEMO — APP */
+.dm-app{height:100%;display:flex;align-items:center;justify-content:center;gap:30px;position:relative;z-index:1;padding:24px}
+.dm-app .ph{width:180px;height:370px;border:2px solid var(--border-2);border-radius:28px;padding:7px;background:#040408;position:relative;flex-shrink:0;box-shadow:0 40px 80px rgba(0,0,0,0.6)}
+.dm-app .ph::before{content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);width:56px;height:5px;border-radius:3px;background:#1A1620;z-index:2}
+.dm-app .ph.b{transform:translateY(24px) rotate(5deg);opacity:0.85}
+.dm-app .scr{height:100%;border-radius:21px;overflow:hidden;display:flex;flex-direction:column;background:linear-gradient(165deg,rgba(255,106,46,0.18) 0%,rgba(214,63,255,0.06) 45%,#0B0A0F 100%);position:relative}
+.dm-app .scrh{padding:32px 14px 12px;display:flex;justify-content:space-between;align-items:center}
+.dm-app .scrh .ph-ttl{font-family:'Geist',sans-serif;font-size:14px;font-weight:700;color:var(--bone);letter-spacing:-0.018em}
+.dm-app .scrh .ph-av{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFB36A,var(--ember) 60%,#3F2A1A);box-shadow:0 0 10px rgba(255,106,46,0.4)}
+.dm-app .scr-body{flex:1;padding:6px 14px;display:flex;flex-direction:column;gap:7px;overflow:hidden}
+.dm-app .card{background:rgba(245,233,216,0.06);border:1px solid rgba(245,233,216,0.05);border-radius:10px;padding:9px}
 .dm-app .card.pop{background:rgba(255,106,46,0.12);border-color:rgba(255,106,46,0.3)}
-.dm-app .crow{height:6px;border-radius:3px;background:rgba(245,233,216,0.18);margin-bottom:5px}
+.dm-app .crow{height:5px;border-radius:3px;background:rgba(245,233,216,0.18);margin-bottom:4px}
 .dm-app .crow.s{width:55%}
 .dm-app .crow.l{width:85%}
 .dm-app .crow.em{background:linear-gradient(90deg,var(--ember),rgba(255,106,46,0.2));width:70%}
-.dm-app .tabbar{padding:10px 16px 18px;display:flex;justify-content:space-around;border-top:1px solid rgba(245,233,216,0.06)}
+.dm-app .tabbar{padding:9px 14px 16px;display:flex;justify-content:space-around;border-top:1px solid rgba(245,233,216,0.06)}
 .dm-app .tabbar .tab{width:6px;height:6px;border-radius:50%;background:rgba(245,233,216,0.15)}
 .dm-app .tabbar .tab.act{background:var(--ember);box-shadow:0 0 8px var(--ember)}
-.dm-app .fab{position:absolute;bottom:68px;right:14px;width:42px;height:42px;border-radius:50%;background:var(--ember);box-shadow:0 0 20px rgba(255,106,46,0.6);display:flex;align-items:center;justify-content:center;color:var(--bg);font-family:'Geist',sans-serif;font-weight:700;font-size:20px;animation:fabpulse 2.2s ease-in-out infinite}
+.dm-app .fab{position:absolute;bottom:60px;right:12px;width:38px;height:38px;border-radius:50%;background:var(--ember);box-shadow:0 0 20px rgba(255,106,46,0.6);display:flex;align-items:center;justify-content:center;color:var(--bg);font-family:'Geist',sans-serif;font-weight:700;font-size:18px;animation:fabpulse 2.2s ease-in-out infinite}
 @keyframes fabpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-.dm-app .notif{position:absolute;top:60px;left:14px;right:14px;background:rgba(20,18,28,0.92);backdrop-filter:blur(20px);border:1px solid rgba(245,233,216,0.08);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:10px;animation:notifslide 4s ease-out infinite}
-.dm-app .notif .nicon{width:20px;height:20px;border-radius:6px;background:var(--ember);box-shadow:0 0 8px rgba(255,106,46,0.5);flex-shrink:0}
+.dm-app .notif{position:absolute;top:54px;left:12px;right:12px;background:rgba(20,18,28,0.92);backdrop-filter:blur(20px);border:1px solid rgba(245,233,216,0.08);border-radius:10px;padding:9px 11px;display:flex;align-items:center;gap:9px;animation:notifslide 4s ease-out infinite}
+.dm-app .notif .nicon{width:18px;height:18px;border-radius:5px;background:var(--ember);box-shadow:0 0 8px rgba(255,106,46,0.5);flex-shrink:0}
 .dm-app .notif .ntxt{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--bone);line-height:1.3}
 .dm-app .notif .ntxt strong{display:block;font-weight:600;margin-bottom:2px}
 @keyframes notifslide{0%,15%,100%{opacity:0;transform:translateY(-30px)}25%,75%{opacity:1;transform:translateY(0)}90%{opacity:0;transform:translateY(-10px)}}
 
-/* SECTIONS (post-showcase) */
-section.flow{position:relative;padding:100px 0;z-index:2}
-.section-label{display:inline-block;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.22em;color:var(--ember);margin-bottom:18px}
-.section-head{font-family:'Geist',sans-serif;font-weight:700;font-size:clamp(28px,4.2vw,48px);letter-spacing:-0.028em;line-height:1.1;color:var(--bone);margin-bottom:18px;max-width:780px}
+/* TICKER (post-stage) */
+.ticker-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 0;background:rgba(14,13,18,0.5);overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.ticker{display:flex;gap:56px;width:max-content;animation:scroll 50s linear infinite}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--bone-dim);letter-spacing:0.04em;white-space:nowrap;display:flex;align-items:center;gap:56px}
+.ticker-item::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--ember);opacity:0.6}
 
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:0;margin:40px 0}
+/* FLOW SECTIONS */
+section.flow{position:relative;padding:90px 0;z-index:2}
+.section-label{display:inline-block;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.22em;color:var(--ember);margin-bottom:18px}
+.section-head{font-family:'Geist',sans-serif;font-weight:700;font-size:clamp(28px,4.2vw,46px);letter-spacing:-0.028em;line-height:1.1;color:var(--bone);margin-bottom:18px;max-width:780px}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .stat{border:1px solid var(--border);border-radius:18px;padding:28px;background:linear-gradient(160deg,var(--surface),var(--bg-2))}
-.stat-val{font-family:'Geist',sans-serif;font-size:46px;font-weight:800;letter-spacing:-0.04em;background:linear-gradient(120deg,var(--bone),var(--ember-halo));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.stat-val{font-family:'Geist',sans-serif;font-size:44px;font-weight:800;letter-spacing:-0.04em;background:linear-gradient(120deg,var(--bone),var(--ember-halo));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
 .stat-label{font-family:'DM Sans',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:0.16em;color:var(--bone-dim);margin-top:14px}
 
 .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.step{border:1px solid var(--border);border-radius:20px;padding:32px;background:var(--surface);position:relative;overflow:hidden;transition:border-color .3s}
+.step{border:1px solid var(--border);border-radius:20px;padding:30px;background:var(--surface);transition:border-color .3s}
 .step:hover{border-color:rgba(255,106,46,0.35)}
-.step-num{font-family:'Geist',sans-serif;font-size:13px;font-weight:600;color:var(--ember);letter-spacing:0.1em;margin-bottom:22px}
-.step h3{font-family:'Geist',sans-serif;font-size:20px;font-weight:600;color:var(--bone);margin-bottom:10px;letter-spacing:-0.018em}
+.step-num{font-family:'Geist',sans-serif;font-size:13px;font-weight:600;color:var(--ember);letter-spacing:0.1em;margin-bottom:20px}
+.step h3{font-family:'Geist',sans-serif;font-size:19px;font-weight:600;color:var(--bone);margin-bottom:10px;letter-spacing:-0.018em}
 .step p{font-size:14px;color:var(--bone-dim);line-height:1.55}
 
-.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.price{border:1px solid var(--border);border-radius:22px;padding:36px;background:var(--surface);position:relative;overflow:hidden}
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.price{border:1px solid var(--border);border-radius:22px;padding:34px;background:var(--surface);position:relative;overflow:hidden}
 .price.pop{border-color:rgba(255,106,46,0.4);background:linear-gradient(160deg,rgba(255,106,46,0.06),var(--surface))}
 .price.pop::after{content:'Most chosen';position:absolute;top:20px;right:20px;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.16em;color:var(--ember);padding:5px 11px;border:1px solid rgba(255,106,46,0.35);border-radius:999px;background:rgba(255,106,46,0.06)}
 .price-label{font-family:'DM Sans',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:0.2em;color:var(--bone-dim);margin-bottom:18px}
-.price-desc{font-size:14.5px;color:var(--bone);line-height:1.6;margin-bottom:26px}
-.price-amount{font-family:'Geist',sans-serif;font-size:22px;font-weight:700;color:var(--bone);letter-spacing:-0.025em}
+.price-desc{font-size:14px;color:var(--bone);line-height:1.6;margin-bottom:24px}
+.price-amount{font-family:'Geist',sans-serif;font-size:21px;font-weight:700;color:var(--bone);letter-spacing:-0.025em}
 .price-amount.ember{color:var(--ember)}
 
-.cta-block{border:1px solid var(--border);border-radius:28px;background:linear-gradient(160deg,var(--surface) 0%,var(--surface-2) 100%);padding:72px 40px;text-align:center;position:relative;overflow:hidden}
+.cta-block{border:1px solid var(--border);border-radius:26px;background:linear-gradient(160deg,var(--surface) 0%,var(--surface-2) 100%);padding:64px 38px;text-align:center;position:relative;overflow:hidden}
 .cta-block::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,106,46,0.15),transparent 60%);filter:blur(40px);pointer-events:none}
 .cta-block > *{position:relative;z-index:1}
-.cta-block h2{font-family:'Geist',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:700;letter-spacing:-0.03em;line-height:1.1;color:var(--bone);margin-bottom:18px}
-.cta-block p{font-size:16px;color:var(--bone-dim);max-width:520px;margin:0 auto 32px;line-height:1.55}
-.wa-btn{display:inline-flex;align-items:center;gap:11px;background:var(--ember);color:var(--bg);font-family:'Geist',sans-serif;font-size:15px;font-weight:600;padding:16px 28px;border-radius:999px;text-decoration:none;box-shadow:0 0 0 1px var(--ember), 0 16px 50px rgba(255,106,46,0.4);transition:transform .25s}
+.cta-block h2{font-family:'Geist',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:700;letter-spacing:-0.03em;line-height:1.1;color:var(--bone);margin-bottom:16px}
+.cta-block p{font-size:15.5px;color:var(--bone-dim);max-width:520px;margin:0 auto 30px;line-height:1.55}
+.wa-btn{display:inline-flex;align-items:center;gap:11px;background:var(--ember);color:var(--bg);font-family:'Geist',sans-serif;font-size:15px;font-weight:600;padding:15px 26px;border-radius:999px;text-decoration:none;box-shadow:0 0 0 1px var(--ember), 0 16px 50px rgba(255,106,46,0.4);transition:transform .25s}
 .wa-btn:hover{transform:translateY(-2px)}
 .wa-btn svg{width:18px;height:18px}
-.cta-note{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--bone-faint);margin-top:20px;letter-spacing:0.04em}
+.cta-note{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--bone-faint);margin-top:18px;letter-spacing:0.04em}
 
-footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px;text-align:center}
+footer{padding:46px 28px 34px;border-top:1px solid var(--border);margin-top:60px;text-align:center}
 .foot-mark{display:inline-flex;align-items:center;gap:10px;color:var(--bone-dim);font-family:'Geist',sans-serif;font-size:14px;font-weight:500}
 .foot-mark .dot{width:8px;height:8px;border-radius:50%;background:var(--ember);box-shadow:0 0 10px var(--ember)}
 .foot-meta{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--bone-faint);margin-top:14px;letter-spacing:0.08em}
@@ -269,41 +294,32 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
 .lang-content.active{display:block}
 
 /* ARABIC */
-.ar .hero h1{font-family:'Tajawal',sans-serif;font-weight:900;letter-spacing:-0.02em;line-height:1.16}
+.ar .ph-hero h1{font-family:'Tajawal',sans-serif;font-weight:900;letter-spacing:-0.02em;line-height:1.16}
 .ar .section-head,.ar .phase-copy h2{font-family:'Tajawal',sans-serif;font-weight:800;line-height:1.2}
 .ar .cta-block h2{font-family:'Tajawal',sans-serif;font-weight:800;line-height:1.2}
 .ar .step h3{font-family:'Tajawal',sans-serif;font-weight:700}
 .ar p,.ar li,.ar .hero-sub,.ar .lede,.ar .step p,.ar .price-desc,.ar .phase-copy .lede{font-family:'Tajawal',sans-serif;line-height:1.8}
 
-/* RESPONSIVE */
 @media (max-width:900px){
   nav{padding:14px 20px}
   .nav-links{gap:18px}
   .nav-links a:not(.lang-btn){display:none}
   .wrap{padding:0 20px}
-  .hero{padding:110px 0 0;min-height:90vh}
-  .hero .wrap{padding-bottom:180px}
-  .hero-badge{margin-bottom:24px}
-  .hero h1{font-size:clamp(40px,11vw,68px);margin-bottom:22px}
-  .hero-sub{font-size:15px;margin-bottom:26px}
-  .hero-pills{margin-bottom:28px;gap:6px}
-  .hero-pill{font-size:10px;padding:6px 11px}
-  .hero-cta{font-size:14px;padding:6px 6px 6px 20px}
-  .hero-cta .arr{width:32px;height:32px}
-  .hero-artifact{height:50vh}
-  .scroll-hint{display:none}
-  section.flow{padding:70px 0}
-  /* Showcase falls back to natural flow on mobile */
-  .showcase{height:auto}
-  .showcase-stage{position:relative;top:auto;height:auto;display:block}
-  .showcase-inner{display:block;padding:0 20px}
-  .phase{position:relative;inset:auto;opacity:1;transform:none;pointer-events:auto;grid-template-columns:1fr;gap:32px;padding:80px 0;border-top:1px solid var(--border)}
-  .phase:first-child{border-top:none}
-  .phase-copy{padding-top:0}
-  .phase-nav,.phase-counter{display:none}
-  .demo{aspect-ratio:1/0.85;max-height:none}
+  /* Stage falls back to natural scroll on mobile */
+  .stage{height:auto}
+  .stage-pin{position:relative;top:auto;height:auto;overflow:visible}
+  .stage-bg{position:relative;height:50vh;inset:auto;display:block}
+  .stage-artifact{height:100%;position:absolute;inset:0}
+  .phases{position:relative;height:auto}
+  .phase{position:relative;inset:auto;opacity:1;transform:none;pointer-events:auto;padding:80px 20px;border-top:1px solid var(--border);min-height:auto}
+  .phase:first-child{border-top:none;padding-top:120px}
+  .ph-hero h1{font-size:clamp(38px,10vw,64px)}
+  .ph-offer .phase-inner{grid-template-columns:1fr;gap:30px}
+  .phase-nav,.phase-counter,.scroll-hint{display:none}
+  .demo{aspect-ratio:1/0.95}
   .dm-app{gap:14px;padding:18px}
   .dm-app .ph.b{display:none}
+  section.flow{padding:60px 0}
   .stats,.how-grid,.price-grid{grid-template-columns:1fr}
   .cta-block{padding:48px 24px}
 }
@@ -320,24 +336,29 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
     <svg class="orb-mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <radialGradient id="navOrb" cx="35%" cy="30%" r="80%">
-          <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+          <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
           <stop offset="30%" stop-color="#9DA3AB"/>
           <stop offset="65%" stop-color="#3F2A1A"/>
           <stop offset="100%" stop-color="#0E0D12"/>
         </radialGradient>
         <radialGradient id="navEmber" cx="50%" cy="80%" r="60%">
-          <stop offset="0%" stop-color="#FF6A2E" stop-opacity="0.7"/>
+          <stop offset="0%" stop-color="#FF6A2E" stop-opacity="0.75"/>
           <stop offset="100%" stop-color="#FF6A2E" stop-opacity="0"/>
         </radialGradient>
+        <linearGradient id="navIrid" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#3FE5FF" stop-opacity="0.6"/>
+          <stop offset="50%" stop-color="#D63FFF" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#FF6A2E" stop-opacity="0.6"/>
+        </linearGradient>
       </defs>
       <circle cx="50" cy="55" r="22" fill="url(#navEmber)"/>
       <circle cx="50" cy="50" r="32" fill="url(#navOrb)"/>
+      <circle cx="50" cy="50" r="32" fill="url(#navIrid)" opacity="0.35"/>
       <ellipse cx="42" cy="40" rx="10" ry="5" fill="rgba(255,255,255,0.4)"/>
     </svg>
     <span class="brand-text">alvvoayad<span class="dot">.ai</span></span>
   </a>
   <div class="nav-links">
-    <a href="#showcase-en" data-en="Services" data-ar="خدماتنا">Services</a>
     <a href="#process-en" data-en="Process" data-ar="مراحل العمل">Process</a>
     <a href="/guide" data-en="30-Day Guide" data-ar="دليل الـ 30 يوم">30-Day Guide</a>
     <a href="#contact-en" data-en="Contact" data-ar="تواصل">Contact</a>
@@ -360,9 +381,9 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
       <stop offset="100%" stop-color="#FF6A2E" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="orbIridescent" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3FE5FF" stop-opacity="0.5"/>
-      <stop offset="50%" stop-color="#D63FFF" stop-opacity="0.4"/>
-      <stop offset="100%" stop-color="#FF6A2E" stop-opacity="0.5"/>
+      <stop offset="0%" stop-color="#3FE5FF" stop-opacity="0.55"/>
+      <stop offset="50%" stop-color="#D63FFF" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#FF6A2E" stop-opacity="0.55"/>
     </linearGradient>
     <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#FF6A2E" stop-opacity="0.35"/>
@@ -395,38 +416,270 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
 <!-- ===== ENGLISH ===== -->
 <div class="lang-content active" id="lang-en">
 
-  <section class="hero">
-    <div class="wrap">
-      <div class="hero-badge">
-        <span class="bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
-        <span>Available for new clients</span>
+  <section class="stage" data-stage data-active="0" id="stage-en">
+    <div class="stage-pin">
+      <div class="stage-bg">
+        <div class="stage-glow"></div>
+        <div class="stage-artifact">
+          <svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+            <ellipse cx="800" cy="620" rx="900" ry="200" fill="#FF6A2E" opacity="0.32" filter="url(#waveBlurXL)"/>
+            <path d="M-100 480 C 250 360, 550 460, 850 410 S 1300 320, 1700 440 L 1700 700 L -100 700 Z" fill="url(#waveBase)" opacity="0.5" filter="url(#waveBlur)"/>
+            <path d="M-100 560 C 250 440, 550 540, 850 480 S 1300 380, 1700 520 L 1700 700 L -100 700 Z" fill="url(#waveBase)"/>
+            <path d="M-100 560 C 250 440, 550 540, 850 480 S 1300 380, 1700 520" stroke="url(#waveIrid)" stroke-width="3" fill="none" opacity="0.9" filter="url(#waveBlur)"/>
+            <path d="M-100 620 C 300 510, 700 580, 1100 540 S 1500 480, 1700 560 L 1700 700 L -100 700 Z" fill="url(#waveEmber)" opacity="0.7"/>
+            <path d="M-100 640 C 350 540, 800 600, 1700 600 L 1700 700 L -100 700 Z" fill="url(#waveBase)" opacity="0.55"/>
+          </svg>
+          <div class="chromatic-shine"></div>
+        </div>
+        <div class="stage-fade"></div>
       </div>
-      <h1>We build the systems<br>your business is <span class="ember">missing.</span></h1>
-      <p class="hero-sub">Dashboards, automation, websites and apps — built around how you actually work, not generic software you bend yourself into.</p>
-      <div class="hero-pills">
-        <span class="hero-pill">Dashboards</span>
-        <span class="hero-pill">Automation</span>
-        <span class="hero-pill">Websites</span>
-        <span class="hero-pill">Apps</span>
+
+      <div class="phases">
+
+        <!-- PHASE 0 — HERO -->
+        <div class="phase ph-hero active" data-phase="0">
+          <div class="phase-inner">
+            <div class="hero-orb-mini">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="58" r="32" fill="url(#orbEmber)" opacity="0.85"/>
+                <circle cx="50" cy="50" r="40" fill="url(#orbBase)"/>
+                <circle cx="50" cy="50" r="40" fill="url(#orbIridescent)" opacity="0.35"/>
+                <ellipse cx="40" cy="38" rx="13" ry="6" fill="rgba(255,255,255,0.5)"/>
+                <ellipse cx="42" cy="34" rx="5" ry="2" fill="rgba(255,255,255,0.85)"/>
+              </svg>
+            </div>
+            <div class="hero-badge">
+              <span class="bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
+              <span>Available for new clients</span>
+            </div>
+            <h1>We build the systems<br>your business is <span class="ember">missing.</span></h1>
+            <p class="hero-sub">Dashboards, automation, websites and apps — built around how you actually work, not generic software you bend yourself into.</p>
+            <div class="hero-pills">
+              <span class="hero-pill">Dashboards</span>
+              <span class="hero-pill">Automation</span>
+              <span class="hero-pill">Websites</span>
+              <span class="hero-pill">Apps</span>
+            </div>
+            <a href="https://wa.me/96877056051?text=Hi%2C%20I%27m%20interested%20in%20working%20with%20you" class="hero-cta" target="_blank">
+              Start a conversation
+              <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- PHASE 1 — DASHBOARDS -->
+        <div class="phase ph-offer" data-phase="1">
+          <div class="phase-inner">
+            <div class="phase-copy">
+              <div class="phase-num">01 · Dashboards</div>
+              <h2>The view of your business you've never had.</h2>
+              <p class="lede">Live KPIs, revenue, team activity, ops — one screen, any device.</p>
+              <ul>
+                <li>Real-time KPIs custom to your business</li>
+                <li>Team and pipeline tracking</li>
+                <li>Mobile-friendly · role-based access</li>
+                <li>Connected to tools you already use</li>
+              </ul>
+            </div>
+            <div class="phase-viz">
+              <div class="demo">
+                <div class="dm-dash">
+                  <div class="topbar">
+                    <div class="dm-brand"><span class="od"></span> ACME · Live Dashboard</div>
+                    <div class="dm-tabs"><span>Overview</span><span class="act">Live</span><span>Reports</span></div>
+                    <div class="dm-live"><span class="d"></span> Live</div>
+                  </div>
+                  <div class="dm-body">
+                    <div class="kpi-row">
+                      <div class="kpi"><div class="lbl">Revenue MTD</div><div class="val">42,180</div><div class="delta">↑ 18% vs last month</div></div>
+                      <div class="kpi alt"><div class="lbl">Active leads</div><div class="val">127</div><div class="delta">↑ 12 today</div></div>
+                      <div class="kpi"><div class="lbl">Conversion</div><div class="val">8.4%</div><div class="delta">↑ 1.2pt</div></div>
+                    </div>
+                    <div class="chart-card">
+                      <div class="chart-head"><div class="ttl">This week · revenue</div><div class="dm-live"><span class="d"></span> Live</div></div>
+                      <svg class="chart-svg" viewBox="0 0 400 110" preserveAspectRatio="none">
+                        <path class="fill" d="M0 90 L 40 70 L 80 80 L 120 50 L 160 60 L 200 35 L 240 45 L 280 25 L 320 30 L 360 15 L 400 20 L 400 110 L 0 110 Z"/>
+                        <path class="line" d="M0 90 L 40 70 L 80 80 L 120 50 L 160 60 L 200 35 L 240 45 L 280 25 L 320 30 L 360 15 L 400 20"/>
+                        <circle class="pt" cx="40" cy="70" r="3" style="animation-delay:0.6s"/>
+                        <circle class="pt" cx="120" cy="50" r="3" style="animation-delay:1s"/>
+                        <circle class="pt" cx="200" cy="35" r="3" style="animation-delay:1.4s"/>
+                        <circle class="pt" cx="280" cy="25" r="3" style="animation-delay:1.8s"/>
+                        <circle class="pt" cx="360" cy="15" r="4" style="animation-delay:2.2s" fill="#FFB36A"/>
+                      </svg>
+                    </div>
+                    <div class="activity">
+                      <div class="act"><div class="l"><span class="dot"></span>New lead from WhatsApp · qualified</div><span class="t">just now</span></div>
+                      <div class="act"><div class="l"><span class="dot b"></span>Payment received · 245 OMR</div><span class="t">2m ago</span></div>
+                      <div class="act"><div class="l"><span class="dot c"></span>Auto-report sent to team</div><span class="t">5m ago</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 2 — AUTOMATION / WHATSAPP BOT -->
+        <div class="phase ph-offer" data-phase="2">
+          <div class="phase-inner">
+            <div class="phase-copy">
+              <div class="phase-num">02 · Automation · WhatsApp Bot</div>
+              <h2>Work that runs itself.</h2>
+              <p class="lede">A WhatsApp agent that replies, qualifies, and follows up — 24/7, in your voice.</p>
+              <ul>
+                <li>Auto-reply with AI in your tone</li>
+                <li>Lead qualification + routing to your team</li>
+                <li>Quick-reply menus and bookings</li>
+                <li>Plugs into Make, n8n, your CRM</li>
+              </ul>
+            </div>
+            <div class="phase-viz">
+              <div class="demo">
+                <div class="dm-wa">
+                  <div class="wa-chat">
+                    <div class="wa-header">
+                      <div class="wa-avatar"></div>
+                      <div class="wa-meta">
+                        <div class="wa-name">Acme Co. <span class="vfd">✓</span></div>
+                        <div class="wa-status">online · auto-reply</div>
+                      </div>
+                      <div class="wa-actions">⋮</div>
+                    </div>
+                    <div class="wa-thread">
+                      <div class="wa-day">TODAY</div>
+                      <div class="wa-msg in"><div class="wa-bubble">Hi! Do you offer dashboards? <span class="t">2:14 pm</span></div></div>
+                      <div class="wa-msg out"><div class="wa-bubble">Hey 👋 Yes — we build live KPI dashboards. Want a quick demo? <span class="t">2:14 pm</span></div></div>
+                      <div class="wa-msg in q"><div class="wa-bubble">Yes, and what's the price? <span class="t">2:15 pm</span></div></div>
+                      <div class="wa-msg out t"><div class="wa-bubble"><span class="wa-dots"><span></span><span></span><span></span></span></div></div>
+                      <div class="qrs">
+                        <button class="qr">📊 See demo</button>
+                        <button class="qr">💬 Get quote</button>
+                        <button class="qr">📅 Book call</button>
+                      </div>
+                    </div>
+                    <div class="wa-input">
+                      <span class="ipl">😊</span>
+                      <input placeholder="Type a message…" readonly>
+                      <span class="ipr">🎤</span>
+                    </div>
+                  </div>
+                  <div class="wa-stats">
+                    <div class="wa-stat"><strong>2.4s</strong>AVG REPLY</div>
+                    <div class="wa-stat"><strong class="em">98.7%</strong>AUTO-RESOLVED</div>
+                    <div class="wa-stat"><strong>24/7</strong>NEVER SLEEPS</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 3 — WEBSITES -->
+        <div class="phase ph-offer" data-phase="3">
+          <div class="phase-inner">
+            <div class="phase-copy">
+              <div class="phase-num">03 · Websites</div>
+              <h2>Sites that look like the work you actually do.</h2>
+              <p class="lede">Landing pages, agency sites, sales funnels — premium, on-brand, built to convert.</p>
+              <ul>
+                <li>Custom design — no templates</li>
+                <li>Bilingual English / Arabic</li>
+                <li>Vercel hosting · auto-deploy</li>
+                <li>SEO, analytics, payments included</li>
+              </ul>
+            </div>
+            <div class="phase-viz">
+              <div class="demo">
+                <div class="dm-web">
+                  <div class="browser-bar">
+                    <span class="light"></span><span class="light"></span><span class="light"></span>
+                    <div class="url">alvvoayad.ai</div>
+                  </div>
+                  <div class="page">
+                    <div class="pnav">
+                      <div class="plogo"><span class="pdot"></span> brand.ai</div>
+                      <div class="pmenu"><span>Work</span><span>About</span><span>Contact</span></div>
+                    </div>
+                    <div class="pemoji">◉</div>
+                    <div class="ph">Premium sites,<br><span class="em">shipped fast.</span></div>
+                    <div class="ps">Brand-grade design and modern stacks for businesses that take themselves seriously.</div>
+                    <div class="pcta">Start now →</div>
+                    <div class="pfeats">
+                      <div class="pfeat"><strong>48h</strong>turnaround</div>
+                      <div class="pfeat"><strong>100/100</strong>page speed</div>
+                      <div class="pfeat"><strong>2 lang</strong>EN · AR</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 4 — APPS -->
+        <div class="phase ph-offer" data-phase="4">
+          <div class="phase-inner">
+            <div class="phase-copy">
+              <div class="phase-num">04 · Apps</div>
+              <h2>Mobile and web apps,<br>shipped in weeks.</h2>
+              <p class="lede">For your team or your customers — designed, built, deployed with modern AI tooling.</p>
+              <ul>
+                <li>iOS, Android, web — one codebase</li>
+                <li>Internal tools for teams</li>
+                <li>Client-facing portals and products</li>
+                <li>From prototype to production in weeks</li>
+              </ul>
+            </div>
+            <div class="phase-viz">
+              <div class="demo">
+                <div class="dm-app">
+                  <div class="ph">
+                    <div class="scr">
+                      <div class="notif">
+                        <div class="nicon"></div>
+                        <div class="ntxt"><strong>New lead</strong>Khalid · qualified by AI</div>
+                      </div>
+                      <div class="scrh"><div class="ph-ttl">Today</div><div class="ph-av"></div></div>
+                      <div class="scr-body">
+                        <div class="card pop"><div class="crow em"></div><div class="crow l"></div><div class="crow s"></div></div>
+                        <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
+                        <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
+                        <div class="card"><div class="crow s"></div><div class="crow l"></div></div>
+                      </div>
+                      <div class="tabbar"><span class="tab act"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span></div>
+                      <div class="fab">+</div>
+                    </div>
+                  </div>
+                  <div class="ph b">
+                    <div class="scr">
+                      <div class="scrh"><div class="ph-ttl">Inbox</div><div class="ph-av"></div></div>
+                      <div class="scr-body">
+                        <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
+                        <div class="card"><div class="crow em"></div><div class="crow l"></div></div>
+                        <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
+                        <div class="card"><div class="crow s"></div><div class="crow l"></div></div>
+                      </div>
+                      <div class="tabbar"><span class="tab"></span><span class="tab act"></span><span class="tab"></span><span class="tab"></span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <a href="https://wa.me/96877056051?text=Hi%2C%20I%27m%20interested%20in%20working%20with%20you" class="hero-cta" target="_blank">
-        Start a conversation
-        <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-      </a>
+
+      <div class="phase-counter"><span class="ci">01</span> / 05</div>
+      <div class="phase-nav">
+        <button class="pd active" data-go="0" aria-label="Hero"></button>
+        <button class="pd" data-go="1" aria-label="Dashboards"></button>
+        <button class="pd" data-go="2" aria-label="Automation"></button>
+        <button class="pd" data-go="3" aria-label="Websites"></button>
+        <button class="pd" data-go="4" aria-label="Apps"></button>
+      </div>
+      <div class="scroll-hint"><span>Scroll to swap</span><span class="line"></span></div>
     </div>
-    <div class="hero-glow-floor"></div>
-    <div class="hero-artifact">
-      <svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-        <ellipse cx="800" cy="620" rx="900" ry="200" fill="#FF6A2E" opacity="0.32" filter="url(#waveBlurXL)"/>
-        <path d="M-100 480 C 250 360, 550 460, 850 410 S 1300 320, 1700 440 L 1700 700 L -100 700 Z" fill="url(#waveBase)" opacity="0.5" filter="url(#waveBlur)"/>
-        <path d="M-100 560 C 250 440, 550 540, 850 480 S 1300 380, 1700 520 L 1700 700 L -100 700 Z" fill="url(#waveBase)"/>
-        <path d="M-100 560 C 250 440, 550 540, 850 480 S 1300 380, 1700 520" stroke="url(#waveIrid)" stroke-width="3" fill="none" opacity="0.9" filter="url(#waveBlur)"/>
-        <path d="M-100 620 C 300 510, 700 580, 1100 540 S 1500 480, 1700 560 L 1700 700 L -100 700 Z" fill="url(#waveEmber)" opacity="0.7"/>
-        <path d="M-100 640 C 350 540, 800 600, 1700 600 L 1700 700 L -100 700 Z" fill="url(#waveBase)" opacity="0.55"/>
-      </svg>
-    </div>
-    <div class="hero-fade"></div>
-    <div class="scroll-hint"><span>Scroll to explore</span><span class="line"></span></div>
   </section>
 
   <div class="ticker-wrap">
@@ -435,244 +688,6 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
       <span class="ticker-item">Dashboards</span><span class="ticker-item">Automation</span><span class="ticker-item">Websites</span><span class="ticker-item">Mobile Apps</span><span class="ticker-item">n8n · Make · Zapier</span><span class="ticker-item">Supabase · Vercel · Next.js</span><span class="ticker-item">Claude · GPT · Gemini</span><span class="ticker-item">WhatsApp Business API</span><span class="ticker-item">Oman-Based</span>
     </div>
   </div>
-
-  <!-- SHOWCASE — pinned scroll stage -->
-  <section class="showcase" id="showcase-en" data-showcase>
-    <div class="showcase-stage">
-      <div class="phase-counter"><span class="ci">01</span> / 04</div>
-
-      <div class="showcase-inner">
-
-        <!-- PHASE 1: DASHBOARDS -->
-        <div class="phase" data-phase="0">
-          <div class="phase-copy">
-            <div class="phase-num">01 · Dashboards</div>
-            <h2>The view of your business you've never had.</h2>
-            <p class="lede">Live KPIs, revenue, team activity, ops — one screen, any device. Connected to what you already use.</p>
-            <ul>
-              <li>Real-time KPIs custom to your business</li>
-              <li>Team and project tracking</li>
-              <li>Sales and pipeline visibility</li>
-              <li>Role-based access — owners, managers, staff</li>
-            </ul>
-          </div>
-          <div class="phase-viz">
-            <div class="demo">
-              <div class="dm-dash">
-                <div class="topbar">
-                  <div class="dm-brand"><span class="od"></span> ACME · Live Dashboard</div>
-                  <div class="dm-tabs"><span>Overview</span><span class="act">Live</span><span>Reports</span></div>
-                  <div class="dm-live"><span class="d"></span> Live</div>
-                </div>
-                <div class="dm-body">
-                  <div class="kpi-row">
-                    <div class="kpi"><div class="lbl">Revenue MTD</div><div class="val">42,180</div><div class="delta">↑ 18% vs last month</div></div>
-                    <div class="kpi alt"><div class="lbl">Active leads</div><div class="val">127</div><div class="delta">↑ 12 today</div></div>
-                    <div class="kpi"><div class="lbl">Conversion</div><div class="val">8.4%</div><div class="delta">↑ 1.2pt</div></div>
-                  </div>
-                  <div class="chart-card">
-                    <div class="chart-head"><div class="ttl">This week · revenue</div><div class="dm-live"><span class="d"></span> Live</div></div>
-                    <svg class="chart-svg" viewBox="0 0 400 110" preserveAspectRatio="none">
-                      <path class="fill" d="M0 90 L 40 70 L 80 80 L 120 50 L 160 60 L 200 35 L 240 45 L 280 25 L 320 30 L 360 15 L 400 20 L 400 110 L 0 110 Z"/>
-                      <path class="line" d="M0 90 L 40 70 L 80 80 L 120 50 L 160 60 L 200 35 L 240 45 L 280 25 L 320 30 L 360 15 L 400 20"/>
-                      <circle class="pt" cx="40" cy="70" r="3" style="animation-delay:0.6s"/>
-                      <circle class="pt" cx="120" cy="50" r="3" style="animation-delay:1s"/>
-                      <circle class="pt" cx="200" cy="35" r="3" style="animation-delay:1.4s"/>
-                      <circle class="pt" cx="280" cy="25" r="3" style="animation-delay:1.8s"/>
-                      <circle class="pt" cx="360" cy="15" r="4" style="animation-delay:2.2s" fill="#FFB36A"/>
-                    </svg>
-                  </div>
-                  <div class="activity">
-                    <div class="act"><div class="l"><span class="dot"></span>New lead from WhatsApp · qualified</div><span class="t">just now</span></div>
-                    <div class="act"><div class="l"><span class="dot b"></span>Payment received · 245 OMR</div><span class="t">2m ago</span></div>
-                    <div class="act"><div class="l"><span class="dot c"></span>Auto-report sent to team</div><span class="t">5m ago</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PHASE 2: AUTOMATION -->
-        <div class="phase" data-phase="1">
-          <div class="phase-copy">
-            <div class="phase-num">02 · Automation</div>
-            <h2>Work that runs itself.</h2>
-            <p class="lede">Repetitive tasks, replies, follow-ups, reports — handed off to systems that never sleep, never miss.</p>
-            <ul>
-              <li>WhatsApp, email, and form automation</li>
-              <li>Lead capture, qualification, routing</li>
-              <li>AI agents for replies and triage</li>
-              <li>Integrations: n8n, Make, Zapier, custom APIs</li>
-            </ul>
-          </div>
-          <div class="phase-viz">
-            <div class="demo">
-              <div class="dm-auto">
-                <div class="ahead">
-                  <div class="at">Workflow · live</div>
-                  <div class="ac"><span class="d"></span>1,247 events today</div>
-                </div>
-                <div class="canvas">
-                  <svg viewBox="0 0 580 360">
-                    <defs>
-                      <pattern id="g2" width="40" height="40" patternUnits="userSpaceOnUse"><path class="grid-bg" d="M 40 0 L 0 0 0 40"/></pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#g2)"/>
-
-                    <path class="link o" d="M90 180 L 220 100" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="2s" repeatCount="indefinite"/></path>
-                    <path class="link m" d="M90 180 L 220 260" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="2.3s" repeatCount="indefinite"/></path>
-                    <path class="link o" d="M280 100 L 380 180" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="2.1s" repeatCount="indefinite"/></path>
-                    <path class="link c" d="M280 260 L 380 180" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="2.5s" repeatCount="indefinite"/></path>
-                    <path class="link o" d="M440 180 L 540 180" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.9s" repeatCount="indefinite"/></path>
-
-                    <g><rect class="nbox" x="30" y="150" width="60" height="60" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/><text class="ntxt" x="60" y="178" text-anchor="middle">WA</text><text class="nsub" x="60" y="194" text-anchor="middle">IN</text></g>
-
-                    <g><rect class="nbox" x="220" y="70" width="60" height="60" fill="#15100C" stroke="#D63FFF" stroke-width="1.5"/><text class="ntxt" x="250" y="100" text-anchor="middle">Filter</text><text class="nsub" x="250" y="116" text-anchor="middle">RULE</text></g>
-
-                    <g><rect class="nbox" x="220" y="230" width="60" height="60" fill="#15100C" stroke="#3FE5FF" stroke-width="1.5"/><text class="ntxt" x="250" y="260" text-anchor="middle">AI</text><text class="nsub" x="250" y="276" text-anchor="middle">REPLY</text></g>
-
-                    <g><rect class="nbox" x="380" y="150" width="60" height="60" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/><text class="ntxt" x="410" y="180" text-anchor="middle">Route</text><text class="nsub" x="410" y="196" text-anchor="middle">SPLIT</text></g>
-
-                    <g><rect class="nbox" x="500" y="150" width="60" height="60" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/><text class="ntxt" x="530" y="178" text-anchor="middle">CRM</text><text class="nsub" x="530" y="194" text-anchor="middle">OUT</text></g>
-
-                    <circle r="4" fill="#FF6A2E"><animateMotion dur="3s" repeatCount="indefinite" path="M90 180 L 220 100 L 280 100 L 380 180 L 440 180 L 540 180"/></circle>
-                    <circle r="4" fill="#D63FFF"><animateMotion dur="3.4s" repeatCount="indefinite" begin="0.5s" path="M90 180 L 220 260 L 280 260 L 380 180 L 440 180 L 540 180"/></circle>
-                  </svg>
-                </div>
-                <div class="stats">
-                  <div class="s"><strong>2.4s</strong>avg response</div>
-                  <div class="s"><strong class="em">98.7%</strong>auto-resolved</div>
-                  <div class="s"><strong>0</strong>missed leads</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PHASE 3: WEBSITES -->
-        <div class="phase" data-phase="2">
-          <div class="phase-copy">
-            <div class="phase-num">03 · Websites</div>
-            <h2>Sites that look like the work you actually do.</h2>
-            <p class="lede">Landing pages, agency sites, sales funnels. Premium. On-brand. Built to convert.</p>
-            <ul>
-              <li>Custom design — no templates</li>
-              <li>Bilingual English / Arabic</li>
-              <li>Hosted on Vercel — fast, global, auto-deploy</li>
-              <li>Forms, payments, SEO included</li>
-            </ul>
-          </div>
-          <div class="phase-viz">
-            <div class="demo">
-              <div class="dm-web">
-                <div class="browser-bar">
-                  <span class="light"></span><span class="light"></span><span class="light"></span>
-                  <div class="url">alvvoayad.ai</div>
-                </div>
-                <div class="page">
-                  <div class="pnav">
-                    <div class="plogo"><span class="pdot"></span> brand.ai</div>
-                    <div class="pmenu"><span>Work</span><span>About</span><span>Contact</span></div>
-                  </div>
-                  <div class="pemoji">◉</div>
-                  <div class="ph">Premium sites,<br><span class="em">shipped fast.</span></div>
-                  <div class="ps">Brand-grade design and modern stacks for businesses that take themselves seriously.</div>
-                  <div class="pcta">Start now →</div>
-                  <div class="pfeats">
-                    <div class="pfeat"><strong>48h</strong>turnaround</div>
-                    <div class="pfeat"><strong>100/100</strong>page speed</div>
-                    <div class="pfeat"><strong>2 lang</strong>EN · AR</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PHASE 4: APPS -->
-        <div class="phase" data-phase="3">
-          <div class="phase-copy">
-            <div class="phase-num">04 · Apps</div>
-            <h2>Mobile and web apps,<br>shipped in weeks.</h2>
-            <p class="lede">For your team or your customers. Designed, built, and deployed with modern AI tooling.</p>
-            <ul>
-              <li>iOS, Android, and web — one codebase</li>
-              <li>Internal tools for teams</li>
-              <li>Client-facing products and portals</li>
-              <li>From prototype to production in weeks</li>
-            </ul>
-          </div>
-          <div class="phase-viz">
-            <div class="demo">
-              <div class="dm-app">
-                <div class="ph">
-                  <div class="scr">
-                    <div class="notif">
-                      <div class="nicon"></div>
-                      <div class="ntxt"><strong>New lead</strong>Khalid · qualified by AI</div>
-                    </div>
-                    <div class="scrh">
-                      <div class="ph-ttl">Today</div>
-                      <div class="ph-av"></div>
-                    </div>
-                    <div class="scr-body">
-                      <div class="card pop">
-                        <div class="crow em"></div>
-                        <div class="crow l"></div>
-                        <div class="crow s"></div>
-                      </div>
-                      <div class="card">
-                        <div class="crow l"></div>
-                        <div class="crow s"></div>
-                      </div>
-                      <div class="card">
-                        <div class="crow l"></div>
-                        <div class="crow s"></div>
-                      </div>
-                      <div class="card">
-                        <div class="crow s"></div>
-                        <div class="crow l"></div>
-                      </div>
-                    </div>
-                    <div class="tabbar">
-                      <span class="tab act"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span>
-                    </div>
-                    <div class="fab">+</div>
-                  </div>
-                </div>
-                <div class="ph b">
-                  <div class="scr">
-                    <div class="scrh">
-                      <div class="ph-ttl">Inbox</div>
-                      <div class="ph-av"></div>
-                    </div>
-                    <div class="scr-body">
-                      <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
-                      <div class="card"><div class="crow em"></div><div class="crow l"></div></div>
-                      <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
-                      <div class="card"><div class="crow s"></div><div class="crow l"></div></div>
-                    </div>
-                    <div class="tabbar">
-                      <span class="tab"></span><span class="tab act"></span><span class="tab"></span><span class="tab"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="phase-nav">
-        <button class="pd active" data-go="0" aria-label="Dashboards"></button>
-        <button class="pd" data-go="1" aria-label="Automation"></button>
-        <button class="pd" data-go="2" aria-label="Websites"></button>
-        <button class="pd" data-go="3" aria-label="Apps"></button>
-      </div>
-    </div>
-  </section>
 
   <section class="flow">
     <div class="wrap">
@@ -728,38 +743,260 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
 <!-- ===== ARABIC ===== -->
 <div class="lang-content ar" id="lang-ar" dir="rtl">
 
-  <section class="hero">
-    <div class="wrap">
-      <div class="hero-badge">
-        <span class="bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
-        <span>نستقبل عملاء جدد</span>
+  <section class="stage" data-stage data-active="0" id="stage-ar">
+    <div class="stage-pin">
+      <div class="stage-bg">
+        <div class="stage-glow"></div>
+        <div class="stage-artifact">
+          <svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+            <ellipse cx="800" cy="620" rx="900" ry="200" fill="#FF6A2E" opacity="0.32" filter="url(#waveBlurXL)"/>
+            <path d="M-100 480 C 250 360, 550 460, 850 410 S 1300 320, 1700 440 L 1700 700 L -100 700 Z" fill="url(#waveBase)" opacity="0.5" filter="url(#waveBlur)"/>
+            <path d="M-100 560 C 250 440, 550 540, 850 480 S 1300 380, 1700 520 L 1700 700 L -100 700 Z" fill="url(#waveBase)"/>
+            <path d="M-100 560 C 250 440, 550 540, 850 480 S 1300 380, 1700 520" stroke="url(#waveIrid)" stroke-width="3" fill="none" opacity="0.9" filter="url(#waveBlur)"/>
+            <path d="M-100 620 C 300 510, 700 580, 1100 540 S 1500 480, 1700 560 L 1700 700 L -100 700 Z" fill="url(#waveEmber)" opacity="0.7"/>
+            <path d="M-100 640 C 350 540, 800 600, 1700 600 L 1700 700 L -100 700 Z" fill="url(#waveBase)" opacity="0.55"/>
+          </svg>
+          <div class="chromatic-shine"></div>
+        </div>
+        <div class="stage-fade"></div>
       </div>
-      <h1>نبني الأنظمة<br>التي تنقص <span class="ember">أعمالكم.</span></h1>
-      <p class="hero-sub">لوحات تحكّم، أتمتة، مواقع، تطبيقات — مصمَّمة حول طريقة عملكم الفعلية، لا برامج جاهزة تجبركم على التكيّف معها.</p>
-      <div class="hero-pills">
-        <span class="hero-pill">لوحات تحكّم</span>
-        <span class="hero-pill">أتمتة</span>
-        <span class="hero-pill">مواقع</span>
-        <span class="hero-pill">تطبيقات</span>
+
+      <div class="phases">
+
+        <div class="phase ph-hero active" data-phase="0">
+          <div class="phase-inner">
+            <div class="hero-orb-mini">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="58" r="32" fill="url(#orbEmber)" opacity="0.85"/>
+                <circle cx="50" cy="50" r="40" fill="url(#orbBase)"/>
+                <circle cx="50" cy="50" r="40" fill="url(#orbIridescent)" opacity="0.35"/>
+                <ellipse cx="40" cy="38" rx="13" ry="6" fill="rgba(255,255,255,0.5)"/>
+                <ellipse cx="42" cy="34" rx="5" ry="2" fill="rgba(255,255,255,0.85)"/>
+              </svg>
+            </div>
+            <div class="hero-badge">
+              <span class="bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
+              <span>نستقبل عملاء جدد</span>
+            </div>
+            <h1>نبني الأنظمة<br>التي تنقص <span class="ember">أعمالكم.</span></h1>
+            <p class="hero-sub">لوحات تحكّم، أتمتة، مواقع، تطبيقات — مصمَّمة حول طريقة عملكم الفعلية، لا برامج جاهزة تجبركم على التكيّف معها.</p>
+            <div class="hero-pills">
+              <span class="hero-pill">لوحات تحكّم</span>
+              <span class="hero-pill">أتمتة</span>
+              <span class="hero-pill">مواقع</span>
+              <span class="hero-pill">تطبيقات</span>
+            </div>
+            <a href="https://wa.me/96877056051?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" class="hero-cta" target="_blank">
+              ابدأ المحادثة
+              <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 17L7 7M15 7H7v8"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+        <div class="phase ph-offer" data-phase="1">
+          <div class="phase-inner">
+            <div class="phase-copy">
+              <div class="phase-num">01 · لوحات تحكّم</div>
+              <h2>رؤية شاملة لأعمالكم لم تكن متاحة من قبل.</h2>
+              <p class="lede">مؤشرات لحظية، إيرادات، نشاط الفريق، عمليات — شاشة واحدة من أي جهاز.</p>
+              <ul>
+                <li>مؤشرات أداء مخصصة لطبيعة عملكم</li>
+                <li>متابعة الفرق وقمعات المبيعات</li>
+                <li>متوافقة مع الجوال · صلاحيات حسب الدور</li>
+                <li>مربوطة بالأدوات التي تستخدمونها</li>
+              </ul>
+            </div>
+            <div class="phase-viz">
+              <div class="demo">
+                <div class="dm-dash">
+                  <div class="topbar">
+                    <div class="dm-brand"><span class="od"></span> ACME · لوحة لحظية</div>
+                    <div class="dm-tabs"><span>نظرة عامة</span><span class="act">لحظي</span><span>تقارير</span></div>
+                    <div class="dm-live"><span class="d"></span>LIVE</div>
+                  </div>
+                  <div class="dm-body">
+                    <div class="kpi-row">
+                      <div class="kpi"><div class="lbl">الإيرادات الشهرية</div><div class="val">42,180</div><div class="delta">↑ ١٨٪</div></div>
+                      <div class="kpi alt"><div class="lbl">عملاء محتملون</div><div class="val">127</div><div class="delta">↑ ١٢ اليوم</div></div>
+                      <div class="kpi"><div class="lbl">معدل التحويل</div><div class="val">8.4%</div><div class="delta">↑ 1.2pt</div></div>
+                    </div>
+                    <div class="chart-card">
+                      <div class="chart-head"><div class="ttl">الإيرادات هذا الأسبوع</div><div class="dm-live"><span class="d"></span>LIVE</div></div>
+                      <svg class="chart-svg" viewBox="0 0 400 110" preserveAspectRatio="none">
+                        <path class="fill" d="M0 90 L 40 70 L 80 80 L 120 50 L 160 60 L 200 35 L 240 45 L 280 25 L 320 30 L 360 15 L 400 20 L 400 110 L 0 110 Z"/>
+                        <path class="line" d="M0 90 L 40 70 L 80 80 L 120 50 L 160 60 L 200 35 L 240 45 L 280 25 L 320 30 L 360 15 L 400 20"/>
+                      </svg>
+                    </div>
+                    <div class="activity">
+                      <div class="act"><div class="l"><span class="dot"></span>عميل جديد من واتساب · مؤهَّل</div><span class="t">الآن</span></div>
+                      <div class="act"><div class="l"><span class="dot b"></span>دفعة مستلمة · 245 ر.ع</div><span class="t">٢ د</span></div>
+                      <div class="act"><div class="l"><span class="dot c"></span>تقرير تلقائي أُرسل للفريق</div><span class="t">٥ د</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase ph-offer" data-phase="2">
+          <div class="phase-inner">
+            <div class="phase-copy">
+              <div class="phase-num">02 · أتمتة · بوت واتساب</div>
+              <h2>أعمال تعمل بنفسها.</h2>
+              <p class="lede">وكيل واتساب يردّ ويُؤهِّل ويتابع — ٢٤/٧، بصوتكم وأسلوبكم.</p>
+              <ul>
+                <li>ردّ تلقائي بذكاء اصطناعي يحاكي نبرتكم</li>
+                <li>تأهيل العملاء وتوجيههم لفريقكم</li>
+                <li>قوائم ردّ سريع وحجوزات</li>
+                <li>تكامل مع Make و n8n وأنظمة CRM</li>
+              </ul>
+            </div>
+            <div class="phase-viz">
+              <div class="demo">
+                <div class="dm-wa">
+                  <div class="wa-chat">
+                    <div class="wa-header">
+                      <div class="wa-avatar"></div>
+                      <div class="wa-meta">
+                        <div class="wa-name">Acme Co. <span class="vfd">✓</span></div>
+                        <div class="wa-status">متصل · ردّ تلقائي</div>
+                      </div>
+                      <div class="wa-actions">⋮</div>
+                    </div>
+                    <div class="wa-thread">
+                      <div class="wa-day">اليوم</div>
+                      <div class="wa-msg in"><div class="wa-bubble">السلام عليكم، هل تقدّمون لوحات تحكّم؟ <span class="t">2:14</span></div></div>
+                      <div class="wa-msg out"><div class="wa-bubble">وعليكم السلام 👋 نعم — نبني لوحات مؤشرات لحظية. تحبّون عرضاً سريعاً؟ <span class="t">2:14</span></div></div>
+                      <div class="wa-msg in q"><div class="wa-bubble">نعم، وما السعر؟ <span class="t">2:15</span></div></div>
+                      <div class="wa-msg out t"><div class="wa-bubble"><span class="wa-dots"><span></span><span></span><span></span></span></div></div>
+                      <div class="qrs">
+                        <button class="qr">📊 العرض</button>
+                        <button class="qr">💬 عرض سعر</button>
+                        <button class="qr">📅 احجز</button>
+                      </div>
+                    </div>
+                    <div class="wa-input">
+                      <span class="ipl">😊</span>
+                      <input placeholder="اكتب رسالة…" readonly>
+                      <span class="ipr">🎤</span>
+                    </div>
+                  </div>
+                  <div class="wa-stats">
+                    <div class="wa-stat"><strong>2.4 ث</strong>متوسط الرد</div>
+                    <div class="wa-stat"><strong class="em">98.7%</strong>حلّ تلقائي</div>
+                    <div class="wa-stat"><strong>24/7</strong>دون توقف</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase ph-offer" data-phase="3">
+          <div class="phase-inner">
+            <div class="phase-copy">
+              <div class="phase-num">03 · مواقع</div>
+              <h2>مواقع تعكس مستوى أعمالكم الفعلي.</h2>
+              <p class="lede">صفحات هبوط، مواقع شركات، قمعات بيع — احترافية، منسجمة، مصمَّمة للتحويل.</p>
+              <ul>
+                <li>تصميم مخصص — بلا قوالب جاهزة</li>
+                <li>ثنائي اللغة عربي / إنجليزي</li>
+                <li>استضافة Vercel · تحديث تلقائي</li>
+                <li>تحسين محركات بحث ومدفوعات</li>
+              </ul>
+            </div>
+            <div class="phase-viz">
+              <div class="demo">
+                <div class="dm-web">
+                  <div class="browser-bar">
+                    <span class="light"></span><span class="light"></span><span class="light"></span>
+                    <div class="url">alvvoayad.ai</div>
+                  </div>
+                  <div class="page">
+                    <div class="pnav">
+                      <div class="plogo"><span class="pdot"></span> brand.ai</div>
+                      <div class="pmenu"><span>أعمال</span><span>حول</span><span>تواصل</span></div>
+                    </div>
+                    <div class="pemoji">◉</div>
+                    <div class="ph">مواقع احترافية،<br><span class="em">سرعة في التسليم.</span></div>
+                    <div class="ps">تصميم بمستوى العلامات التجارية وأكواد حديثة للأعمال التي تأخذ نفسها على محمل الجد.</div>
+                    <div class="pcta">ابدأ ←</div>
+                    <div class="pfeats">
+                      <div class="pfeat"><strong>48س</strong>تسليم</div>
+                      <div class="pfeat"><strong>100/100</strong>سرعة</div>
+                      <div class="pfeat"><strong>لغتان</strong>عربي · إنجليزي</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase ph-offer" data-phase="4">
+          <div class="phase-inner">
+            <div class="phase-copy">
+              <div class="phase-num">04 · تطبيقات</div>
+              <h2>تطبيقات جوال وويب،<br>خلال أسابيع.</h2>
+              <p class="lede">لفريقكم أو لعملائكم — تصميم وبناء وإطلاق بأحدث أدوات الذكاء الاصطناعي.</p>
+              <ul>
+                <li>iOS و Android والويب — بقاعدة كود واحدة</li>
+                <li>أدوات داخلية للفرق</li>
+                <li>منتجات وبوابات للعملاء</li>
+                <li>من النموذج إلى الإنتاج خلال أسابيع</li>
+              </ul>
+            </div>
+            <div class="phase-viz">
+              <div class="demo">
+                <div class="dm-app">
+                  <div class="ph">
+                    <div class="scr">
+                      <div class="notif">
+                        <div class="nicon"></div>
+                        <div class="ntxt"><strong>عميل جديد</strong>خالد · مؤهَّل بالذكاء الاصطناعي</div>
+                      </div>
+                      <div class="scrh"><div class="ph-ttl">اليوم</div><div class="ph-av"></div></div>
+                      <div class="scr-body">
+                        <div class="card pop"><div class="crow em"></div><div class="crow l"></div><div class="crow s"></div></div>
+                        <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
+                        <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
+                        <div class="card"><div class="crow s"></div><div class="crow l"></div></div>
+                      </div>
+                      <div class="tabbar"><span class="tab act"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span></div>
+                      <div class="fab">+</div>
+                    </div>
+                  </div>
+                  <div class="ph b">
+                    <div class="scr">
+                      <div class="scrh"><div class="ph-ttl">الوارد</div><div class="ph-av"></div></div>
+                      <div class="scr-body">
+                        <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
+                        <div class="card"><div class="crow em"></div><div class="crow l"></div></div>
+                        <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
+                        <div class="card"><div class="crow s"></div><div class="crow l"></div></div>
+                      </div>
+                      <div class="tabbar"><span class="tab"></span><span class="tab act"></span><span class="tab"></span><span class="tab"></span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <a href="https://wa.me/96877056051?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" class="hero-cta" target="_blank">
-        ابدأ المحادثة
-        <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 17L7 7M15 7H7v8"/></svg></span>
-      </a>
+
+      <div class="phase-counter"><span class="ci">01</span> / 05</div>
+      <div class="phase-nav">
+        <button class="pd active" data-go="0"></button>
+        <button class="pd" data-go="1"></button>
+        <button class="pd" data-go="2"></button>
+        <button class="pd" data-go="3"></button>
+        <button class="pd" data-go="4"></button>
+      </div>
+      <div class="scroll-hint"><span>اسحب للتبديل</span><span class="line"></span></div>
     </div>
-    <div class="hero-glow-floor"></div>
-    <div class="hero-artifact">
-      <svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-        <ellipse cx="800" cy="620" rx="900" ry="200" fill="#FF6A2E" opacity="0.32" filter="url(#waveBlurXL)"/>
-        <path d="M-100 480 C 250 360, 550 460, 850 410 S 1300 320, 1700 440 L 1700 700 L -100 700 Z" fill="url(#waveBase)" opacity="0.5" filter="url(#waveBlur)"/>
-        <path d="M-100 560 C 250 440, 550 540, 850 480 S 1300 380, 1700 520 L 1700 700 L -100 700 Z" fill="url(#waveBase)"/>
-        <path d="M-100 560 C 250 440, 550 540, 850 480 S 1300 380, 1700 520" stroke="url(#waveIrid)" stroke-width="3" fill="none" opacity="0.9" filter="url(#waveBlur)"/>
-        <path d="M-100 620 C 300 510, 700 580, 1100 540 S 1500 480, 1700 560 L 1700 700 L -100 700 Z" fill="url(#waveEmber)" opacity="0.7"/>
-        <path d="M-100 640 C 350 540, 800 600, 1700 600 L 1700 700 L -100 700 Z" fill="url(#waveBase)" opacity="0.55"/>
-      </svg>
-    </div>
-    <div class="hero-fade"></div>
-    <div class="scroll-hint"><span>اسحب للأسفل</span><span class="line"></span></div>
   </section>
 
   <div class="ticker-wrap">
@@ -768,208 +1005,6 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
       <span class="ticker-item">لوحات تحكّم</span><span class="ticker-item">أنظمة أتمتة</span><span class="ticker-item">مواقع إلكترونية</span><span class="ticker-item">تطبيقات</span><span class="ticker-item">n8n · Make · Zapier</span><span class="ticker-item">واتساب أعمال</span><span class="ticker-item">Claude · GPT · Gemini</span><span class="ticker-item">من سلطنة عُمان</span>
     </div>
   </div>
-
-  <section class="showcase" id="showcase-ar" data-showcase>
-    <div class="showcase-stage">
-      <div class="phase-counter"><span class="ci">01</span> / 04</div>
-      <div class="showcase-inner">
-
-        <div class="phase" data-phase="0">
-          <div class="phase-copy">
-            <div class="phase-num">01 · لوحات تحكّم</div>
-            <h2>رؤية شاملة لأعمالكم لم تكن متاحة من قبل.</h2>
-            <p class="lede">مؤشرات لحظية، إيرادات، نشاط الفريق، عمليات — شاشة واحدة من أي جهاز.</p>
-            <ul>
-              <li>مؤشرات أداء مخصصة لطبيعة عملكم</li>
-              <li>متابعة الفرق والمشاريع</li>
-              <li>رؤية واضحة للمبيعات والإيرادات</li>
-              <li>صلاحيات حسب الدور للمالكين والمدراء والموظفين</li>
-            </ul>
-          </div>
-          <div class="phase-viz">
-            <div class="demo">
-              <div class="dm-dash">
-                <div class="topbar">
-                  <div class="dm-brand"><span class="od"></span> ACME · لوحة لحظية</div>
-                  <div class="dm-tabs"><span>نظرة عامة</span><span class="act">لحظي</span><span>تقارير</span></div>
-                  <div class="dm-live"><span class="d"></span>LIVE</div>
-                </div>
-                <div class="dm-body">
-                  <div class="kpi-row">
-                    <div class="kpi"><div class="lbl">الإيرادات الشهرية</div><div class="val">42,180</div><div class="delta">↑ ١٨٪</div></div>
-                    <div class="kpi alt"><div class="lbl">عملاء محتملون</div><div class="val">127</div><div class="delta">↑ ١٢ اليوم</div></div>
-                    <div class="kpi"><div class="lbl">معدل التحويل</div><div class="val">8.4%</div><div class="delta">↑ 1.2pt</div></div>
-                  </div>
-                  <div class="chart-card">
-                    <div class="chart-head"><div class="ttl">الإيرادات هذا الأسبوع</div><div class="dm-live"><span class="d"></span>LIVE</div></div>
-                    <svg class="chart-svg" viewBox="0 0 400 110" preserveAspectRatio="none">
-                      <path class="fill" d="M0 90 L 40 70 L 80 80 L 120 50 L 160 60 L 200 35 L 240 45 L 280 25 L 320 30 L 360 15 L 400 20 L 400 110 L 0 110 Z"/>
-                      <path class="line" d="M0 90 L 40 70 L 80 80 L 120 50 L 160 60 L 200 35 L 240 45 L 280 25 L 320 30 L 360 15 L 400 20"/>
-                    </svg>
-                  </div>
-                  <div class="activity">
-                    <div class="act"><div class="l"><span class="dot"></span>عميل جديد من واتساب · مؤهَّل</div><span class="t">الآن</span></div>
-                    <div class="act"><div class="l"><span class="dot b"></span>دفعة مستلمة · 245 ر.ع</div><span class="t">٢ د</span></div>
-                    <div class="act"><div class="l"><span class="dot c"></span>تقرير تلقائي أُرسل للفريق</div><span class="t">٥ د</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="phase" data-phase="1">
-          <div class="phase-copy">
-            <div class="phase-num">02 · أتمتة</div>
-            <h2>أعمال تعمل بنفسها.</h2>
-            <p class="lede">المهام المتكررة، الردود، المتابعات، التقارير — تُسلَّم إلى أنظمة لا تنام ولا تنسى.</p>
-            <ul>
-              <li>أتمتة واتساب والبريد والنماذج</li>
-              <li>التقاط العملاء وتأهيلهم وتوجيههم</li>
-              <li>وكلاء ذكاء اصطناعي للردود والفرز</li>
-              <li>تكامل مع n8n و Make و Zapier</li>
-            </ul>
-          </div>
-          <div class="phase-viz">
-            <div class="demo">
-              <div class="dm-auto">
-                <div class="ahead">
-                  <div class="at">سير عمل · لحظي</div>
-                  <div class="ac"><span class="d"></span>١,٢٤٧ حدث اليوم</div>
-                </div>
-                <div class="canvas">
-                  <svg viewBox="0 0 580 360">
-                    <rect width="100%" height="100%" fill="url(#g2)"/>
-                    <path class="link o" d="M90 180 L 220 100" stroke-dasharray="6 6"/>
-                    <path class="link m" d="M90 180 L 220 260" stroke-dasharray="6 6"/>
-                    <path class="link o" d="M280 100 L 380 180" stroke-dasharray="6 6"/>
-                    <path class="link c" d="M280 260 L 380 180" stroke-dasharray="6 6"/>
-                    <path class="link o" d="M440 180 L 540 180" stroke-dasharray="6 6"/>
-                    <rect class="nbox" x="30" y="150" width="60" height="60" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/>
-                    <text class="ntxt" x="60" y="178" text-anchor="middle">WA</text>
-                    <rect class="nbox" x="220" y="70" width="60" height="60" fill="#15100C" stroke="#D63FFF" stroke-width="1.5"/>
-                    <text class="ntxt" x="250" y="100" text-anchor="middle">Filter</text>
-                    <rect class="nbox" x="220" y="230" width="60" height="60" fill="#15100C" stroke="#3FE5FF" stroke-width="1.5"/>
-                    <text class="ntxt" x="250" y="260" text-anchor="middle">AI</text>
-                    <rect class="nbox" x="380" y="150" width="60" height="60" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/>
-                    <text class="ntxt" x="410" y="180" text-anchor="middle">Route</text>
-                    <rect class="nbox" x="500" y="150" width="60" height="60" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/>
-                    <text class="ntxt" x="530" y="178" text-anchor="middle">CRM</text>
-                    <circle r="4" fill="#FF6A2E"><animateMotion dur="3s" repeatCount="indefinite" path="M90 180 L 220 100 L 280 100 L 380 180 L 440 180 L 540 180"/></circle>
-                    <circle r="4" fill="#D63FFF"><animateMotion dur="3.4s" repeatCount="indefinite" begin="0.5s" path="M90 180 L 220 260 L 280 260 L 380 180 L 440 180 L 540 180"/></circle>
-                  </svg>
-                </div>
-                <div class="stats">
-                  <div class="s"><strong>2.4 ث</strong>متوسط الرد</div>
-                  <div class="s"><strong class="em">98.7%</strong>حلّ تلقائي</div>
-                  <div class="s"><strong>0</strong>عميل مفقود</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="phase" data-phase="2">
-          <div class="phase-copy">
-            <div class="phase-num">03 · مواقع</div>
-            <h2>مواقع تعكس مستوى أعمالكم الفعلي.</h2>
-            <p class="lede">صفحات هبوط، مواقع شركات، قمعات بيع — احترافية، منسجمة مع هويتكم، مصمَّمة للتحويل.</p>
-            <ul>
-              <li>تصميم مخصص — بلا قوالب جاهزة</li>
-              <li>ثنائي اللغة عربي / إنجليزي</li>
-              <li>استضافة Vercel — سريعة، عالمية</li>
-              <li>نماذج ومدفوعات وتحسين محركات بحث</li>
-            </ul>
-          </div>
-          <div class="phase-viz">
-            <div class="demo">
-              <div class="dm-web">
-                <div class="browser-bar">
-                  <span class="light"></span><span class="light"></span><span class="light"></span>
-                  <div class="url">alvvoayad.ai</div>
-                </div>
-                <div class="page">
-                  <div class="pnav">
-                    <div class="plogo"><span class="pdot"></span> brand.ai</div>
-                    <div class="pmenu"><span>أعمال</span><span>حول</span><span>تواصل</span></div>
-                  </div>
-                  <div class="pemoji">◉</div>
-                  <div class="ph">مواقع احترافية،<br><span class="em">سرعة في التسليم.</span></div>
-                  <div class="ps">تصميم بمستوى العلامات التجارية وأكواد حديثة للأعمال التي تأخذ نفسها على محمل الجد.</div>
-                  <div class="pcta">ابدأ ←</div>
-                  <div class="pfeats">
-                    <div class="pfeat"><strong>48س</strong>تسليم</div>
-                    <div class="pfeat"><strong>100/100</strong>سرعة</div>
-                    <div class="pfeat"><strong>لغتان</strong>عربي · إنجليزي</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="phase" data-phase="3">
-          <div class="phase-copy">
-            <div class="phase-num">04 · تطبيقات</div>
-            <h2>تطبيقات جوال وويب،<br>خلال أسابيع.</h2>
-            <p class="lede">لفريقكم أو لعملائكم — تصميم وبناء وإطلاق بأحدث أدوات الذكاء الاصطناعي.</p>
-            <ul>
-              <li>iOS و Android والويب — بقاعدة كود واحدة</li>
-              <li>أدوات داخلية للفرق</li>
-              <li>منتجات وبوابات للعملاء</li>
-              <li>من النموذج إلى الإنتاج خلال أسابيع</li>
-            </ul>
-          </div>
-          <div class="phase-viz">
-            <div class="demo">
-              <div class="dm-app">
-                <div class="ph">
-                  <div class="scr">
-                    <div class="notif">
-                      <div class="nicon"></div>
-                      <div class="ntxt"><strong>عميل جديد</strong>خالد · مؤهَّل بالذكاء الاصطناعي</div>
-                    </div>
-                    <div class="scrh">
-                      <div class="ph-ttl">اليوم</div>
-                      <div class="ph-av"></div>
-                    </div>
-                    <div class="scr-body">
-                      <div class="card pop"><div class="crow em"></div><div class="crow l"></div><div class="crow s"></div></div>
-                      <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
-                      <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
-                      <div class="card"><div class="crow s"></div><div class="crow l"></div></div>
-                    </div>
-                    <div class="tabbar"><span class="tab act"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span></div>
-                    <div class="fab">+</div>
-                  </div>
-                </div>
-                <div class="ph b">
-                  <div class="scr">
-                    <div class="scrh"><div class="ph-ttl">الوارد</div><div class="ph-av"></div></div>
-                    <div class="scr-body">
-                      <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
-                      <div class="card"><div class="crow em"></div><div class="crow l"></div></div>
-                      <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
-                      <div class="card"><div class="crow s"></div><div class="crow l"></div></div>
-                    </div>
-                    <div class="tabbar"><span class="tab"></span><span class="tab act"></span><span class="tab"></span><span class="tab"></span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="phase-nav">
-        <button class="pd active" data-go="0" aria-label="لوحات تحكّم"></button>
-        <button class="pd" data-go="1" aria-label="أتمتة"></button>
-        <button class="pd" data-go="2" aria-label="مواقع"></button>
-        <button class="pd" data-go="3" aria-label="تطبيقات"></button>
-      </div>
-    </div>
-  </section>
 
   <section class="flow">
     <div class="wrap">
@@ -1029,16 +1064,12 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
     const btn=document.querySelector('.lang-btn');
     const enActive=en.classList.contains('active');
     if(enActive){
-      en.classList.remove('active');
-      ar.classList.add('active');
-      document.documentElement.lang='ar';
-      btn.textContent='EN';
+      en.classList.remove('active');ar.classList.add('active');
+      document.documentElement.lang='ar';btn.textContent='EN';
       document.querySelectorAll('.nav-links a[data-ar]').forEach(a=>a.textContent=a.dataset.ar);
     } else {
-      ar.classList.remove('active');
-      en.classList.add('active');
-      document.documentElement.lang='en';
-      btn.textContent='عربي';
+      ar.classList.remove('active');en.classList.add('active');
+      document.documentElement.lang='en';btn.textContent='عربي';
       document.querySelectorAll('.nav-links a[data-en]').forEach(a=>a.textContent=a.dataset.en);
     }
     window.scrollTo({top:0,behavior:'instant'});
@@ -1049,49 +1080,47 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
     if(window.scrollY>20) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
   },{passive:true});
 
-  // Reveal on scroll
   const io=new IntersectionObserver(es=>{
     es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
   },{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-  // SHOWCASE — scroll-driven phase progression
-  function setupShowcase(showcase){
-    const phases = showcase.querySelectorAll('.phase');
-    const dots = showcase.querySelectorAll('.phase-nav .pd');
-    const counter = showcase.querySelector('.phase-counter .ci');
+  // STAGE — scroll-driven phase swap
+  function setupStage(stage){
+    const phases = stage.querySelectorAll('.phase');
+    const dots = stage.querySelectorAll('.phase-nav .pd');
+    const counter = stage.querySelector('.phase-counter .ci');
     const total = phases.length;
-    let currentIdx = -1;
+    let cur = -1;
 
     function update(){
-      // Only act if this showcase's parent lang is active
-      const langParent = showcase.closest('.lang-content');
+      const langParent = stage.closest('.lang-content');
       if (langParent && !langParent.classList.contains('active')) return;
-      // Mobile: skip pinned behavior, all phases naturally visible
       if (window.innerWidth < 900) {
         phases.forEach(p=>p.classList.add('active'));
+        stage.dataset.active = '0';
         return;
       }
-      const rect = showcase.getBoundingClientRect();
+      const rect = stage.getBoundingClientRect();
       const vh = window.innerHeight;
-      const scrollable = showcase.offsetHeight - vh;
+      const scrollable = stage.offsetHeight - vh;
       const scrolled = -rect.top;
-      if (scrolled < 0 || scrolled > scrollable + vh) return;
+      if (scrolled < -10 || scrolled > scrollable + vh) return;
       const progress = Math.max(0, Math.min(0.9999, scrolled / scrollable));
       const idx = Math.min(total - 1, Math.floor(progress * total));
-      if (idx === currentIdx) return;
-      currentIdx = idx;
+      if (idx === cur) return;
+      cur = idx;
+      stage.dataset.active = String(idx);
       phases.forEach((p,i)=>p.classList.toggle('active', i===idx));
       dots.forEach((d,i)=>d.classList.toggle('active', i<=idx));
       if (counter) counter.textContent = String(idx+1).padStart(2,'0');
     }
 
-    // Click dots to jump
     dots.forEach((d,i)=>{
       d.addEventListener('click', ()=>{
-        const rect = showcase.getBoundingClientRect();
-        const scrollable = showcase.offsetHeight - window.innerHeight;
-        const targetScroll = window.scrollY + rect.top + (scrollable * i / total) + 1;
+        const rect = stage.getBoundingClientRect();
+        const scrollable = stage.offsetHeight - window.innerHeight;
+        const targetScroll = window.scrollY + rect.top + (scrollable * i / total) + 4;
         window.scrollTo({top: targetScroll, behavior:'smooth'});
       });
     });
@@ -1100,7 +1129,7 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
     window.addEventListener('resize', update);
     update();
   }
-  document.querySelectorAll('[data-showcase]').forEach(setupShowcase);
+  document.querySelectorAll('[data-stage]').forEach(setupStage);
 </script>
 </body>
 </html>
