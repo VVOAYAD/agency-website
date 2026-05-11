@@ -84,16 +84,27 @@ nav.scrolled{border-bottom-color:var(--border)}
   radial-gradient(ellipse at center 58%,rgba(255,106,46,0.95) 0%,rgba(255,140,80,0.55) 18%,rgba(214,63,255,0.18) 42%,transparent 72%);
   filter:blur(26px);pointer-events:none;animation:floorBreathe 5s ease-in-out infinite;z-index:1}
 @keyframes floorBreathe{0%,100%{opacity:0.85;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
-.iorb{width:100%;height:100%;position:relative;z-index:2;animation:orbFloat 8s ease-in-out infinite, orbSpin 60s linear infinite;display:flex;align-items:center;justify-content:center}
-@keyframes orbFloat{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-14px) rotate(var(--r,0deg))}}
-@keyframes orbSpin{from{--r:0deg}to{--r:360deg}}
-.iorb img{width:100%;height:100%;display:block;object-fit:contain;filter:drop-shadow(0 30px 80px rgba(255,106,46,0.55)) drop-shadow(0 0 50px rgba(214,63,255,0.25)) drop-shadow(0 0 30px rgba(63,229,255,0.15))}
-@property --r{syntax:'<angle>';initial-value:0deg;inherits:false}
+.iorb{width:100%;height:100%;position:relative;z-index:2;animation:orbFloat 8s ease-in-out infinite;display:flex;align-items:center;justify-content:center}
+@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.iorb img{width:100%;height:100%;display:block;object-fit:contain;filter:drop-shadow(0 30px 80px rgba(255,106,46,0.55)) drop-shadow(0 0 50px rgba(214,63,255,0.22)) drop-shadow(0 0 30px rgba(63,229,255,0.14))}
 
-.hero-cta{display:inline-flex;align-items:center;gap:12px;background:var(--bone);color:var(--bg);font-family:'Geist',sans-serif;font-size:14.5px;font-weight:600;padding:6px 6px 6px 22px;border-radius:999px;text-decoration:none;box-shadow:0 16px 50px rgba(255,106,46,0.28), 0 0 0 1px rgba(245,233,216,0.6);transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s;margin-top:6px}
-.hero-cta:hover{transform:translateY(-2px);box-shadow:0 24px 70px rgba(255,106,46,0.45), 0 0 0 1px var(--ember)}
-.hero-cta .arr{width:32px;height:32px;border-radius:50%;background:var(--ember);display:flex;align-items:center;justify-content:center;color:var(--bg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex-shrink:0}
-.hero-cta:hover .arr{transform:rotate(45deg)}
+/* Liquid glass CTA button — vanilla port of 21st-dev LiquidButton */
+.hero-cta{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;color:var(--bone);font-family:'Geist',sans-serif;font-size:15px;font-weight:600;letter-spacing:-0.01em;padding:0 8px 0 28px;height:56px;border-radius:999px;text-decoration:none;background:transparent;cursor:pointer;margin-top:6px;isolation:isolate;transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.hero-cta::before{content:"";position:absolute;inset:0;border-radius:999px;backdrop-filter:url(#glass-distort) blur(2px);-webkit-backdrop-filter:blur(8px);z-index:-2}
+.hero-cta::after{content:"";position:absolute;inset:0;border-radius:999px;z-index:-1;pointer-events:none;
+  box-shadow:
+    0 0 6px rgba(0,0,0,0.03),
+    0 2px 8px rgba(0,0,0,0.12),
+    inset 3px 3px 0.5px -3.5px rgba(255,255,255,0.55),
+    inset -3px -3px 0.5px -3.5px rgba(255,255,255,0.85),
+    inset 1px 1px 1px -0.5px rgba(255,255,255,0.55),
+    inset -1px -1px 1px -0.5px rgba(255,255,255,0.55),
+    inset 0 0 8px 6px rgba(255,255,255,0.10),
+    inset 0 0 2px 2px rgba(255,255,255,0.06),
+    0 0 16px rgba(255,106,46,0.18)}
+.hero-cta:hover{transform:translateY(-2px) scale(1.025)}
+.hero-cta .arr{width:42px;height:42px;border-radius:50%;background:var(--ember);display:flex;align-items:center;justify-content:center;color:var(--bg);transition:transform .35s cubic-bezier(.4,0,.2,1);flex-shrink:0;box-shadow:0 8px 24px rgba(255,106,46,0.45),inset 0 1px 0 rgba(255,255,255,0.4)}
+.hero-cta:hover .arr{transform:rotate(45deg) scale(1.05)}
 
 /* PHASES 1-4 — OFFERINGS — centered column, big demo in orb's spot */
 .ph-offer .phase-inner{display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center;max-width:1180px;margin:0 auto}
@@ -341,6 +352,18 @@ footer{padding:46px 28px 36px;border-top:1px solid var(--border);margin-top:60px
 </head>
 <body>
 
+<!-- Liquid glass SVG filter (used by .hero-cta backdrop-filter) -->
+<svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true">
+  <defs>
+    <filter id="glass-distort" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.012" numOctaves="2" seed="3" result="turb"/>
+      <feGaussianBlur in="turb" stdDeviation="2" result="softTurb"/>
+      <feDisplacementMap in="SourceGraphic" in2="softTurb" scale="55" xChannelSelector="R" yChannelSelector="B" result="displaced"/>
+      <feGaussianBlur in="displaced" stdDeviation="0.4"/>
+    </filter>
+  </defs>
+</svg>
+
 <div class="bloom bloom-a"></div>
 <div class="bloom bloom-b"></div>
 <div class="bloom bloom-c"></div>
@@ -464,7 +487,7 @@ footer{padding:46px 28px 36px;border-top:1px solid var(--border);margin-top:60px
             <div class="iorb-wrap">
               <div class="iorb-floor"></div>
               <div class="iorb">
-                <img src="/hero-orb.jpg" alt="" loading="eager" decoding="async"/>
+                <img src="/hero-orb.png" alt="" loading="eager" decoding="async"/>
               </div>
             </div>
             <a href="https://wa.me/96877056051?text=Hi%2C%20I%27m%20interested%20in%20working%20with%20you" class="hero-cta" target="_blank">
@@ -783,7 +806,7 @@ footer{padding:46px 28px 36px;border-top:1px solid var(--border);margin-top:60px
             <div class="iorb-wrap">
               <div class="iorb-floor"></div>
               <div class="iorb">
-                <img src="/hero-orb.jpg" alt="" loading="eager" decoding="async"/>
+                <img src="/hero-orb.png" alt="" loading="eager" decoding="async"/>
               </div>
             </div>
             <a href="https://wa.me/96877056051?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" class="hero-cta" target="_blank">
