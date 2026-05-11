@@ -54,26 +54,33 @@ nav.scrolled{border-bottom-color:var(--border)}
 .lang-btn:hover{color:var(--bone);border-color:var(--ember)}
 
 /* HERO */
-.hero{position:relative;padding:140px 0 80px;text-align:center;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.18em;color:var(--bone-dim);padding:8px 18px;border:1px solid var(--border-2);border-radius:999px;background:rgba(245,233,216,0.02);margin-bottom:44px}
+.hero{position:relative;padding:140px 0 0;text-align:center;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;overflow:hidden}
+.hero .wrap{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-bottom:240px;z-index:3;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--bone);padding:7px 16px 7px 7px;border:1px solid var(--border-2);border-radius:999px;background:rgba(14,13,18,0.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);margin-bottom:40px;letter-spacing:0.01em}
+.hero-badge .bicon{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,var(--ember-halo),var(--ember));display:flex;align-items:center;justify-content:center;color:var(--bg);box-shadow:0 0 12px rgba(255,106,46,0.5)}
+.hero-badge .bicon svg{width:13px;height:13px}
 .hero-badge .blink{width:6px;height:6px;border-radius:50%;background:var(--ember);box-shadow:0 0 12px var(--ember);animation:blink 2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-.hero-orb-wrap{position:relative;width:240px;height:240px;margin:0 auto 44px}
-.hero-orb-glow{position:absolute;inset:-80px;border-radius:50%;background:radial-gradient(circle at 50% 60%,rgba(255,106,46,0.45) 0%,rgba(255,106,46,0.15) 30%,transparent 65%);filter:blur(20px);pointer-events:none;animation:pulse 4s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:0.7;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
-.hero-orb{width:100%;height:100%;animation:float 8s ease-in-out infinite, spin 32s linear infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-.hero h1{font-family:'Geist',sans-serif;font-size:clamp(38px,6.5vw,80px);font-weight:800;letter-spacing:-0.035em;line-height:1.02;color:var(--bone);max-width:1000px;margin:0 auto 26px}
-.hero h1 .ember{background:linear-gradient(120deg,var(--ember) 0%,var(--ember-halo) 50%,var(--ember) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero-sub{font-size:18px;font-weight:400;color:var(--bone-dim);max-width:620px;margin:0 auto 38px;line-height:1.55}
-.hero-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:38px}
-.hero-pill{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.16em;color:var(--bone-dim);padding:7px 14px;border:1px solid var(--border-2);border-radius:999px;background:rgba(245,233,216,0.02)}
-.hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--ember);color:var(--bg);font-family:'Geist',sans-serif;font-size:15px;font-weight:600;padding:16px 28px;border-radius:999px;text-decoration:none;box-shadow:0 0 0 1px var(--ember), 0 16px 60px rgba(255,106,46,0.35);transition:all .3s cubic-bezier(.4,0,.2,1)}
-.hero-cta:hover{transform:translateY(-2px);box-shadow:0 0 0 1px var(--ember), 0 24px 80px rgba(255,106,46,0.5)}
-.hero-cta svg{transition:transform .25s}
-.hero-cta:hover svg{transform:translateX(4px)}
-.scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:10px;color:var(--bone-faint);text-transform:uppercase;letter-spacing:0.22em;display:flex;flex-direction:column;align-items:center;gap:10px}
+.hero h1{font-family:'Geist',sans-serif;font-size:clamp(48px,9.5vw,128px);font-weight:800;letter-spacing:-0.045em;line-height:0.96;color:var(--bone);max-width:1200px;margin:0 auto 30px}
+.hero h1 .ember{background:linear-gradient(110deg,var(--ember-halo) 0%,var(--ember) 28%,var(--magenta) 65%,var(--cyan) 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block;animation:shimmer 8s ease-in-out infinite}
+@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero-sub{font-size:18px;font-weight:400;color:var(--bone-dim);max-width:600px;margin:0 auto 34px;line-height:1.55}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:36px}
+.hero-pill{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.16em;color:var(--bone-dim);padding:7px 14px;border:1px solid var(--border-2);border-radius:999px;background:rgba(14,13,18,0.5);backdrop-filter:blur(8px)}
+.hero-cta{display:inline-flex;align-items:center;gap:14px;background:var(--bone);color:var(--bg);font-family:'Geist',sans-serif;font-size:15px;font-weight:600;padding:7px 7px 7px 24px;border-radius:999px;text-decoration:none;box-shadow:0 16px 50px rgba(255,106,46,0.25), 0 0 0 1px rgba(245,233,216,0.6);transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 24px 70px rgba(255,106,46,0.45), 0 0 0 1px var(--ember)}
+.hero-cta .arr{width:36px;height:36px;border-radius:50%;background:var(--ember);display:flex;align-items:center;justify-content:center;color:var(--bg);transition:transform .3s cubic-bezier(.4,0,.2,1);flex-shrink:0}
+.hero-cta:hover .arr{transform:rotate(45deg)}
+
+/* HERO ARTIFACT — big iridescent flow at the bottom */
+.hero-artifact{position:absolute;bottom:0;left:0;right:0;height:62vh;pointer-events:none;z-index:1;overflow:hidden}
+.hero-artifact svg{width:100%;height:100%;display:block;animation:waveBreathe 14s ease-in-out infinite}
+@keyframes waveBreathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.hero-glow-floor{position:absolute;bottom:-180px;left:50%;transform:translateX(-50%);width:130vw;max-width:1800px;height:520px;background:radial-gradient(ellipse at center,rgba(255,106,46,0.45) 0%,rgba(255,106,46,0.15) 28%,rgba(214,63,255,0.08) 50%,transparent 70%);filter:blur(50px);pointer-events:none;z-index:0;animation:floorPulse 6s ease-in-out infinite}
+@keyframes floorPulse{0%,100%{opacity:0.75}50%{opacity:1}}
+.hero-fade{position:absolute;bottom:0;left:0;right:0;height:180px;background:linear-gradient(180deg,transparent,var(--bg) 88%);pointer-events:none;z-index:4}
+
+.scroll-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:10px;color:var(--bone-faint);text-transform:uppercase;letter-spacing:0.22em;display:flex;flex-direction:column;align-items:center;gap:10px;z-index:5}
 .scroll-hint .line{width:1px;height:30px;background:linear-gradient(180deg,var(--ember),transparent);animation:lineDrop 2.4s ease-in-out infinite}
 @keyframes lineDrop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
@@ -274,10 +281,16 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
   .nav-links{gap:18px}
   .nav-links a:not(.lang-btn){display:none}
   .wrap{padding:0 20px}
-  .hero{padding:120px 0 80px;min-height:auto}
-  .hero-orb-wrap{width:200px;height:200px;margin-bottom:32px}
-  .hero-badge{margin-bottom:28px}
-  .hero h1{font-size:clamp(34px,8vw,52px)}
+  .hero{padding:110px 0 0;min-height:90vh}
+  .hero .wrap{padding-bottom:180px}
+  .hero-badge{margin-bottom:24px}
+  .hero h1{font-size:clamp(40px,11vw,68px);margin-bottom:22px}
+  .hero-sub{font-size:15px;margin-bottom:26px}
+  .hero-pills{margin-bottom:28px;gap:6px}
+  .hero-pill{font-size:10px;padding:6px 11px}
+  .hero-cta{font-size:14px;padding:6px 6px 6px 20px}
+  .hero-cta .arr{width:32px;height:32px}
+  .hero-artifact{height:50vh}
   .scroll-hint{display:none}
   section.flow{padding:70px 0}
   /* Showcase falls back to natural flow on mobile */
@@ -355,6 +368,27 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
       <stop offset="0%" stop-color="#FF6A2E" stop-opacity="0.35"/>
       <stop offset="100%" stop-color="#FF6A2E" stop-opacity="0"/>
     </linearGradient>
+    <linearGradient id="waveBase" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8ECEF"/>
+      <stop offset="22%" stop-color="#9DA3AB"/>
+      <stop offset="48%" stop-color="#5C606A"/>
+      <stop offset="70%" stop-color="#3F2A1A"/>
+      <stop offset="100%" stop-color="#0A0808"/>
+    </linearGradient>
+    <linearGradient id="waveEmber" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFB36A" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#FF6A2E" stop-opacity="0.85"/>
+      <stop offset="65%" stop-color="#FF6A2E" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#FFB36A" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="waveIrid" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3FE5FF" stop-opacity="0.55"/>
+      <stop offset="33%" stop-color="#D63FFF" stop-opacity="0.6"/>
+      <stop offset="66%" stop-color="#FF6A2E" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#FFB36A" stop-opacity="0.5"/>
+    </linearGradient>
+    <filter id="waveBlur"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="waveBlurXL"><feGaussianBlur stdDeviation="22"/></filter>
   </defs>
 </svg>
 
@@ -363,20 +397,12 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
 
   <section class="hero">
     <div class="wrap">
-      <div class="hero-badge"><span class="blink"></span> Available for new clients</div>
-      <div class="hero-orb-wrap">
-        <div class="hero-orb-glow"></div>
-        <svg class="hero-orb" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="120" cy="130" r="80" fill="url(#orbEmber)" opacity="0.9"/>
-          <circle cx="120" cy="120" r="100" fill="url(#orbBase)"/>
-          <circle cx="120" cy="120" r="100" fill="url(#orbIridescent)" opacity="0.35"/>
-          <ellipse cx="92" cy="88" rx="32" ry="16" fill="rgba(255,255,255,0.55)" transform="rotate(-22 92 88)"/>
-          <ellipse cx="98" cy="82" rx="14" ry="6" fill="rgba(255,255,255,0.9)" transform="rotate(-22 98 82)"/>
-          <circle cx="120" cy="120" r="100" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        </svg>
+      <div class="hero-badge">
+        <span class="bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
+        <span>Available for new clients</span>
       </div>
       <h1>We build the systems<br>your business is <span class="ember">missing.</span></h1>
-      <p class="hero-sub">Built around how you actually work — not generic software you bend yourself into.</p>
+      <p class="hero-sub">Dashboards, automation, websites and apps — built around how you actually work, not generic software you bend yourself into.</p>
       <div class="hero-pills">
         <span class="hero-pill">Dashboards</span>
         <span class="hero-pill">Automation</span>
@@ -385,10 +411,22 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
       </div>
       <a href="https://wa.me/96877056051?text=Hi%2C%20I%27m%20interested%20in%20working%20with%20you" class="hero-cta" target="_blank">
         Start a conversation
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
       </a>
-      <div class="scroll-hint"><span>Scroll to explore</span><span class="line"></span></div>
     </div>
+    <div class="hero-glow-floor"></div>
+    <div class="hero-artifact">
+      <svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <ellipse cx="800" cy="620" rx="900" ry="200" fill="#FF6A2E" opacity="0.32" filter="url(#waveBlurXL)"/>
+        <path d="M-100 480 C 250 360, 550 460, 850 410 S 1300 320, 1700 440 L 1700 700 L -100 700 Z" fill="url(#waveBase)" opacity="0.5" filter="url(#waveBlur)"/>
+        <path d="M-100 560 C 250 440, 550 540, 850 480 S 1300 380, 1700 520 L 1700 700 L -100 700 Z" fill="url(#waveBase)"/>
+        <path d="M-100 560 C 250 440, 550 540, 850 480 S 1300 380, 1700 520" stroke="url(#waveIrid)" stroke-width="3" fill="none" opacity="0.9" filter="url(#waveBlur)"/>
+        <path d="M-100 620 C 300 510, 700 580, 1100 540 S 1500 480, 1700 560 L 1700 700 L -100 700 Z" fill="url(#waveEmber)" opacity="0.7"/>
+        <path d="M-100 640 C 350 540, 800 600, 1700 600 L 1700 700 L -100 700 Z" fill="url(#waveBase)" opacity="0.55"/>
+      </svg>
+    </div>
+    <div class="hero-fade"></div>
+    <div class="scroll-hint"><span>Scroll to explore</span><span class="line"></span></div>
   </section>
 
   <div class="ticker-wrap">
@@ -692,20 +730,12 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
 
   <section class="hero">
     <div class="wrap">
-      <div class="hero-badge"><span class="blink"></span>نستقبل عملاء جدد</div>
-      <div class="hero-orb-wrap">
-        <div class="hero-orb-glow"></div>
-        <svg class="hero-orb" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="120" cy="130" r="80" fill="url(#orbEmber)" opacity="0.9"/>
-          <circle cx="120" cy="120" r="100" fill="url(#orbBase)"/>
-          <circle cx="120" cy="120" r="100" fill="url(#orbIridescent)" opacity="0.35"/>
-          <ellipse cx="92" cy="88" rx="32" ry="16" fill="rgba(255,255,255,0.55)" transform="rotate(-22 92 88)"/>
-          <ellipse cx="98" cy="82" rx="14" ry="6" fill="rgba(255,255,255,0.9)" transform="rotate(-22 98 82)"/>
-          <circle cx="120" cy="120" r="100" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        </svg>
+      <div class="hero-badge">
+        <span class="bicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
+        <span>نستقبل عملاء جدد</span>
       </div>
       <h1>نبني الأنظمة<br>التي تنقص <span class="ember">أعمالكم.</span></h1>
-      <p class="hero-sub">مصمَّمة حول طريقة عملكم الفعلية — لا برامج جاهزة تجبركم على التكيّف معها.</p>
+      <p class="hero-sub">لوحات تحكّم، أتمتة، مواقع، تطبيقات — مصمَّمة حول طريقة عملكم الفعلية، لا برامج جاهزة تجبركم على التكيّف معها.</p>
       <div class="hero-pills">
         <span class="hero-pill">لوحات تحكّم</span>
         <span class="hero-pill">أتمتة</span>
@@ -714,10 +744,22 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
       </div>
       <a href="https://wa.me/96877056051?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" class="hero-cta" target="_blank">
         ابدأ المحادثة
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 17L7 7M15 7H7v8"/></svg></span>
       </a>
-      <div class="scroll-hint"><span>اسحب للأسفل</span><span class="line"></span></div>
     </div>
+    <div class="hero-glow-floor"></div>
+    <div class="hero-artifact">
+      <svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <ellipse cx="800" cy="620" rx="900" ry="200" fill="#FF6A2E" opacity="0.32" filter="url(#waveBlurXL)"/>
+        <path d="M-100 480 C 250 360, 550 460, 850 410 S 1300 320, 1700 440 L 1700 700 L -100 700 Z" fill="url(#waveBase)" opacity="0.5" filter="url(#waveBlur)"/>
+        <path d="M-100 560 C 250 440, 550 540, 850 480 S 1300 380, 1700 520 L 1700 700 L -100 700 Z" fill="url(#waveBase)"/>
+        <path d="M-100 560 C 250 440, 550 540, 850 480 S 1300 380, 1700 520" stroke="url(#waveIrid)" stroke-width="3" fill="none" opacity="0.9" filter="url(#waveBlur)"/>
+        <path d="M-100 620 C 300 510, 700 580, 1100 540 S 1500 480, 1700 560 L 1700 700 L -100 700 Z" fill="url(#waveEmber)" opacity="0.7"/>
+        <path d="M-100 640 C 350 540, 800 600, 1700 600 L 1700 700 L -100 700 Z" fill="url(#waveBase)" opacity="0.55"/>
+      </svg>
+    </div>
+    <div class="hero-fade"></div>
+    <div class="scroll-hint"><span>اسحب للأسفل</span><span class="line"></span></div>
   </section>
 
   <div class="ticker-wrap">
