@@ -28,6 +28,11 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;ba
 .bloom-c{width:400px;height:400px;background:rgba(214,63,255,0.04);top:55%;right:10%}
 .wrap{max-width:1280px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
 
+/* TUBES CURSOR — WebGL chromatic backdrop */
+.tubes-bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:1;pointer-events:none;opacity:0.55;mix-blend-mode:screen}
+@media (max-width:900px){.tubes-bg{opacity:0.4}}
+@media (prefers-reduced-motion:reduce){.tubes-bg{display:none}}
+
 /* NAV — wordmark matches IG post signature style */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 28px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,10,0.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:border-color .4s}
 nav.scrolled{border-bottom-color:var(--border)}
@@ -338,6 +343,8 @@ footer{padding:46px 28px 36px;border-top:1px solid var(--border);margin-top:60px
 <div class="bloom bloom-a"></div>
 <div class="bloom bloom-b"></div>
 <div class="bloom bloom-c"></div>
+
+<canvas class="tubes-bg" id="tubes-bg"></canvas>
 
 <nav id="nav">
   <a href="#" class="brand">
@@ -1125,6 +1132,37 @@ footer{padding:46px 28px 36px;border-top:1px solid var(--border);margin-top:60px
     update();
   }
   document.querySelectorAll('[data-stage]').forEach(setupStage);
+</script>
+
+<script type="module">
+  // Tubes Cursor — WebGL chromatic backdrop tuned to alvvo.ai DNA
+  try {
+    const mod = await import('https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js');
+    const TubesCtor = mod.default ?? mod;
+    const canvas = document.getElementById('tubes-bg');
+    if (canvas && TubesCtor) {
+      const brand = ['#FF6A2E', '#FFB36A', '#D63FFF', '#3FE5FF', '#9DA3AB', '#E8ECEF', '#F5E9D8'];
+      const pick = n => Array.from({length:n}, () => brand[Math.floor(Math.random()*brand.length)]);
+      const app = TubesCtor(canvas, {
+        tubes: {
+          colors: ['#FF6A2E', '#FFB36A', '#9DA3AB'],
+          lights: {
+            intensity: 220,
+            colors: ['#FF6A2E', '#D63FFF', '#3FE5FF', '#FFB36A']
+          }
+        }
+      });
+      // Randomize palette on click (within brand colors only)
+      document.body.addEventListener('click', () => {
+        try {
+          app.tubes.setColors(pick(3));
+          app.tubes.setLightsColors(pick(4));
+        } catch {}
+      });
+    }
+  } catch (e) {
+    console.warn('Tubes cursor failed to load:', e);
+  }
 </script>
 </body>
 </html>
