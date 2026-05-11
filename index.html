@@ -7,7 +7,7 @@
 <meta name="description" content="We build the systems your business is missing. Dashboards, automation, websites and apps — built around how you actually work.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#06060A;--bg-2:#0B0A0F;--surface:#0E0D12;--surface-2:#15100C;--surface-3:#1A1620;
@@ -21,47 +21,27 @@ html{scroll-behavior:auto}
 ::selection{background:var(--ember);color:var(--bg)}
 body{background:var(--bg);color:var(--bone);font-family:'Geist','Inter',system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6}
 .ar{font-family:'Tajawal',sans-serif;direction:rtl}
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")}
-/* ===== CHROMATIC AURORA BACKGROUND ===== */
-.bloom{position:fixed;border-radius:50%;filter:blur(220px);pointer-events:none;z-index:0;will-change:transform}
-.bloom-a{width:900px;height:900px;background:radial-gradient(circle,rgba(255,106,46,0.32),rgba(255,106,46,0) 65%);top:-250px;right:-220px;animation:aurora1 22s ease-in-out infinite}
-.bloom-b{width:780px;height:780px;background:radial-gradient(circle,rgba(214,63,255,0.22),rgba(214,63,255,0) 65%);bottom:-10%;left:-200px;animation:aurora2 26s ease-in-out infinite}
-.bloom-c{width:680px;height:680px;background:radial-gradient(circle,rgba(63,229,255,0.16),rgba(63,229,255,0) 65%);top:30%;right:15%;animation:aurora3 30s ease-in-out infinite}
-.bloom-d{width:520px;height:520px;background:radial-gradient(circle,rgba(255,179,106,0.20),rgba(255,179,106,0) 65%);bottom:18%;right:-100px;animation:aurora4 24s ease-in-out infinite;position:fixed;border-radius:50%;filter:blur(200px);pointer-events:none;z-index:0}
-@keyframes aurora1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-80px,60px) scale(1.15)}}
-@keyframes aurora2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(100px,-80px) scale(1.18)}}
-@keyframes aurora3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-60px,40px) scale(1.1)}}
-@keyframes aurora4{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(80px,-50px) scale(1.12)}}
 
-/* Iridescent mesh overlay — adds the chromatic film over the page */
-.mesh-veil{position:fixed;inset:-20%;pointer-events:none;z-index:0;background:
-  conic-gradient(from 110deg at 30% 25%,rgba(255,106,46,0.18),transparent 25%,rgba(214,63,255,0.14) 50%,transparent 70%,rgba(63,229,255,0.12) 90%,rgba(255,106,46,0.18)),
-  conic-gradient(from 220deg at 75% 70%,rgba(63,229,255,0.10),transparent 30%,rgba(255,179,106,0.14) 60%,transparent 80%);
-  filter:blur(120px) saturate(1.1);opacity:0.7;animation:meshSpin 60s linear infinite;mix-blend-mode:screen}
-@keyframes meshSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+/* ===== CHROMATIC BACKGROUND — performant, real iridescence via foil texture ===== */
+.foil-bg{position:fixed;inset:0;background:url('/foil.jpg') center/cover no-repeat;opacity:0.18;mix-blend-mode:screen;pointer-events:none;z-index:0;filter:saturate(1.4) hue-rotate(-10deg)}
+.foil-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,transparent 0%,rgba(6,6,10,0.4) 60%,var(--bg) 100%)}
+.bloom{position:fixed;border-radius:50%;filter:blur(140px);pointer-events:none;z-index:0;will-change:transform}
+.bloom-a{width:780px;height:780px;background:radial-gradient(circle,rgba(255,106,46,0.45),rgba(255,106,46,0) 65%);top:-180px;right:-180px}
+.bloom-b{width:620px;height:620px;background:radial-gradient(circle,rgba(214,63,255,0.22),rgba(214,63,255,0) 65%);bottom:-100px;left:-150px}
 .wrap{max-width:1280px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
 
-/* TUBES CURSOR — WebGL chromatic backdrop */
-.tubes-bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:1;pointer-events:none;opacity:0.55;mix-blend-mode:screen}
-@media (max-width:900px){.tubes-bg{opacity:0.4}}
-@media (prefers-reduced-motion:reduce){.tubes-bg{display:none}}
-
-/* NAV — brand top-right with chromatic mini orb */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,10,0.55);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border-bottom:1px solid transparent;transition:border-color .4s,background .4s}
-nav.scrolled{border-bottom-color:var(--border);background:rgba(6,6,10,0.82)}
-.nav-links{display:flex;gap:26px;align-items:center}
+/* NAV — premium editorial wordmark, brand-right */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,10,0.55);backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3);border-bottom:1px solid transparent;transition:border-color .4s,background .4s}
+nav.scrolled{border-bottom-color:var(--border);background:rgba(6,6,10,0.85)}
+.nav-links{display:flex;gap:28px;align-items:center}
 .nav-links a{font-family:'Geist',sans-serif;font-size:13px;color:var(--bone-dim);text-decoration:none;transition:color .25s;font-weight:500;letter-spacing:0.01em}
 .nav-links a:hover{color:var(--bone)}
 .lang-btn{font-size:11.5px;color:var(--bone-dim);background:transparent;border:1px solid var(--border-2);padding:6px 13px;border-radius:999px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .25s;letter-spacing:0.04em}
 .lang-btn:hover{color:var(--bone);border-color:var(--ember)}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--bone)}
-.brand-orb{width:30px;height:30px;flex-shrink:0;position:relative;filter:drop-shadow(0 0 14px rgba(255,106,46,0.5)) drop-shadow(0 0 6px rgba(214,63,255,0.3));animation:navOrbFloat 7s ease-in-out infinite}
-.brand-orb img{width:100%;height:100%;object-fit:contain;display:block}
-@keyframes navOrbFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-2px) rotate(2deg)}}
-.brand-text{font-family:'Geist',sans-serif;font-size:21px;font-weight:600;letter-spacing:-0.024em;line-height:1;display:inline-flex;align-items:baseline;gap:1px}
-.brand-text .bm{background:linear-gradient(120deg,#FAFBFD 0%,#E2E5EA 40%,#9DA3AB 70%,#F5E9D8 100%);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:brandShine 6s ease-in-out infinite}
-.brand-text .be{background:linear-gradient(120deg,var(--ember-halo) 0%,var(--ember) 50%,var(--magenta) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700;letter-spacing:-0.018em}
-@keyframes brandShine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.brand{text-decoration:none;color:var(--bone);font-family:'Instrument Serif',serif;font-style:italic;font-size:28px;font-weight:400;letter-spacing:-0.01em;line-height:1;display:inline-flex;align-items:baseline}
+.brand .bm{color:var(--bone)}
+.brand .be{color:var(--ember);margin-left:1px}
+.brand:hover .be{color:var(--ember-halo)}
 
 /* ===== STAGE — pinned, 5 phases ===== */
 .stage{position:relative;height:380vh}
@@ -78,8 +58,10 @@ nav.scrolled{border-bottom-color:var(--border);background:rgba(6,6,10,0.82)}
 
 /* Phases */
 .phases{position:relative;width:100%;height:100%;z-index:3}
-.phase{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:110px 28px 100px;opacity:0;transform:scale(0.92) translateY(40px);filter:blur(14px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1),filter .5s ease-out;pointer-events:none;will-change:transform,opacity,filter}
-.phase.active{opacity:1;transform:scale(1) translateY(0);filter:blur(0);pointer-events:auto;transition:opacity .8s cubic-bezier(.22,1,.36,1) .08s,transform .9s cubic-bezier(.22,1,.36,1),filter .6s ease-out .1s}
+.phase{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:110px 28px 100px;opacity:0;transform:translateX(60px) scale(0.97);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1);pointer-events:none;will-change:transform,opacity}
+.phase.active{opacity:1;transform:translateX(0) scale(1);pointer-events:auto}
+.ar .phase{transform:translateX(-60px) scale(0.97)}
+.ar .phase.active{transform:translateX(0) scale(1)}
 .phase-inner{width:100%;max-width:1280px;margin:0 auto;position:relative}
 
 /* PHASE 0 — HERO */
@@ -87,27 +69,18 @@ nav.scrolled{border-bottom-color:var(--border);background:rgba(6,6,10,0.82)}
 .hero-badge{display:inline-flex;align-items:center;gap:9px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--bone);padding:7px 16px;border:1px solid var(--border-2);border-radius:999px;background:rgba(14,13,18,0.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);margin-bottom:28px;letter-spacing:0.02em}
 .hero-badge .b-dot{width:7px;height:7px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFFFFF,#9DA3AB 55%,#1F2227);box-shadow:0 0 6px rgba(255,255,255,0.2);flex-shrink:0}
 .ph-hero h1{font-family:'Geist',sans-serif;font-size:clamp(44px,8vw,98px);font-weight:700;letter-spacing:-0.04em;line-height:1.0;color:var(--bone);max-width:1100px;margin:0 auto 22px}
-.ph-hero h1 .ember{background:linear-gradient(110deg,var(--ember-halo) 0%,var(--ember) 25%,var(--magenta) 55%,var(--cyan) 90%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block;animation:shimmer 8s ease-in-out infinite}
-@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.ph-hero h1 .ember{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--ember);letter-spacing:-0.005em;display:inline-block;padding:0 0.04em}
+.ar .ph-hero h1 .ember{font-family:'Tajawal',sans-serif;font-style:normal;font-weight:700;color:var(--ember);padding:0}
 .hero-sub{font-family:'Geist',sans-serif;font-weight:400;font-size:16.5px;color:var(--bone-dim);max-width:540px;margin:0 auto 22px;line-height:1.5}
 .hero-pills{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:20px}
 .hero-pill{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;color:var(--bone-dim);padding:6px 13px;border:1px solid var(--border-2);border-radius:999px;background:rgba(14,13,18,0.5);backdrop-filter:blur(8px)}
 
-/* Hero orb — smaller, surrounded by chromatic aurora rings */
-.iorb-wrap{position:relative;width:min(240px,42vw);aspect-ratio:1;margin:14px auto 22px;display:flex;align-items:center;justify-content:center}
-.iorb-rings{position:absolute;inset:-90%;pointer-events:none;z-index:1}
-.iorb-rings::before,.iorb-rings::after{content:"";position:absolute;inset:0;border-radius:50%;background:
-  conic-gradient(from 0deg,transparent 0%,rgba(255,106,46,0.5) 12%,rgba(214,63,255,0.45) 24%,rgba(63,229,255,0.4) 36%,transparent 48%,rgba(255,179,106,0.4) 64%,rgba(214,63,255,0.3) 78%,transparent 100%);
-  filter:blur(28px);mix-blend-mode:screen;animation:ringSpin 18s linear infinite}
-.iorb-rings::after{inset:8%;animation:ringSpin 24s linear infinite reverse;filter:blur(20px) saturate(1.3);opacity:0.85}
-@keyframes ringSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-.iorb-floor{position:absolute;bottom:-50%;left:-30%;right:-30%;height:80%;background:
-  radial-gradient(ellipse at center 60%,rgba(255,106,46,0.85) 0%,rgba(255,140,80,0.45) 20%,rgba(214,63,255,0.18) 50%,transparent 80%);
-  filter:blur(40px);pointer-events:none;animation:floorBreathe 5s ease-in-out infinite;z-index:1}
-@keyframes floorBreathe{0%,100%{opacity:0.85;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
-.iorb{width:100%;height:100%;position:relative;z-index:3;animation:orbFloat 8s ease-in-out infinite;display:flex;align-items:center;justify-content:center}
-@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.iorb img{width:100%;height:100%;display:block;object-fit:contain;filter:drop-shadow(0 24px 60px rgba(255,106,46,0.55)) drop-shadow(0 0 40px rgba(214,63,255,0.28)) drop-shadow(0 0 24px rgba(63,229,255,0.18))}
+/* Hero orb — clean, performant */
+.iorb-wrap{position:relative;width:min(200px,38vw);aspect-ratio:1;margin:18px auto 26px;display:flex;align-items:center;justify-content:center}
+.iorb-floor{position:absolute;bottom:-40%;left:-20%;right:-20%;height:75%;background:radial-gradient(ellipse at center 55%,rgba(255,106,46,0.7) 0%,rgba(255,140,80,0.35) 25%,transparent 70%);filter:blur(28px);pointer-events:none;z-index:1}
+.iorb{width:100%;height:100%;position:relative;z-index:2;animation:orbFloat 9s ease-in-out infinite;display:flex;align-items:center;justify-content:center;will-change:transform}
+@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.iorb img{width:100%;height:100%;display:block;object-fit:contain;filter:drop-shadow(0 16px 36px rgba(255,106,46,0.5))}
 
 /* Liquid glass CTA button — vanilla port of 21st-dev LiquidButton */
 .hero-cta{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;color:var(--bone);font-family:'Geist',sans-serif;font-size:15px;font-weight:600;letter-spacing:-0.01em;padding:0 8px 0 28px;height:56px;border-radius:999px;text-decoration:none;background:transparent;cursor:pointer;margin-top:6px;isolation:isolate;transition:transform .3s cubic-bezier(.4,0,.2,1)}
@@ -418,13 +391,9 @@ button.hero-cta{border:none;cursor:pointer;font-family:'Geist',sans-serif}
   </defs>
 </svg>
 
+<div class="foil-bg"></div>
 <div class="bloom bloom-a"></div>
 <div class="bloom bloom-b"></div>
-<div class="bloom bloom-c"></div>
-<div class="bloom-d"></div>
-<div class="mesh-veil"></div>
-
-<canvas class="tubes-bg" id="tubes-bg"></canvas>
 
 <nav id="nav">
   <div class="nav-links">
@@ -432,10 +401,7 @@ button.hero-cta{border:none;cursor:pointer;font-family:'Geist',sans-serif}
     <a href="#contact-en" data-en="Contact" data-ar="تواصل">Contact</a>
     <button class="lang-btn" onclick="toggleLang()">عربي</button>
   </div>
-  <a href="#" class="brand">
-    <span class="brand-orb"><img src="/nav-orb.png" alt="" loading="eager" decoding="async"/></span>
-    <span class="brand-text"><span class="bm">alvvoayad</span><span class="be">.ai</span></span>
-  </a>
+  <a href="#" class="brand"><span class="bm">alvvoayad</span><span class="be">.ai</span></a>
 </nav>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -518,7 +484,6 @@ button.hero-cta{border:none;cursor:pointer;font-family:'Geist',sans-serif}
     <div class="stage-pin">
       <div class="stage-bg">
         <div class="stage-glow"></div>
-        <div class="chromatic-shine"></div>
         <div class="stage-fade"></div>
       </div>
 
@@ -840,7 +805,6 @@ button.hero-cta{border:none;cursor:pointer;font-family:'Geist',sans-serif}
     <div class="stage-pin">
       <div class="stage-bg">
         <div class="stage-glow"></div>
-        <div class="chromatic-shine"></div>
         <div class="stage-fade"></div>
       </div>
       <div class="phases">
@@ -1215,36 +1179,6 @@ button.hero-cta{border:none;cursor:pointer;font-family:'Geist',sans-serif}
   document.querySelectorAll('[data-stage]').forEach(setupStage);
 </script>
 
-<script type="module">
-  // Tubes Cursor — WebGL chromatic backdrop tuned to alvvo.ai DNA
-  try {
-    const mod = await import('https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js');
-    const TubesCtor = mod.default ?? mod;
-    const canvas = document.getElementById('tubes-bg');
-    if (canvas && TubesCtor) {
-      const brand = ['#FF6A2E', '#FFB36A', '#D63FFF', '#3FE5FF', '#9DA3AB', '#E8ECEF', '#F5E9D8'];
-      const pick = n => Array.from({length:n}, () => brand[Math.floor(Math.random()*brand.length)]);
-      const app = TubesCtor(canvas, {
-        tubes: {
-          colors: ['#FF6A2E', '#FFB36A', '#9DA3AB'],
-          lights: {
-            intensity: 220,
-            colors: ['#FF6A2E', '#D63FFF', '#3FE5FF', '#FFB36A']
-          }
-        }
-      });
-      // Randomize palette on click (within brand colors only)
-      document.body.addEventListener('click', () => {
-        try {
-          app.tubes.setColors(pick(3));
-          app.tubes.setLightsColors(pick(4));
-        } catch {}
-      });
-    }
-  } catch (e) {
-    console.warn('Tubes cursor failed to load:', e);
-  }
-</script>
 
 <!-- ===== INQUIRY MODAL ===== -->
 <div class="modal-veil" id="inquiryModal" role="dialog" aria-modal="true" aria-labelledby="inqTitle" onclick="if(event.target===this)closeInquiry()">
