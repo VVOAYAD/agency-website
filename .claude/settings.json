@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(~/.claude/skills/3d-asset/**)",
+      "Bash(uipro init *)"
+    ]
+  }
+}
