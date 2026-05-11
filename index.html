@@ -51,9 +51,6 @@ nav.scrolled{border-bottom-color:var(--border);background:rgba(6,6,10,0.85)}
 .stage-bg{position:absolute;inset:0;pointer-events:none;z-index:1}
 .stage-glow{position:absolute;bottom:-150px;left:50%;transform:translateX(-50%);width:120vw;max-width:1600px;height:480px;background:radial-gradient(ellipse at center,rgba(255,106,46,0.4) 0%,rgba(255,106,46,0.12) 30%,rgba(214,63,255,0.06) 55%,transparent 72%);filter:blur(60px);animation:floorPulse 6s ease-in-out infinite}
 @keyframes floorPulse{0%,100%{opacity:0.7}50%{opacity:1}}
-.chromatic-shine{position:absolute;top:55%;left:-30%;width:160%;height:80px;background:linear-gradient(90deg,transparent 0%,rgba(63,229,255,0.4) 28%,rgba(214,63,255,0.5) 50%,rgba(255,106,46,0.6) 72%,transparent 100%);filter:blur(16px);mix-blend-mode:screen;transform:rotate(-2.5deg);animation:chromaSweep 9s ease-in-out infinite;opacity:0;transition:opacity .8s}
-.stage[data-active="0"] .chromatic-shine{opacity:1}
-@keyframes chromaSweep{0%{transform:translateX(-30%) rotate(-2.5deg)}50%{transform:translateX(15%) rotate(-2.5deg)}100%{transform:translateX(50%) rotate(-2.5deg)}}
 .stage-fade{position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(180deg,transparent,var(--bg) 90%);pointer-events:none;z-index:4}
 
 /* Phases */
@@ -505,7 +502,6 @@ button.hero-cta{border:none;cursor:pointer;font-family:'Geist',sans-serif}
               <span class="hero-pill">Apps</span>
             </div>
             <div class="iorb-wrap">
-              <div class="iorb-rings"></div>
               <div class="iorb-floor"></div>
               <div class="iorb">
                 <img src="/hero-orb.png" alt="" loading="eager" decoding="async"/>
@@ -824,7 +820,6 @@ button.hero-cta{border:none;cursor:pointer;font-family:'Geist',sans-serif}
               <span class="hero-pill">تطبيقات</span>
             </div>
             <div class="iorb-wrap">
-              <div class="iorb-rings"></div>
               <div class="iorb-floor"></div>
               <div class="iorb">
                 <img src="/hero-orb.png" alt="" loading="eager" decoding="async"/>
