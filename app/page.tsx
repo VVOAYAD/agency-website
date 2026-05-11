@@ -1,8 +1,9 @@
 import { LangProvider } from "@/components/lang-provider";
 import { Nav } from "@/components/nav";
-import { Hero } from "@/components/hero";
+import { Stage } from "@/components/stage";
 import { Footer } from "@/components/footer";
 import { TubesCursor } from "@/components/ui/tube-cursor";
+import { Ticker, StatsSection, ProcessSection, PricingSection, CtaSection } from "@/components/sections";
 
 export default function Home() {
   return (
@@ -10,7 +11,12 @@ export default function Home() {
       <TubesCursor opacity={0.55} />
       <Nav />
       <main className="relative z-[2]">
-        <Hero />
+        <Stage />
+        <Ticker />
+        <StatsSection />
+        <ProcessSection />
+        <PricingSection />
+        <CtaSection />
       </main>
       <Footer />
     </LangProvider>
