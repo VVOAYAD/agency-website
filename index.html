@@ -22,10 +22,23 @@ html{scroll-behavior:auto}
 body{background:var(--bg);color:var(--bone);font-family:'Geist','Inter',system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6}
 .ar{font-family:'Tajawal',sans-serif;direction:rtl}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")}
-.bloom{position:fixed;border-radius:50%;filter:blur(180px);pointer-events:none;z-index:0}
-.bloom-a{width:700px;height:700px;background:rgba(255,106,46,0.10);top:-200px;right:-200px}
-.bloom-b{width:500px;height:500px;background:rgba(255,106,46,0.06);bottom:5%;left:-150px}
-.bloom-c{width:400px;height:400px;background:rgba(214,63,255,0.04);top:55%;right:10%}
+/* ===== CHROMATIC AURORA BACKGROUND ===== */
+.bloom{position:fixed;border-radius:50%;filter:blur(220px);pointer-events:none;z-index:0;will-change:transform}
+.bloom-a{width:900px;height:900px;background:radial-gradient(circle,rgba(255,106,46,0.32),rgba(255,106,46,0) 65%);top:-250px;right:-220px;animation:aurora1 22s ease-in-out infinite}
+.bloom-b{width:780px;height:780px;background:radial-gradient(circle,rgba(214,63,255,0.22),rgba(214,63,255,0) 65%);bottom:-10%;left:-200px;animation:aurora2 26s ease-in-out infinite}
+.bloom-c{width:680px;height:680px;background:radial-gradient(circle,rgba(63,229,255,0.16),rgba(63,229,255,0) 65%);top:30%;right:15%;animation:aurora3 30s ease-in-out infinite}
+.bloom-d{width:520px;height:520px;background:radial-gradient(circle,rgba(255,179,106,0.20),rgba(255,179,106,0) 65%);bottom:18%;right:-100px;animation:aurora4 24s ease-in-out infinite;position:fixed;border-radius:50%;filter:blur(200px);pointer-events:none;z-index:0}
+@keyframes aurora1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-80px,60px) scale(1.15)}}
+@keyframes aurora2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(100px,-80px) scale(1.18)}}
+@keyframes aurora3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-60px,40px) scale(1.1)}}
+@keyframes aurora4{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(80px,-50px) scale(1.12)}}
+
+/* Iridescent mesh overlay — adds the chromatic film over the page */
+.mesh-veil{position:fixed;inset:-20%;pointer-events:none;z-index:0;background:
+  conic-gradient(from 110deg at 30% 25%,rgba(255,106,46,0.18),transparent 25%,rgba(214,63,255,0.14) 50%,transparent 70%,rgba(63,229,255,0.12) 90%,rgba(255,106,46,0.18)),
+  conic-gradient(from 220deg at 75% 70%,rgba(63,229,255,0.10),transparent 30%,rgba(255,179,106,0.14) 60%,transparent 80%);
+  filter:blur(120px) saturate(1.1);opacity:0.7;animation:meshSpin 60s linear infinite;mix-blend-mode:screen}
+@keyframes meshSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .wrap{max-width:1280px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
 
 /* TUBES CURSOR — WebGL chromatic backdrop */
@@ -33,18 +46,22 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;ba
 @media (max-width:900px){.tubes-bg{opacity:0.4}}
 @media (prefers-reduced-motion:reduce){.tubes-bg{display:none}}
 
-/* NAV — wordmark matches IG post signature style */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 28px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,10,0.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:border-color .4s}
-nav.scrolled{border-bottom-color:var(--border)}
-.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--bone)}
-.brand-dot{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFFFFF 0%,#E8ECEF 25%,#9DA3AB 55%,#3F2A1A 85%,#0A0808 100%);box-shadow:0 0 12px rgba(255,255,255,0.15), inset 0 0 4px rgba(0,0,0,0.4);flex-shrink:0;position:relative}
-.brand-dot::after{content:'';position:absolute;top:2px;left:3px;width:5px;height:3px;border-radius:50%;background:rgba(255,255,255,0.7);transform:rotate(-20deg)}
-.brand-text{font-family:'Geist',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.018em;color:var(--bone);line-height:1}
-.nav-links{display:flex;gap:30px;align-items:center}
-.nav-links a{font-size:13px;color:var(--bone-dim);text-decoration:none;transition:color .25s;font-weight:500}
+/* NAV — brand top-right with chromatic mini orb */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,10,0.55);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border-bottom:1px solid transparent;transition:border-color .4s,background .4s}
+nav.scrolled{border-bottom-color:var(--border);background:rgba(6,6,10,0.82)}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{font-family:'Geist',sans-serif;font-size:13px;color:var(--bone-dim);text-decoration:none;transition:color .25s;font-weight:500;letter-spacing:0.01em}
 .nav-links a:hover{color:var(--bone)}
-.lang-btn{font-size:12px;color:var(--bone-dim);background:transparent;border:1px solid var(--border-2);padding:6px 14px;border-radius:999px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .25s}
+.lang-btn{font-size:11.5px;color:var(--bone-dim);background:transparent;border:1px solid var(--border-2);padding:6px 13px;border-radius:999px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .25s;letter-spacing:0.04em}
 .lang-btn:hover{color:var(--bone);border-color:var(--ember)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--bone)}
+.brand-orb{width:30px;height:30px;flex-shrink:0;position:relative;filter:drop-shadow(0 0 14px rgba(255,106,46,0.5)) drop-shadow(0 0 6px rgba(214,63,255,0.3));animation:navOrbFloat 7s ease-in-out infinite}
+.brand-orb img{width:100%;height:100%;object-fit:contain;display:block}
+@keyframes navOrbFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-2px) rotate(2deg)}}
+.brand-text{font-family:'Geist',sans-serif;font-size:21px;font-weight:600;letter-spacing:-0.024em;line-height:1;display:inline-flex;align-items:baseline;gap:1px}
+.brand-text .bm{background:linear-gradient(120deg,#FAFBFD 0%,#E2E5EA 40%,#9DA3AB 70%,#F5E9D8 100%);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:brandShine 6s ease-in-out infinite}
+.brand-text .be{background:linear-gradient(120deg,var(--ember-halo) 0%,var(--ember) 50%,var(--magenta) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700;letter-spacing:-0.018em}
+@keyframes brandShine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
 /* ===== STAGE — pinned, 5 phases ===== */
 .stage{position:relative;height:380vh}
@@ -61,8 +78,8 @@ nav.scrolled{border-bottom-color:var(--border)}
 
 /* Phases */
 .phases{position:relative;width:100%;height:100%;z-index:3}
-.phase{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:110px 28px 100px;opacity:0;transform:translateY(30px);transition:opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1);pointer-events:none}
-.phase.active{opacity:1;transform:translateY(0);pointer-events:auto}
+.phase{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:110px 28px 100px;opacity:0;transform:scale(0.92) translateY(40px);filter:blur(14px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1),filter .5s ease-out;pointer-events:none;will-change:transform,opacity,filter}
+.phase.active{opacity:1;transform:scale(1) translateY(0);filter:blur(0);pointer-events:auto;transition:opacity .8s cubic-bezier(.22,1,.36,1) .08s,transform .9s cubic-bezier(.22,1,.36,1),filter .6s ease-out .1s}
 .phase-inner{width:100%;max-width:1280px;margin:0 auto;position:relative}
 
 /* PHASE 0 — HERO */
@@ -76,17 +93,21 @@ nav.scrolled{border-bottom-color:var(--border)}
 .hero-pills{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:20px}
 .hero-pill{font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;color:var(--bone-dim);padding:6px 13px;border:1px solid var(--border-2);border-radius:999px;background:rgba(14,13,18,0.5);backdrop-filter:blur(8px)}
 
-/* Iridescent chrome orb */
-.iorb-wrap{position:relative;width:min(360px,46vw);aspect-ratio:1;margin:6px auto 18px;display:flex;align-items:center;justify-content:center}
-.iorb-floor{position:absolute;bottom:-38%;left:-40%;right:-40%;height:70%;background:
-  radial-gradient(ellipse at 25% 60%,rgba(63,229,255,0.22) 0%,transparent 38%),
-  radial-gradient(ellipse at 75% 60%,rgba(214,63,255,0.24) 0%,transparent 38%),
-  radial-gradient(ellipse at center 58%,rgba(255,106,46,0.95) 0%,rgba(255,140,80,0.55) 18%,rgba(214,63,255,0.18) 42%,transparent 72%);
-  filter:blur(26px);pointer-events:none;animation:floorBreathe 5s ease-in-out infinite;z-index:1}
-@keyframes floorBreathe{0%,100%{opacity:0.85;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
-.iorb{width:100%;height:100%;position:relative;z-index:2;animation:orbFloat 8s ease-in-out infinite;display:flex;align-items:center;justify-content:center}
-@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-.iorb img{width:100%;height:100%;display:block;object-fit:contain;filter:drop-shadow(0 30px 80px rgba(255,106,46,0.55)) drop-shadow(0 0 50px rgba(214,63,255,0.22)) drop-shadow(0 0 30px rgba(63,229,255,0.14))}
+/* Hero orb — smaller, surrounded by chromatic aurora rings */
+.iorb-wrap{position:relative;width:min(240px,42vw);aspect-ratio:1;margin:14px auto 22px;display:flex;align-items:center;justify-content:center}
+.iorb-rings{position:absolute;inset:-90%;pointer-events:none;z-index:1}
+.iorb-rings::before,.iorb-rings::after{content:"";position:absolute;inset:0;border-radius:50%;background:
+  conic-gradient(from 0deg,transparent 0%,rgba(255,106,46,0.5) 12%,rgba(214,63,255,0.45) 24%,rgba(63,229,255,0.4) 36%,transparent 48%,rgba(255,179,106,0.4) 64%,rgba(214,63,255,0.3) 78%,transparent 100%);
+  filter:blur(28px);mix-blend-mode:screen;animation:ringSpin 18s linear infinite}
+.iorb-rings::after{inset:8%;animation:ringSpin 24s linear infinite reverse;filter:blur(20px) saturate(1.3);opacity:0.85}
+@keyframes ringSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.iorb-floor{position:absolute;bottom:-50%;left:-30%;right:-30%;height:80%;background:
+  radial-gradient(ellipse at center 60%,rgba(255,106,46,0.85) 0%,rgba(255,140,80,0.45) 20%,rgba(214,63,255,0.18) 50%,transparent 80%);
+  filter:blur(40px);pointer-events:none;animation:floorBreathe 5s ease-in-out infinite;z-index:1}
+@keyframes floorBreathe{0%,100%{opacity:0.85;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
+.iorb{width:100%;height:100%;position:relative;z-index:3;animation:orbFloat 8s ease-in-out infinite;display:flex;align-items:center;justify-content:center}
+@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.iorb img{width:100%;height:100%;display:block;object-fit:contain;filter:drop-shadow(0 24px 60px rgba(255,106,46,0.55)) drop-shadow(0 0 40px rgba(214,63,255,0.28)) drop-shadow(0 0 24px rgba(63,229,255,0.18))}
 
 /* Liquid glass CTA button — vanilla port of 21st-dev LiquidButton */
 .hero-cta{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;color:var(--bone);font-family:'Geist',sans-serif;font-size:15px;font-weight:600;letter-spacing:-0.01em;padding:0 8px 0 28px;height:56px;border-radius:999px;text-decoration:none;background:transparent;cursor:pointer;margin-top:6px;isolation:isolate;transition:transform .3s cubic-bezier(.4,0,.2,1)}
@@ -348,6 +369,39 @@ footer{padding:46px 28px 36px;border-top:1px solid var(--border);margin-top:60px
   .stats,.how-grid,.price-grid{grid-template-columns:1fr}
   .cta-block{padding:48px 24px}
 }
+
+/* ===== INQUIRY MODAL ===== */
+.modal-veil{position:fixed;inset:0;z-index:1000;background:rgba(6,6,10,0.78);backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s}
+.modal-veil.open{opacity:1;visibility:visible}
+.modal-card{position:relative;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;background:linear-gradient(180deg,rgba(20,18,28,0.96),rgba(14,13,18,0.96));border:1px solid var(--border-2);border-radius:24px;padding:36px 32px 32px;box-shadow:0 40px 120px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.04),inset 0 1px 0 rgba(255,255,255,0.06);transform:scale(0.92) translateY(20px);transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.modal-veil.open .modal-card{transform:scale(1) translateY(0)}
+.modal-card::before{content:"";position:absolute;inset:-1px;border-radius:24px;padding:1px;background:linear-gradient(135deg,rgba(255,106,46,0.4),rgba(214,63,255,0.3) 50%,rgba(63,229,255,0.3));mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;-webkit-mask-composite:xor;pointer-events:none;opacity:0.7}
+.modal-close{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid var(--border-2);color:var(--bone-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:18px;line-height:1;z-index:2}
+.ar .modal-close{right:auto;left:16px}
+.modal-close:hover{background:var(--ember);color:var(--bg);border-color:var(--ember)}
+.modal-head{margin-bottom:22px}
+.modal-eyebrow{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.22em;color:var(--ember);margin-bottom:8px}
+.modal-title{font-family:'Geist',sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.028em;color:var(--bone);line-height:1.15;margin-bottom:8px}
+.modal-sub{font-size:14px;color:var(--bone-dim);line-height:1.5}
+.modal-form{display:flex;flex-direction:column;gap:12px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.14em;color:var(--bone-faint)}
+.field input,.field select,.field textarea{font-family:'Geist',sans-serif;font-size:14.5px;color:var(--bone);background:rgba(6,6,10,0.6);border:1px solid var(--border-2);border-radius:12px;padding:12px 14px;outline:none;transition:border-color .2s,background .2s;width:100%}
+.ar .field input,.ar .field select,.ar .field textarea{font-family:'Tajawal',sans-serif}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ember);background:rgba(6,6,10,0.85)}
+.field textarea{resize:vertical;min-height:90px;line-height:1.5}
+.field select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='%23F5E9D8' stroke-width='2' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:16px;padding-right:42px;cursor:pointer}
+.ar .field select{background-position:left 14px center;padding-right:14px;padding-left:42px}
+.field select option{background:#0E0D12;color:var(--bone)}
+.form-submit{margin-top:6px;position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;height:54px;border-radius:14px;border:none;cursor:pointer;font-family:'Geist',sans-serif;font-size:15px;font-weight:600;color:#0A0808;letter-spacing:-0.005em;background:linear-gradient(110deg,var(--ember-halo) 0%,var(--ember) 35%,#FF8A4A 65%,var(--ember-halo) 100%);background-size:200% 100%;box-shadow:0 14px 40px rgba(255,106,46,0.4),inset 0 1px 0 rgba(255,255,255,0.4),inset 0 -2px 0 rgba(0,0,0,0.15);transition:background-position .4s,transform .25s,box-shadow .25s}
+.form-submit:hover{background-position:100% 50%;transform:translateY(-2px);box-shadow:0 20px 50px rgba(255,106,46,0.55),inset 0 1px 0 rgba(255,255,255,0.5)}
+.form-submit:active{transform:translateY(0)}
+.form-note{margin-top:14px;text-align:center;font-size:11.5px;color:var(--bone-faint);font-family:'DM Sans',sans-serif;letter-spacing:0.06em}
+.form-note svg{vertical-align:-2px;margin:0 4px;color:#25D366}
+
+/* Primary CTA — now a button (was an anchor) — keeps the liquid-glass treatment */
+button.hero-cta{border:none;cursor:pointer;font-family:'Geist',sans-serif}
+.wa-btn{cursor:pointer;border:none}
 </style>
 </head>
 <body>
@@ -367,20 +421,21 @@ footer{padding:46px 28px 36px;border-top:1px solid var(--border);margin-top:60px
 <div class="bloom bloom-a"></div>
 <div class="bloom bloom-b"></div>
 <div class="bloom bloom-c"></div>
+<div class="bloom-d"></div>
+<div class="mesh-veil"></div>
 
 <canvas class="tubes-bg" id="tubes-bg"></canvas>
 
 <nav id="nav">
-  <a href="#" class="brand">
-    <span class="brand-dot"></span>
-    <span class="brand-text">alvvoayad.ai</span>
-  </a>
   <div class="nav-links">
     <a href="#process-en" data-en="Process" data-ar="مراحل العمل">Process</a>
-    <a href="/guide" data-en="30-Day Guide" data-ar="دليل الـ 30 يوم">30-Day Guide</a>
     <a href="#contact-en" data-en="Contact" data-ar="تواصل">Contact</a>
     <button class="lang-btn" onclick="toggleLang()">عربي</button>
   </div>
+  <a href="#" class="brand">
+    <span class="brand-orb"><img src="/nav-orb.png" alt="" loading="eager" decoding="async"/></span>
+    <span class="brand-text"><span class="bm">alvvoayad</span><span class="be">.ai</span></span>
+  </a>
 </nav>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -485,15 +540,16 @@ footer{padding:46px 28px 36px;border-top:1px solid var(--border);margin-top:60px
               <span class="hero-pill">Apps</span>
             </div>
             <div class="iorb-wrap">
+              <div class="iorb-rings"></div>
               <div class="iorb-floor"></div>
               <div class="iorb">
                 <img src="/hero-orb.png" alt="" loading="eager" decoding="async"/>
               </div>
             </div>
-            <a href="https://wa.me/96877056051?text=Hi%2C%20I%27m%20interested%20in%20working%20with%20you" class="hero-cta" target="_blank">
+            <button type="button" class="hero-cta" onclick="openInquiry('en')">
               Start a conversation
               <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-            </a>
+            </button>
           </div>
         </div>
 
@@ -762,10 +818,10 @@ footer{padding:46px 28px 36px;border-top:1px solid var(--border);margin-top:60px
       <div class="cta-block reveal">
         <h2>Ready to stop doing it manually?</h2>
         <p>Tell us your most time-consuming task. We'll tell you if it can be automated — free.</p>
-        <a href="https://wa.me/96877056051?text=Hi%2C%20I'm%20interested%20in%20working%20with%20you" class="wa-btn" target="_blank">
+        <button type="button" class="wa-btn" onclick="openInquiry('en')">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.594-.822-6.34-2.2l-.444-.356-3.17 1.063 1.063-3.17-.356-.444A9.935 9.935 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-          Message on WhatsApp
-        </a>
+          Tell us what you need
+        </button>
         <div class="cta-note">Free consultation · No commitment · Reply within 24 hours</div>
       </div>
     </div>
@@ -804,15 +860,16 @@ footer{padding:46px 28px 36px;border-top:1px solid var(--border);margin-top:60px
               <span class="hero-pill">تطبيقات</span>
             </div>
             <div class="iorb-wrap">
+              <div class="iorb-rings"></div>
               <div class="iorb-floor"></div>
               <div class="iorb">
                 <img src="/hero-orb.png" alt="" loading="eager" decoding="async"/>
               </div>
             </div>
-            <a href="https://wa.me/96877056051?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" class="hero-cta" target="_blank">
+            <button type="button" class="hero-cta" onclick="openInquiry('ar')">
               ابدأ المحادثة
               <span class="arr"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 17L7 7M15 7H7v8"/></svg></span>
-            </a>
+            </button>
           </div>
         </div>
 
@@ -1072,10 +1129,10 @@ footer{padding:46px 28px 36px;border-top:1px solid var(--border);margin-top:60px
       <div class="cta-block reveal">
         <h2>جاهزون للتخلّي عن العمل اليدوي؟</h2>
         <p>شاركونا أكثر المهام استهلاكاً لوقتكم. وسنخبركم إن كانت قابلة للأتمتة — مجاناً.</p>
-        <a href="https://wa.me/96877056051?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" class="wa-btn" target="_blank">
+        <button type="button" class="wa-btn" onclick="openInquiry('ar')">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.594-.822-6.34-2.2l-.444-.356-3.17 1.063 1.063-3.17-.356-.444A9.935 9.935 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-          تواصلوا عبر واتساب
-        </a>
+          أخبرونا بما تحتاجون
+        </button>
         <div class="cta-note">استشارة مجانية · بدون التزام · ردّ خلال 24 ساعة</div>
       </div>
     </div>
@@ -1186,6 +1243,99 @@ footer{padding:46px 28px 36px;border-top:1px solid var(--border);margin-top:60px
     }
   } catch (e) {
     console.warn('Tubes cursor failed to load:', e);
+  }
+</script>
+
+<!-- ===== INQUIRY MODAL ===== -->
+<div class="modal-veil" id="inquiryModal" role="dialog" aria-modal="true" aria-labelledby="inqTitle" onclick="if(event.target===this)closeInquiry()">
+  <div class="modal-card">
+    <button class="modal-close" type="button" onclick="closeInquiry()" aria-label="Close">×</button>
+    <div class="modal-head">
+      <div class="modal-eyebrow" data-en="Inquiry" data-ar="استفسار">Inquiry</div>
+      <h3 class="modal-title" id="inqTitle" data-en="Tell us what you need" data-ar="أخبرونا بما تحتاجون">Tell us what you need</h3>
+      <p class="modal-sub" data-en="Fill this in — we'll reply on WhatsApp within 24 hours." data-ar="املؤوا النموذج — سنردّ على واتساب خلال 24 ساعة.">Fill this in — we'll reply on WhatsApp within 24 hours.</p>
+    </div>
+    <form class="modal-form" id="inquiryForm" onsubmit="submitInquiry(event)">
+      <div class="field">
+        <label data-en="Your name" data-ar="الاسم">Your name</label>
+        <input type="text" name="name" required autocomplete="name" placeholder="Ahmed / Sarah">
+      </div>
+      <div class="field">
+        <label data-en="Phone (with country code)" data-ar="الهاتف (مع رمز الدولة)">Phone (with country code)</label>
+        <input type="tel" name="phone" required autocomplete="tel" placeholder="+968 9X XXX XXX">
+      </div>
+      <div class="field">
+        <label data-en="What do you need?" data-ar="ماذا تحتاجون؟">What do you need?</label>
+        <select name="service" required>
+          <option value="" disabled selected data-en="Choose a service" data-ar="اختاروا الخدمة">Choose a service</option>
+          <option value="Website" data-en="Website" data-ar="موقع إلكتروني">Website</option>
+          <option value="Automation / WhatsApp bot" data-en="Automation / WhatsApp bot" data-ar="أتمتة / بوت واتساب">Automation / WhatsApp bot</option>
+          <option value="Mobile app" data-en="Mobile app" data-ar="تطبيق جوال">Mobile app</option>
+          <option value="Dashboard" data-en="Dashboard" data-ar="لوحة تحكّم">Dashboard</option>
+          <option value="Not sure yet" data-en="Not sure yet — talk it through" data-ar="غير متأكد — نتحدث">Not sure yet — talk it through</option>
+        </select>
+      </div>
+      <div class="field">
+        <label data-en="Tell us more" data-ar="تفاصيل إضافية">Tell us more</label>
+        <textarea name="message" rows="3" placeholder="What's slowing you down? What would 'done' look like?" data-ph-en="What's slowing you down? What would 'done' look like?" data-ph-ar="ما الذي يبطّئكم؟ كيف يبدو 'الإنجاز' بالنسبة لكم؟"></textarea>
+      </div>
+      <button type="submit" class="form-submit">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+        <span data-en="Send via WhatsApp" data-ar="أرسلوا عبر واتساب">Send via WhatsApp</span>
+      </button>
+      <div class="form-note">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block"><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+        <span data-en="Routes directly to our WhatsApp · +968 77056051" data-ar="يصل مباشرة إلى واتساب · ‎+968 77056051">Routes directly to our WhatsApp · +968 77056051</span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // ===== INQUIRY FORM → WHATSAPP ROUTING =====
+  const WA_NUMBER = '96877056051';
+  const modal = document.getElementById('inquiryModal');
+
+  function applyModalLang(lang) {
+    modal.querySelectorAll('[data-en]').forEach(el => {
+      const txt = lang === 'ar' ? el.dataset.ar : el.dataset.en;
+      if (txt) el.textContent = txt;
+    });
+    modal.querySelectorAll('[data-ph-en]').forEach(el => {
+      el.placeholder = lang === 'ar' ? el.dataset.phAr : el.dataset.phEn;
+    });
+    modal.classList.toggle('ar', lang === 'ar');
+    modal.querySelector('.modal-card').dir = lang === 'ar' ? 'rtl' : 'ltr';
+  }
+
+  function openInquiry(lang) {
+    applyModalLang(lang || (document.documentElement.lang === 'ar' ? 'ar' : 'en'));
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => modal.querySelector('input[name="name"]').focus(), 320);
+  }
+  function closeInquiry() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeInquiry(); });
+
+  function submitInquiry(e) {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const lang = modal.classList.contains('ar') ? 'ar' : 'en';
+    const name = (f.get('name') || '').trim();
+    const phone = (f.get('phone') || '').trim();
+    const service = (f.get('service') || '').trim();
+    const msg = (f.get('message') || '').trim();
+    const lines = lang === 'ar'
+      ? [`السلام عليكم — اسمي ${name}.`, `الهاتف: ${phone}`, `أحتاج: ${service}`, msg ? `التفاصيل: ${msg}` : '']
+      : [`Hi — I'm ${name}.`, `Phone: ${phone}`, `I need: ${service}`, msg ? `Details: ${msg}` : ''];
+    const body = lines.filter(Boolean).join('\n');
+    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(body)}`;
+    window.open(url, '_blank');
+    closeInquiry();
+    e.target.reset();
   }
 </script>
 </body>

@@ -1,0 +1,9 @@
+node_modules
+.next
+.git
+.claude
+guide
+next-env.d.ts
+desktop.ini
+_*.py
+_candidate_*
