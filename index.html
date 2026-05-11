@@ -31,39 +31,17 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 ::selection{background:var(--ember);color:var(--bg)}
-body{
-  background:var(--bg);
-  color:var(--bone);
-  font-family:'Geist','Inter',system-ui,sans-serif;
-  font-weight:400;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-  line-height:1.6;
-}
+body{background:var(--bg);color:var(--bone);font-family:'Geist','Inter',system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6}
 .ar{font-family:'Tajawal',sans-serif;direction:rtl}
-
-body::after{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:999;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-}
-
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E")}
 .bloom{position:fixed;border-radius:50%;filter:blur(180px);pointer-events:none;z-index:0}
 .bloom-a{width:700px;height:700px;background:rgba(255,106,46,0.10);top:-200px;right:-200px}
 .bloom-b{width:500px;height:500px;background:rgba(255,106,46,0.06);bottom:5%;left:-150px}
 .bloom-c{width:400px;height:400px;background:rgba(214,63,255,0.04);top:55%;right:10%}
-
 .wrap{max-width:1280px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
 
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:18px 28px;
-  display:flex;justify-content:space-between;align-items:center;
-  background:rgba(6,6,10,0.75);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid transparent;
-  transition:border-color .4s;
-}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 28px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,10,0.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:border-color .4s}
 nav.scrolled{border-bottom-color:var(--border)}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--bone)}
 .orb-mark{width:30px;height:30px;display:block}
@@ -72,219 +50,175 @@ nav.scrolled{border-bottom-color:var(--border)}
 .nav-links{display:flex;gap:32px;align-items:center}
 .nav-links a{font-size:13px;color:var(--bone-dim);text-decoration:none;transition:color .25s;font-weight:500}
 .nav-links a:hover{color:var(--bone)}
-.lang-btn{
-  font-size:12px;color:var(--bone-dim);
-  background:transparent;border:1px solid var(--border-2);
-  padding:6px 14px;border-radius:999px;cursor:pointer;
-  font-family:'DM Sans',sans-serif;font-weight:500;
-  transition:all .25s;
-}
+.lang-btn{font-size:12px;color:var(--bone-dim);background:transparent;border:1px solid var(--border-2);padding:6px 14px;border-radius:999px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .25s}
 .lang-btn:hover{color:var(--bone);border-color:var(--ember)}
 
-.hero{
-  position:relative;padding:160px 0 100px;text-align:center;min-height:90vh;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;
-}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;
-  text-transform:uppercase;letter-spacing:0.18em;color:var(--bone-dim);
-  padding:8px 18px;border:1px solid var(--border-2);border-radius:999px;
-  background:rgba(245,233,216,0.02);margin-bottom:48px;
-}
-.hero-badge .blink{
-  width:6px;height:6px;border-radius:50%;background:var(--ember);
-  box-shadow:0 0 12px var(--ember);animation:blink 2s ease-in-out infinite;
-}
+/* HERO */
+.hero{position:relative;padding:140px 0 80px;text-align:center;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.18em;color:var(--bone-dim);padding:8px 18px;border:1px solid var(--border-2);border-radius:999px;background:rgba(245,233,216,0.02);margin-bottom:44px}
+.hero-badge .blink{width:6px;height:6px;border-radius:50%;background:var(--ember);box-shadow:0 0 12px var(--ember);animation:blink 2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-
-.hero-orb-wrap{position:relative;width:260px;height:260px;margin:0 auto 48px}
-.hero-orb-glow{
-  position:absolute;inset:-80px;border-radius:50%;
-  background:radial-gradient(circle at 50% 60%,rgba(255,106,46,0.45) 0%,rgba(255,106,46,0.15) 30%,transparent 65%);
-  filter:blur(20px);pointer-events:none;animation:pulse 4s ease-in-out infinite;
-}
+.hero-orb-wrap{position:relative;width:240px;height:240px;margin:0 auto 44px}
+.hero-orb-glow{position:absolute;inset:-80px;border-radius:50%;background:radial-gradient(circle at 50% 60%,rgba(255,106,46,0.45) 0%,rgba(255,106,46,0.15) 30%,transparent 65%);filter:blur(20px);pointer-events:none;animation:pulse 4s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:0.7;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
 .hero-orb{width:100%;height:100%;animation:float 8s ease-in-out infinite, spin 32s linear infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-
-.hero h1{
-  font-family:'Geist',sans-serif;font-size:clamp(38px,6.5vw,82px);font-weight:800;
-  letter-spacing:-0.035em;line-height:1.02;color:var(--bone);
-  max-width:1000px;margin:0 auto 28px;
-}
-.hero h1 .ember{
-  background:linear-gradient(120deg,var(--ember) 0%,var(--ember-halo) 50%,var(--ember) 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.hero-sub{font-size:18px;font-weight:400;color:var(--bone-dim);max-width:620px;margin:0 auto 44px;line-height:1.55}
-.hero-cta{
-  display:inline-flex;align-items:center;gap:10px;
-  background:var(--ember);color:var(--bg);
-  font-family:'Geist',sans-serif;font-size:15px;font-weight:600;
-  padding:16px 28px;border-radius:999px;text-decoration:none;
-  box-shadow:0 0 0 1px var(--ember), 0 16px 60px rgba(255,106,46,0.35);
-  transition:all .3s cubic-bezier(.4,0,.2,1);
-}
+.hero h1{font-family:'Geist',sans-serif;font-size:clamp(38px,6.5vw,80px);font-weight:800;letter-spacing:-0.035em;line-height:1.02;color:var(--bone);max-width:1000px;margin:0 auto 26px}
+.hero h1 .ember{background:linear-gradient(120deg,var(--ember) 0%,var(--ember-halo) 50%,var(--ember) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{font-size:18px;font-weight:400;color:var(--bone-dim);max-width:620px;margin:0 auto 38px;line-height:1.55}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:38px}
+.hero-pill{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.16em;color:var(--bone-dim);padding:7px 14px;border:1px solid var(--border-2);border-radius:999px;background:rgba(245,233,216,0.02)}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--ember);color:var(--bg);font-family:'Geist',sans-serif;font-size:15px;font-weight:600;padding:16px 28px;border-radius:999px;text-decoration:none;box-shadow:0 0 0 1px var(--ember), 0 16px 60px rgba(255,106,46,0.35);transition:all .3s cubic-bezier(.4,0,.2,1)}
 .hero-cta:hover{transform:translateY(-2px);box-shadow:0 0 0 1px var(--ember), 0 24px 80px rgba(255,106,46,0.5)}
 .hero-cta svg{transition:transform .25s}
 .hero-cta:hover svg{transform:translateX(4px)}
+.scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:10px;color:var(--bone-faint);text-transform:uppercase;letter-spacing:0.22em;display:flex;flex-direction:column;align-items:center;gap:10px}
+.scroll-hint .line{width:1px;height:30px;background:linear-gradient(180deg,var(--ember),transparent);animation:lineDrop 2.4s ease-in-out infinite}
+@keyframes lineDrop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-.ticker-wrap{
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-  padding:22px 0;margin:0 0 120px;background:rgba(14,13,18,0.5);
-  overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
-}
+/* TICKER */
+.ticker-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 0;background:rgba(14,13,18,0.5);overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .ticker{display:flex;gap:56px;width:max-content;animation:scroll 50s linear infinite}
 @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ticker-item{
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
-  color:var(--bone-dim);letter-spacing:0.04em;white-space:nowrap;
-  display:flex;align-items:center;gap:56px;
-}
+.ticker-item{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--bone-dim);letter-spacing:0.04em;white-space:nowrap;display:flex;align-items:center;gap:56px}
 .ticker-item::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--ember);opacity:0.6}
 
-section{position:relative;padding:100px 0;z-index:2}
-.section-label{
-  display:inline-block;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;
-  text-transform:uppercase;letter-spacing:0.22em;color:var(--ember);margin-bottom:18px;
-}
-.section-head{
-  font-family:'Geist',sans-serif;font-weight:700;font-size:clamp(28px,4.2vw,48px);
-  letter-spacing:-0.028em;line-height:1.1;color:var(--bone);margin-bottom:18px;max-width:780px;
-}
-.section-lede{font-size:16px;color:var(--bone-dim);max-width:620px;line-height:1.6;margin-bottom:56px}
+/* SHOWCASE — pinned scroll stage */
+.showcase{position:relative;height:480vh;background:linear-gradient(180deg,var(--bg) 0%,#08080E 50%,var(--bg) 100%)}
+.showcase-stage{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
+.showcase-inner{position:relative;width:100%;max-width:1280px;margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center}
+.phase{position:absolute;inset:0 28px;display:grid;grid-template-columns:0.85fr 1.15fr;gap:60px;align-items:center;opacity:0;transform:translateY(40px);transition:opacity .65s cubic-bezier(.4,0,.2,1), transform .65s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.phase.active{opacity:1;transform:translateY(0);pointer-events:auto}
+.phase-copy{padding-top:60px}
+.phase-num{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.22em;color:var(--ember);margin-bottom:18px}
+.phase-copy h2{font-family:'Geist',sans-serif;font-size:clamp(34px,4.5vw,54px);font-weight:700;letter-spacing:-0.032em;line-height:1.04;color:var(--bone);margin-bottom:20px}
+.phase-copy .lede{font-size:16px;color:var(--bone-dim);line-height:1.65;margin-bottom:24px}
+.phase-copy ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.phase-copy li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:var(--bone);line-height:1.5}
+.phase-copy li::before{content:'';flex-shrink:0;width:5px;height:5px;border-radius:50%;background:var(--ember);box-shadow:0 0 10px var(--ember);margin-top:9px}
 
-.bento{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.tile{
-  position:relative;overflow:hidden;background:var(--surface);
-  border:1px solid var(--border);border-radius:24px;padding:36px;
-  cursor:pointer;text-decoration:none;color:inherit;
-  transition:all .4s cubic-bezier(.4,0,.2,1);min-height:340px;
-  display:flex;flex-direction:column;justify-content:space-between;
-}
-.tile::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(255,106,46,0.08),transparent 50%);
-  opacity:0;transition:opacity .4s;pointer-events:none;
-}
-.tile:hover{border-color:rgba(255,106,46,0.4);transform:translateY(-3px)}
-.tile:hover::before{opacity:1}
-.tile-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
-.tile-tag{
-  font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;
-  text-transform:uppercase;letter-spacing:0.18em;color:var(--ember);
-  padding:5px 11px;border:1px solid rgba(255,106,46,0.35);
-  border-radius:999px;background:rgba(255,106,46,0.05);
-}
-.tile-arrow{
-  width:36px;height:36px;border-radius:50%;border:1px solid var(--border-2);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--bone-dim);transition:all .3s;
-}
-.tile:hover .tile-arrow{border-color:var(--ember);color:var(--ember);transform:rotate(-45deg)}
-.tile-visual{flex:1;display:flex;align-items:center;justify-content:center;margin:24px -8px;min-height:140px;position:relative}
-.tile h3{font-family:'Geist',sans-serif;font-size:22px;font-weight:600;letter-spacing:-0.018em;color:var(--bone);margin-bottom:8px}
-.tile p{font-size:14px;color:var(--bone-dim);line-height:1.55}
+.phase-nav{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:5}
+.phase-nav .pd{width:42px;height:3px;border-radius:2px;background:rgba(245,233,216,0.12);transition:background .35s, transform .35s;cursor:pointer;border:none;padding:0}
+.phase-nav .pd.active{background:var(--ember);transform:scaleY(1.6)}
+.phase-counter{position:absolute;top:120px;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:11px;color:var(--bone-faint);text-transform:uppercase;letter-spacing:0.22em;z-index:5}
 
-.viz-dash{display:flex;align-items:flex-end;gap:6px;height:80px;width:100%;max-width:240px}
-.viz-dash .bar{flex:1;background:linear-gradient(180deg,var(--ember),rgba(255,106,46,0.2));border-radius:3px 3px 0 0;opacity:0.85;animation:rise 3s ease-in-out infinite}
-.viz-dash .bar:nth-child(1){height:30%;animation-delay:0s}
-.viz-dash .bar:nth-child(2){height:55%;animation-delay:.2s}
-.viz-dash .bar:nth-child(3){height:42%;animation-delay:.4s}
-.viz-dash .bar:nth-child(4){height:72%;animation-delay:.6s}
-.viz-dash .bar:nth-child(5){height:58%;animation-delay:.8s}
-.viz-dash .bar:nth-child(6){height:88%;animation-delay:1s}
-.viz-dash .bar:nth-child(7){height:65%;animation-delay:1.2s}
-.viz-dash .bar:nth-child(8){height:95%;animation-delay:1.4s;background:linear-gradient(180deg,var(--ember-halo),var(--ember))}
-@keyframes rise{0%,100%{transform:scaleY(1)}50%{transform:scaleY(0.92)}}
+/* DEMO containers */
+.demo{position:relative;width:100%;aspect-ratio:1/0.72;max-height:75vh;border:1px solid var(--border);border-radius:24px;background:linear-gradient(160deg,var(--surface) 0%,var(--bg-2) 100%);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(245,233,216,0.04)}
+.demo::after{content:'';position:absolute;inset:auto -120px -120px auto;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,106,46,0.18),transparent 70%);filter:blur(20px);pointer-events:none}
 
-.viz-auto{width:100%;max-width:240px;height:120px;position:relative}
-.viz-auto svg{width:100%;height:100%;overflow:visible}
-.viz-auto .node{fill:var(--surface-3);stroke:var(--ember);stroke-width:1.5}
-.viz-auto .node.alt{stroke:var(--magenta)}
-.viz-auto .node.alt2{stroke:var(--cyan)}
-.viz-auto .link{stroke:rgba(255,106,46,0.4);stroke-width:1.5;fill:none;stroke-dasharray:4 4;animation:flow 3s linear infinite}
-@keyframes flow{to{stroke-dashoffset:-16}}
+/* DEMO 1 — DASHBOARD */
+.dm-dash{height:100%;display:flex;flex-direction:column;position:relative;z-index:1}
+.dm-dash .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);background:rgba(14,13,18,0.6)}
+.dm-dash .dm-brand{display:flex;align-items:center;gap:10px;font-family:'Geist',sans-serif;font-size:13px;font-weight:600;color:var(--bone)}
+.dm-dash .dm-brand .od{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFFFFF,#9DA3AB 40%,#1F2227 80%);box-shadow:0 0 8px rgba(255,106,46,0.3)}
+.dm-dash .dm-tabs{display:flex;gap:18px}
+.dm-dash .dm-tabs span{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--bone-faint);padding:6px 0;cursor:default}
+.dm-dash .dm-tabs span.act{color:var(--ember);border-bottom:1.5px solid var(--ember)}
+.dm-dash .dm-live{display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ember);text-transform:uppercase;letter-spacing:0.18em}
+.dm-dash .dm-live .d{width:6px;height:6px;border-radius:50%;background:var(--ember);box-shadow:0 0 10px var(--ember);animation:blink 1.4s ease-in-out infinite}
+.dm-dash .dm-body{flex:1;padding:20px;display:grid;grid-template-rows:auto 1fr auto;gap:14px;min-height:0}
+.dm-dash .kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.dm-dash .kpi{background:rgba(245,233,216,0.025);border:1px solid var(--border);border-radius:12px;padding:14px}
+.dm-dash .kpi .lbl{font-family:'DM Sans',sans-serif;font-size:9.5px;text-transform:uppercase;letter-spacing:0.18em;color:var(--bone-dim);margin-bottom:6px}
+.dm-dash .kpi .val{font-family:'Geist',sans-serif;font-size:24px;font-weight:700;color:var(--bone);letter-spacing:-0.02em;line-height:1}
+.dm-dash .kpi .delta{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--ember);margin-top:5px}
+.dm-dash .kpi.alt .delta{color:var(--cyan)}
+.dm-dash .chart-card{background:rgba(245,233,216,0.025);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;min-height:0;overflow:hidden}
+.dm-dash .chart-head{display:flex;justify-content:space-between;align-items:center}
+.dm-dash .chart-head .ttl{font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:var(--bone-dim)}
+.dm-dash .chart-svg{flex:1;width:100%;min-height:80px}
+.dm-dash .chart-svg path.line{stroke:var(--ember);stroke-width:2;fill:none;stroke-linecap:round;stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 3s ease-out forwards;animation-delay:.4s}
+.dm-dash .chart-svg path.fill{fill:url(#chartGrad);opacity:0;animation:fadein 1.2s ease-out forwards;animation-delay:3s}
+.dm-dash .chart-svg circle.pt{fill:var(--ember);opacity:0;animation:fadein .3s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fadein{to{opacity:1}}
+.dm-dash .activity{display:flex;flex-direction:column;gap:8px;max-height:90px;overflow:hidden}
+.dm-dash .act{display:flex;justify-content:space-between;align-items:center;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--bone-dim);padding:6px 0;border-bottom:1px solid rgba(31,29,38,0.5);opacity:0;animation:slidein .5s ease-out forwards}
+.dm-dash .act .l{display:flex;align-items:center;gap:8px}
+.dm-dash .act .l .dot{width:6px;height:6px;border-radius:50%;background:var(--ember)}
+.dm-dash .act .l .dot.b{background:var(--cyan)}
+.dm-dash .act .l .dot.c{background:var(--magenta)}
+.dm-dash .act .t{font-size:10px;color:var(--bone-faint);letter-spacing:0.05em}
+.dm-dash .act:nth-child(1){animation-delay:1.5s}
+.dm-dash .act:nth-child(2){animation-delay:2s}
+.dm-dash .act:nth-child(3){animation-delay:2.5s}
+@keyframes slidein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-.viz-web{width:100%;max-width:240px}
-.viz-web .frame{border:1px solid var(--border-2);border-radius:10px;overflow:hidden;background:var(--bg-2)}
-.viz-web .top{display:flex;gap:5px;padding:9px;border-bottom:1px solid var(--border)}
-.viz-web .top span{width:7px;height:7px;border-radius:50%;background:var(--border-2)}
-.viz-web .top span:first-child{background:var(--ember)}
-.viz-web .body{padding:14px;display:flex;flex-direction:column;gap:6px}
-.viz-web .body .l{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--ember),transparent)}
-.viz-web .body .l:nth-child(1){width:70%}
-.viz-web .body .l:nth-child(2){width:90%;background:linear-gradient(90deg,rgba(245,233,216,0.3),transparent)}
-.viz-web .body .l:nth-child(3){width:50%;background:linear-gradient(90deg,rgba(245,233,216,0.3),transparent)}
-.viz-web .body .btn{margin-top:6px;width:80px;height:18px;border-radius:999px;background:var(--ember);box-shadow:0 0 16px rgba(255,106,46,0.4)}
+/* DEMO 2 — AUTOMATION */
+.dm-auto{height:100%;padding:24px;display:flex;flex-direction:column;position:relative;z-index:1}
+.dm-auto .ahead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.dm-auto .at{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--bone-dim);text-transform:uppercase;letter-spacing:0.2em}
+.dm-auto .ac{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ember)}
+.dm-auto .ac .d{width:6px;height:6px;border-radius:50%;background:var(--ember);box-shadow:0 0 10px var(--ember);animation:blink 1.6s ease-in-out infinite}
+.dm-auto .canvas{flex:1;width:100%;position:relative}
+.dm-auto svg{width:100%;height:100%;display:block}
+.dm-auto .grid-bg{stroke:var(--border);stroke-width:0.5;fill:none;opacity:0.5}
+.dm-auto .link{fill:none;stroke-width:1.8}
+.dm-auto .link.o{stroke:rgba(255,106,46,0.55)}
+.dm-auto .link.m{stroke:rgba(214,63,255,0.55)}
+.dm-auto .link.c{stroke:rgba(63,229,255,0.55)}
+.dm-auto .nbox{rx:14;ry:14}
+.dm-auto .ntxt{font-family:'DM Sans',sans-serif;font-size:11px;fill:var(--bone);letter-spacing:0.05em}
+.dm-auto .nsub{font-family:'DM Sans',sans-serif;font-size:8px;fill:var(--bone-dim);letter-spacing:0.2em;text-transform:uppercase}
+.dm-auto .puls{fill:var(--ember)}
+.dm-auto .stats{display:flex;gap:22px;justify-content:center;padding-top:14px;border-top:1px solid var(--border);margin-top:12px}
+.dm-auto .stats .s{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--bone-dim);text-transform:uppercase;letter-spacing:0.18em;text-align:center}
+.dm-auto .stats .s strong{display:block;font-family:'Geist',sans-serif;font-size:20px;font-weight:700;color:var(--bone);letter-spacing:-0.02em;margin-bottom:2px}
+.dm-auto .stats .s strong.em{color:var(--ember)}
 
-.viz-app{width:90px;height:140px;border:1.5px solid var(--border-2);border-radius:14px;padding:6px;background:var(--bg-2);position:relative;overflow:hidden}
-.viz-app::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:24px;height:3px;border-radius:2px;background:var(--border-2)}
-.viz-app .screen{height:100%;border-radius:8px;background:linear-gradient(160deg,rgba(255,106,46,0.15),rgba(214,63,255,0.08));padding:14px 6px 6px;display:flex;flex-direction:column;gap:4px}
-.viz-app .row{height:8px;border-radius:2px;background:rgba(245,233,216,0.1)}
-.viz-app .row.h{background:linear-gradient(90deg,var(--ember),transparent);width:60%}
-.viz-app .row.s{width:80%}
-.viz-app .row.s2{width:40%}
-.viz-app .fab{margin-top:auto;width:18px;height:18px;border-radius:50%;background:var(--ember);align-self:flex-end;box-shadow:0 0 10px var(--ember)}
+/* DEMO 3 — WEBSITE */
+.dm-web{height:100%;display:flex;flex-direction:column;position:relative;z-index:1}
+.dm-web .browser-bar{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--border);background:rgba(14,13,18,0.6)}
+.dm-web .browser-bar .light{width:11px;height:11px;border-radius:50%;background:var(--border-2)}
+.dm-web .browser-bar .light:first-child{background:var(--ember)}
+.dm-web .browser-bar .url{margin-left:14px;flex:1;height:26px;border-radius:6px;background:rgba(245,233,216,0.04);display:flex;align-items:center;padding:0 14px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--bone-dim);gap:8px}
+.dm-web .browser-bar .url::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--ember);box-shadow:0 0 6px var(--ember)}
+.dm-web .page{flex:1;overflow:hidden;position:relative;padding:30px 32px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 50% 30%,rgba(255,106,46,0.08),transparent 60%)}
+.dm-web .page .pnav{position:absolute;top:18px;left:18px;right:18px;display:flex;justify-content:space-between;align-items:center}
+.dm-web .page .plogo{font-family:'Geist',sans-serif;font-size:11px;font-weight:600;color:var(--bone);display:flex;align-items:center;gap:6px}
+.dm-web .page .plogo .pdot{width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFF,#9DA3AB 50%,#1F2227)}
+.dm-web .page .pmenu{display:flex;gap:14px;font-family:'DM Sans',sans-serif;font-size:10px;color:var(--bone-dim)}
+.dm-web .page .pemoji{font-size:54px;line-height:1;margin-bottom:18px;filter:drop-shadow(0 0 30px rgba(255,106,46,0.6))}
+.dm-web .page .ph{font-family:'Geist',sans-serif;font-size:30px;font-weight:700;letter-spacing:-0.028em;line-height:1.05;color:var(--bone);margin-bottom:14px;max-width:380px}
+.dm-web .page .ph .em{color:var(--ember)}
+.dm-web .page .ps{font-size:13px;color:var(--bone-dim);max-width:340px;line-height:1.55;margin-bottom:22px}
+.dm-web .page .pcta{background:var(--ember);color:var(--bg);font-family:'Geist',sans-serif;font-size:12px;font-weight:600;padding:11px 22px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;box-shadow:0 12px 30px rgba(255,106,46,0.35)}
+.dm-web .page .pfeats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px;max-width:460px;width:100%}
+.dm-web .page .pfeat{border:1px solid var(--border);border-radius:10px;padding:12px;background:rgba(245,233,216,0.03);font-family:'DM Sans',sans-serif;font-size:10px;color:var(--bone-dim);letter-spacing:0.06em}
+.dm-web .page .pfeat strong{display:block;font-family:'Geist',sans-serif;font-size:14px;font-weight:600;color:var(--ember);margin-bottom:4px}
 
-.deep{padding:120px 0;border-top:1px solid var(--border)}
-.deep-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:center}
-.deep-grid.flip{grid-template-columns:1.1fr 1fr}
-.deep-grid.flip .copy{order:2}
-.deep h2{font-family:'Geist',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:700;letter-spacing:-0.028em;line-height:1.05;color:var(--bone);margin-bottom:20px}
-.deep .lede{font-size:16px;color:var(--bone-dim);line-height:1.65;margin-bottom:28px}
-.deep ul{list-style:none;display:flex;flex-direction:column;gap:14px}
-.deep ul li{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--bone);line-height:1.5}
-.deep ul li::before{content:'';flex-shrink:0;width:5px;height:5px;border-radius:50%;background:var(--ember);box-shadow:0 0 10px var(--ember);margin-top:9px}
+/* DEMO 4 — APP */
+.dm-app{height:100%;display:flex;align-items:center;justify-content:center;gap:30px;position:relative;z-index:1;padding:30px}
+.dm-app .ph{width:200px;height:400px;border:2px solid var(--border-2);border-radius:30px;padding:8px;background:#040408;position:relative;flex-shrink:0;box-shadow:0 40px 80px rgba(0,0,0,0.6)}
+.dm-app .ph::before{content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);width:60px;height:5px;border-radius:3px;background:#1A1620;z-index:2}
+.dm-app .ph.b{transform:translateY(28px) rotate(5deg);opacity:0.85}
+.dm-app .scr{height:100%;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;background:linear-gradient(165deg,rgba(255,106,46,0.18) 0%,rgba(214,63,255,0.06) 45%,#0B0A0F 100%);position:relative}
+.dm-app .scrh{padding:38px 16px 14px;display:flex;justify-content:space-between;align-items:center}
+.dm-app .scrh .ph-ttl{font-family:'Geist',sans-serif;font-size:15px;font-weight:700;color:var(--bone);letter-spacing:-0.018em}
+.dm-app .scrh .ph-av{width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFB36A,var(--ember) 60%,#3F2A1A);box-shadow:0 0 10px rgba(255,106,46,0.4)}
+.dm-app .scr-body{flex:1;padding:6px 16px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.dm-app .card{background:rgba(245,233,216,0.06);border:1px solid rgba(245,233,216,0.05);border-radius:12px;padding:10px}
+.dm-app .card.pop{background:rgba(255,106,46,0.12);border-color:rgba(255,106,46,0.3)}
+.dm-app .crow{height:6px;border-radius:3px;background:rgba(245,233,216,0.18);margin-bottom:5px}
+.dm-app .crow.s{width:55%}
+.dm-app .crow.l{width:85%}
+.dm-app .crow.em{background:linear-gradient(90deg,var(--ember),rgba(255,106,46,0.2));width:70%}
+.dm-app .tabbar{padding:10px 16px 18px;display:flex;justify-content:space-around;border-top:1px solid rgba(245,233,216,0.06)}
+.dm-app .tabbar .tab{width:6px;height:6px;border-radius:50%;background:rgba(245,233,216,0.15)}
+.dm-app .tabbar .tab.act{background:var(--ember);box-shadow:0 0 8px var(--ember)}
+.dm-app .fab{position:absolute;bottom:68px;right:14px;width:42px;height:42px;border-radius:50%;background:var(--ember);box-shadow:0 0 20px rgba(255,106,46,0.6);display:flex;align-items:center;justify-content:center;color:var(--bg);font-family:'Geist',sans-serif;font-weight:700;font-size:20px;animation:fabpulse 2.2s ease-in-out infinite}
+@keyframes fabpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.dm-app .notif{position:absolute;top:60px;left:14px;right:14px;background:rgba(20,18,28,0.92);backdrop-filter:blur(20px);border:1px solid rgba(245,233,216,0.08);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:10px;animation:notifslide 4s ease-out infinite}
+.dm-app .notif .nicon{width:20px;height:20px;border-radius:6px;background:var(--ember);box-shadow:0 0 8px rgba(255,106,46,0.5);flex-shrink:0}
+.dm-app .notif .ntxt{font-family:'DM Sans',sans-serif;font-size:10px;color:var(--bone);line-height:1.3}
+.dm-app .notif .ntxt strong{display:block;font-weight:600;margin-bottom:2px}
+@keyframes notifslide{0%,15%,100%{opacity:0;transform:translateY(-30px)}25%,75%{opacity:1;transform:translateY(0)}90%{opacity:0;transform:translateY(-10px)}}
 
-.bigviz{
-  position:relative;aspect-ratio:1/0.85;border:1px solid var(--border);border-radius:24px;
-  background:linear-gradient(160deg,var(--surface) 0%,var(--bg-2) 100%);
-  overflow:hidden;padding:36px;box-shadow:inset 0 1px 0 rgba(245,233,216,0.04);
-}
-.bigviz::after{
-  content:'';position:absolute;inset:auto -100px -100px auto;
-  width:300px;height:300px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,106,46,0.15),transparent 70%);
-  filter:blur(20px);pointer-events:none;
-}
-
-.bv-dash{display:grid;grid-template-columns:1fr 1fr;gap:14px;height:100%;position:relative;z-index:1}
-.bv-dash .kpi{background:rgba(245,233,216,0.03);border:1px solid var(--border);border-radius:12px;padding:16px}
-.bv-dash .kpi .lbl{font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:var(--bone-dim);margin-bottom:8px}
-.bv-dash .kpi .val{font-family:'Geist',sans-serif;font-size:26px;font-weight:700;color:var(--bone);letter-spacing:-0.02em}
-.bv-dash .kpi .delta{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--ember);margin-top:4px}
-.bv-dash .chart{grid-column:1/-1;background:rgba(245,233,216,0.03);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;min-height:120px}
-.bv-dash .chart .lbl{font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:var(--bone-dim)}
-.bv-dash .chart .bars{flex:1;display:flex;align-items:flex-end;gap:8px}
-.bv-dash .chart .bars span{flex:1;background:linear-gradient(180deg,var(--ember),rgba(255,106,46,0.15));border-radius:3px 3px 0 0}
-
-.bv-auto svg{width:100%;height:100%;display:block}
-.bv-auto .grid-bg{stroke:var(--border);stroke-width:0.5;fill:none}
-
-.bv-web{height:100%;display:flex;flex-direction:column}
-.bv-web .topbar{display:flex;gap:7px;padding:14px;border-bottom:1px solid var(--border)}
-.bv-web .topbar span{width:10px;height:10px;border-radius:50%;background:var(--border-2)}
-.bv-web .topbar span:first-child{background:var(--ember)}
-.bv-web .topbar .url{margin-left:14px;flex:1;height:22px;border-radius:6px;background:rgba(245,233,216,0.04);display:flex;align-items:center;padding:0 12px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--bone-dim)}
-.bv-web .page{flex:1;padding:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center}
-.bv-web .page .lp-h{font-family:'Geist',sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.025em;line-height:1.1;color:var(--bone)}
-.bv-web .page .lp-s{font-size:12px;color:var(--bone-dim);max-width:240px;line-height:1.5}
-.bv-web .page .lp-btn{margin-top:8px;background:var(--ember);color:var(--bg);font-family:'Geist',sans-serif;font-size:11px;font-weight:600;padding:9px 18px;border-radius:999px}
-
-.bv-app{height:100%;display:flex;align-items:center;justify-content:center;gap:20px}
-.bv-app .phone{width:170px;height:340px;border:2px solid var(--border-2);border-radius:28px;padding:8px;background:var(--bg-2);position:relative;flex-shrink:0;box-shadow:0 30px 60px rgba(0,0,0,0.4)}
-.bv-app .phone::before{content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);width:60px;height:5px;border-radius:3px;background:var(--border-2)}
-.bv-app .phone.alt{transform:translateY(20px) rotate(4deg)}
-.bv-app .phone-screen{height:100%;border-radius:20px;padding:36px 14px 14px;background:linear-gradient(160deg,rgba(255,106,46,0.18) 0%,rgba(214,63,255,0.08) 50%,var(--bg-2) 100%);display:flex;flex-direction:column;gap:7px}
-.bv-app .phone-h{font-family:'Geist',sans-serif;font-size:15px;font-weight:700;color:var(--bone);letter-spacing:-0.02em;margin-bottom:8px}
-.bv-app .phone .row{height:10px;border-radius:3px;background:rgba(245,233,216,0.08)}
-.bv-app .phone .row.a{width:80%}
-.bv-app .phone .row.b{width:65%}
-.bv-app .phone .row.c{width:90%}
-.bv-app .phone .fab{margin-top:auto;align-self:flex-end;width:42px;height:42px;border-radius:50%;background:var(--ember);box-shadow:0 0 24px rgba(255,106,46,0.6);display:flex;align-items:center;justify-content:center;color:var(--bg);font-weight:700}
+/* SECTIONS (post-showcase) */
+section.flow{position:relative;padding:100px 0;z-index:2}
+.section-label{display:inline-block;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.22em;color:var(--ember);margin-bottom:18px}
+.section-head{font-family:'Geist',sans-serif;font-weight:700;font-size:clamp(28px,4.2vw,48px);letter-spacing:-0.028em;line-height:1.1;color:var(--bone);margin-bottom:18px;max-width:780px}
 
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:0;margin:40px 0}
 .stat{border:1px solid var(--border);border-radius:18px;padding:28px;background:linear-gradient(160deg,var(--surface),var(--bg-2))}
@@ -324,38 +258,41 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
 
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s, transform .8s}
 .reveal.in{opacity:1;transform:translateY(0)}
-
 .lang-content{display:none}
 .lang-content.active{display:block}
-[dir="rtl"] .deep-grid.flip .copy{order:0}
 
+/* ARABIC */
 .ar .hero h1{font-family:'Tajawal',sans-serif;font-weight:900;letter-spacing:-0.02em;line-height:1.16}
-.ar .section-head{font-family:'Tajawal',sans-serif;font-weight:800;line-height:1.2}
-.ar .deep h2{font-family:'Tajawal',sans-serif;font-weight:800;line-height:1.2}
+.ar .section-head,.ar .phase-copy h2{font-family:'Tajawal',sans-serif;font-weight:800;line-height:1.2}
 .ar .cta-block h2{font-family:'Tajawal',sans-serif;font-weight:800;line-height:1.2}
-.ar .tile h3,.ar .step h3{font-family:'Tajawal',sans-serif;font-weight:700}
-.ar p,.ar li,.ar .hero-sub,.ar .section-lede,.ar .lede,.ar .tile p,.ar .step p,.ar .price-desc{font-family:'Tajawal',sans-serif;line-height:1.8}
+.ar .step h3{font-family:'Tajawal',sans-serif;font-weight:700}
+.ar p,.ar li,.ar .hero-sub,.ar .lede,.ar .step p,.ar .price-desc,.ar .phase-copy .lede{font-family:'Tajawal',sans-serif;line-height:1.8}
 
+/* RESPONSIVE */
 @media (max-width:900px){
   nav{padding:14px 20px}
   .nav-links{gap:18px}
   .nav-links a:not(.lang-btn){display:none}
   .wrap{padding:0 20px}
-  .hero{padding:130px 0 80px;min-height:auto}
-  .hero-orb-wrap{width:200px;height:200px;margin-bottom:36px}
-  .hero-badge{margin-bottom:32px}
+  .hero{padding:120px 0 80px;min-height:auto}
+  .hero-orb-wrap{width:200px;height:200px;margin-bottom:32px}
+  .hero-badge{margin-bottom:28px}
   .hero h1{font-size:clamp(34px,8vw,52px)}
-  section{padding:70px 0}
-  .deep{padding:80px 0}
-  .bento{grid-template-columns:1fr}
-  .tile{min-height:300px;padding:28px}
-  .deep-grid,.deep-grid.flip{grid-template-columns:1fr;gap:40px}
-  .deep-grid.flip .copy{order:0}
-  .stats{grid-template-columns:1fr}
-  .how-grid{grid-template-columns:1fr}
-  .price-grid{grid-template-columns:1fr}
+  .scroll-hint{display:none}
+  section.flow{padding:70px 0}
+  /* Showcase falls back to natural flow on mobile */
+  .showcase{height:auto}
+  .showcase-stage{position:relative;top:auto;height:auto;display:block}
+  .showcase-inner{display:block;padding:0 20px}
+  .phase{position:relative;inset:auto;opacity:1;transform:none;pointer-events:auto;grid-template-columns:1fr;gap:32px;padding:80px 0;border-top:1px solid var(--border)}
+  .phase:first-child{border-top:none}
+  .phase-copy{padding-top:0}
+  .phase-nav,.phase-counter{display:none}
+  .demo{aspect-ratio:1/0.85;max-height:none}
+  .dm-app{gap:14px;padding:18px}
+  .dm-app .ph.b{display:none}
+  .stats,.how-grid,.price-grid{grid-template-columns:1fr}
   .cta-block{padding:48px 24px}
-  .bv-app .phone.alt{display:none}
 }
 </style>
 </head>
@@ -387,7 +324,7 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
     <span class="brand-text">alvvoayad<span class="dot">.ai</span></span>
   </a>
   <div class="nav-links">
-    <a href="#services-en" data-en="Services" data-ar="خدماتنا">Services</a>
+    <a href="#showcase-en" data-en="Services" data-ar="خدماتنا">Services</a>
     <a href="#process-en" data-en="Process" data-ar="مراحل العمل">Process</a>
     <a href="/guide" data-en="30-Day Guide" data-ar="دليل الـ 30 يوم">30-Day Guide</a>
     <a href="#contact-en" data-en="Contact" data-ar="تواصل">Contact</a>
@@ -395,6 +332,33 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
   </div>
 </nav>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="orbBase" cx="38%" cy="32%" r="78%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="18%" stop-color="#E8ECEF"/>
+      <stop offset="45%" stop-color="#9DA3AB"/>
+      <stop offset="72%" stop-color="#3F2A1A"/>
+      <stop offset="100%" stop-color="#0A0808"/>
+    </radialGradient>
+    <radialGradient id="orbEmber" cx="50%" cy="85%" r="55%">
+      <stop offset="0%" stop-color="#FF6A2E" stop-opacity="0.85"/>
+      <stop offset="55%" stop-color="#FF6A2E" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#FF6A2E" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="orbIridescent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3FE5FF" stop-opacity="0.5"/>
+      <stop offset="50%" stop-color="#D63FFF" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#FF6A2E" stop-opacity="0.5"/>
+    </linearGradient>
+    <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF6A2E" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FF6A2E" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- ===== ENGLISH ===== -->
 <div class="lang-content active" id="lang-en">
 
   <section class="hero">
@@ -403,25 +367,6 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
       <div class="hero-orb-wrap">
         <div class="hero-orb-glow"></div>
         <svg class="hero-orb" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="orbBase" cx="38%" cy="32%" r="78%">
-              <stop offset="0%" stop-color="#FFFFFF"/>
-              <stop offset="18%" stop-color="#E8ECEF"/>
-              <stop offset="45%" stop-color="#9DA3AB"/>
-              <stop offset="72%" stop-color="#3F2A1A"/>
-              <stop offset="100%" stop-color="#0A0808"/>
-            </radialGradient>
-            <radialGradient id="orbEmber" cx="50%" cy="85%" r="55%">
-              <stop offset="0%" stop-color="#FF6A2E" stop-opacity="0.85"/>
-              <stop offset="55%" stop-color="#FF6A2E" stop-opacity="0.3"/>
-              <stop offset="100%" stop-color="#FF6A2E" stop-opacity="0"/>
-            </radialGradient>
-            <linearGradient id="orbIridescent" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#3FE5FF" stop-opacity="0.5"/>
-              <stop offset="50%" stop-color="#D63FFF" stop-opacity="0.4"/>
-              <stop offset="100%" stop-color="#FF6A2E" stop-opacity="0.5"/>
-            </linearGradient>
-          </defs>
           <circle cx="120" cy="130" r="80" fill="url(#orbEmber)" opacity="0.9"/>
           <circle cx="120" cy="120" r="100" fill="url(#orbBase)"/>
           <circle cx="120" cy="120" r="100" fill="url(#orbIridescent)" opacity="0.35"/>
@@ -431,216 +376,267 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
         </svg>
       </div>
       <h1>We build the systems<br>your business is <span class="ember">missing.</span></h1>
-      <p class="hero-sub">Dashboards. Automation. Websites. Apps. Built around how you actually work — not generic software you bend yourself into.</p>
+      <p class="hero-sub">Built around how you actually work — not generic software you bend yourself into.</p>
+      <div class="hero-pills">
+        <span class="hero-pill">Dashboards</span>
+        <span class="hero-pill">Automation</span>
+        <span class="hero-pill">Websites</span>
+        <span class="hero-pill">Apps</span>
+      </div>
       <a href="https://wa.me/96877056051?text=Hi%2C%20I%27m%20interested%20in%20working%20with%20you" class="hero-cta" target="_blank">
         Start a conversation
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
+      <div class="scroll-hint"><span>Scroll to explore</span><span class="line"></span></div>
     </div>
   </section>
 
   <div class="ticker-wrap">
     <div class="ticker">
-      <span class="ticker-item">Dashboards</span>
-      <span class="ticker-item">Automation</span>
-      <span class="ticker-item">Websites</span>
-      <span class="ticker-item">Mobile Apps</span>
-      <span class="ticker-item">n8n · Make · Zapier</span>
-      <span class="ticker-item">Supabase · Vercel · Next.js</span>
-      <span class="ticker-item">Claude · GPT · Gemini</span>
-      <span class="ticker-item">WhatsApp Business API</span>
-      <span class="ticker-item">Oman-Based</span>
-      <span class="ticker-item">Dashboards</span>
-      <span class="ticker-item">Automation</span>
-      <span class="ticker-item">Websites</span>
-      <span class="ticker-item">Mobile Apps</span>
-      <span class="ticker-item">n8n · Make · Zapier</span>
-      <span class="ticker-item">Supabase · Vercel · Next.js</span>
-      <span class="ticker-item">Claude · GPT · Gemini</span>
-      <span class="ticker-item">WhatsApp Business API</span>
-      <span class="ticker-item">Oman-Based</span>
+      <span class="ticker-item">Dashboards</span><span class="ticker-item">Automation</span><span class="ticker-item">Websites</span><span class="ticker-item">Mobile Apps</span><span class="ticker-item">n8n · Make · Zapier</span><span class="ticker-item">Supabase · Vercel · Next.js</span><span class="ticker-item">Claude · GPT · Gemini</span><span class="ticker-item">WhatsApp Business API</span><span class="ticker-item">Oman-Based</span>
+      <span class="ticker-item">Dashboards</span><span class="ticker-item">Automation</span><span class="ticker-item">Websites</span><span class="ticker-item">Mobile Apps</span><span class="ticker-item">n8n · Make · Zapier</span><span class="ticker-item">Supabase · Vercel · Next.js</span><span class="ticker-item">Claude · GPT · Gemini</span><span class="ticker-item">WhatsApp Business API</span><span class="ticker-item">Oman-Based</span>
     </div>
   </div>
 
-  <section id="services-en">
-    <div class="wrap">
-      <div class="reveal">
-        <div class="section-label">What we build</div>
-        <h2 class="section-head">Four offerings. One operating system for your business.</h2>
-        <p class="section-lede">Each one is custom. Each one is built to keep running after we hand it over.</p>
-      </div>
-      <div class="bento reveal">
-        <a href="#dashboards" class="tile">
-          <div class="tile-head"><span class="tile-tag">Dashboards</span><div class="tile-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></div></div>
-          <div class="tile-visual"><div class="viz-dash"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div></div>
-          <div><h3>Live dashboards</h3><p>Real-time KPIs, team performance, revenue, ops — the view of your business you've never had.</p></div>
-        </a>
-        <a href="#automation" class="tile">
-          <div class="tile-head"><span class="tile-tag">Automation</span><div class="tile-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></div></div>
-          <div class="tile-visual"><div class="viz-auto"><svg viewBox="0 0 240 120"><path class="link" d="M30 60 L 90 30"/><path class="link" d="M30 60 L 90 90"/><path class="link" d="M90 30 L 150 60"/><path class="link" d="M90 90 L 150 60"/><path class="link" d="M150 60 L 210 60"/><circle class="node" cx="30" cy="60" r="14"/><circle class="node alt" cx="90" cy="30" r="12"/><circle class="node alt2" cx="90" cy="90" r="12"/><circle class="node" cx="150" cy="60" r="14"/><circle class="node alt" cx="210" cy="60" r="12"/></svg></div></div>
-          <div><h3>Automation systems</h3><p>Workflows that reply, qualify, route, and follow up — 24/7, without anyone touching it.</p></div>
-        </a>
-        <a href="#websites" class="tile">
-          <div class="tile-head"><span class="tile-tag">Websites</span><div class="tile-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></div></div>
-          <div class="tile-visual"><div class="viz-web"><div class="frame"><div class="top"><span></span><span></span><span></span></div><div class="body"><div class="l"></div><div class="l"></div><div class="l"></div><div class="btn"></div></div></div></div></div>
-          <div><h3>Website building</h3><p>Landing pages, agency sites, sales funnels — fast, premium, on-brand. Like this one.</p></div>
-        </a>
-        <a href="#apps" class="tile">
-          <div class="tile-head"><span class="tile-tag">Apps</span><div class="tile-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></div></div>
-          <div class="tile-visual"><div class="viz-app"><div class="screen"><div class="row h"></div><div class="row s"></div><div class="row s2"></div><div class="row s"></div><div class="fab"></div></div></div></div>
-          <div><h3>App building</h3><p>Mobile and web apps for internal teams or end users — built fast with modern AI tooling.</p></div>
-        </a>
-      </div>
-    </div>
-  </section>
+  <!-- SHOWCASE — pinned scroll stage -->
+  <section class="showcase" id="showcase-en" data-showcase>
+    <div class="showcase-stage">
+      <div class="phase-counter"><span class="ci">01</span> / 04</div>
 
-  <section class="deep" id="dashboards">
-    <div class="wrap">
-      <div class="deep-grid">
-        <div class="copy reveal">
-          <div class="section-label">01 · Dashboards</div>
-          <h2>The view of your business you've never had.</h2>
-          <p class="lede">Live KPIs, team activity, revenue, ops — all in one screen. From any device. We connect to what you already use and turn the data into a picture you can act on.</p>
-          <ul>
-            <li>Real-time KPIs custom to your business</li>
-            <li>Team and project tracking</li>
-            <li>Sales, revenue, and pipeline visibility</li>
-            <li>Mobile-friendly — check from anywhere</li>
-            <li>Role-based access for owners, managers, staff</li>
-          </ul>
-        </div>
-        <div class="reveal">
-          <div class="bigviz">
-            <div class="bv-dash">
-              <div class="kpi"><div class="lbl">Revenue MTD</div><div class="val">42,180</div><div class="delta">↑ 18% vs last month</div></div>
-              <div class="kpi"><div class="lbl">Active leads</div><div class="val">127</div><div class="delta">↑ 12 today</div></div>
-              <div class="chart"><div class="lbl">This week</div><div class="bars"><span style="height:30%"></span><span style="height:55%"></span><span style="height:42%"></span><span style="height:72%"></span><span style="height:58%"></span><span style="height:88%"></span><span style="height:95%"></span></div></div>
-            </div>
+      <div class="showcase-inner">
+
+        <!-- PHASE 1: DASHBOARDS -->
+        <div class="phase" data-phase="0">
+          <div class="phase-copy">
+            <div class="phase-num">01 · Dashboards</div>
+            <h2>The view of your business you've never had.</h2>
+            <p class="lede">Live KPIs, revenue, team activity, ops — one screen, any device. Connected to what you already use.</p>
+            <ul>
+              <li>Real-time KPIs custom to your business</li>
+              <li>Team and project tracking</li>
+              <li>Sales and pipeline visibility</li>
+              <li>Role-based access — owners, managers, staff</li>
+            </ul>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="deep" id="automation">
-    <div class="wrap">
-      <div class="deep-grid flip">
-        <div class="reveal">
-          <div class="bigviz">
-            <svg class="bv-auto" viewBox="0 0 400 320">
-              <defs>
-                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path class="grid-bg" d="M 40 0 L 0 0 0 40"/>
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#grid)" opacity="0.5"/>
-              <path d="M60 160 L 140 80" stroke="rgba(255,106,46,0.5)" stroke-width="2" fill="none" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="2s" repeatCount="indefinite"/></path>
-              <path d="M60 160 L 140 240" stroke="rgba(214,63,255,0.5)" stroke-width="2" fill="none" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="2.4s" repeatCount="indefinite"/></path>
-              <path d="M140 80 L 240 160" stroke="rgba(255,106,46,0.5)" stroke-width="2" fill="none" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="2.2s" repeatCount="indefinite"/></path>
-              <path d="M140 240 L 240 160" stroke="rgba(63,229,255,0.5)" stroke-width="2" fill="none" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="2.6s" repeatCount="indefinite"/></path>
-              <path d="M240 160 L 340 160" stroke="rgba(255,106,46,0.5)" stroke-width="2" fill="none" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="2s" repeatCount="indefinite"/></path>
-              <g><rect x="36" y="138" width="48" height="44" rx="10" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/><text x="60" y="166" text-anchor="middle" font-family="DM Sans" font-size="9" fill="#F5E9D8" letter-spacing="1">IN</text></g>
-              <g><rect x="116" y="58" width="48" height="44" rx="10" fill="#15100C" stroke="#D63FFF" stroke-width="1.5"/><text x="140" y="86" text-anchor="middle" font-family="DM Sans" font-size="8" fill="#F5E9D8">FILTER</text></g>
-              <g><rect x="116" y="218" width="48" height="44" rx="10" fill="#15100C" stroke="#3FE5FF" stroke-width="1.5"/><text x="140" y="246" text-anchor="middle" font-family="DM Sans" font-size="8" fill="#F5E9D8">AI</text></g>
-              <g><rect x="216" y="138" width="48" height="44" rx="10" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/><text x="240" y="166" text-anchor="middle" font-family="DM Sans" font-size="9" fill="#F5E9D8">ROUTE</text></g>
-              <g><rect x="316" y="138" width="48" height="44" rx="10" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/><text x="340" y="166" text-anchor="middle" font-family="DM Sans" font-size="9" fill="#F5E9D8" letter-spacing="1">OUT</text></g>
-            </svg>
-          </div>
-        </div>
-        <div class="copy reveal">
-          <div class="section-label">02 · Automation</div>
-          <h2>Work that runs itself.</h2>
-          <p class="lede">Repetitive tasks, replies, follow-ups, reports — handed off to systems that never sleep, never forget, never miss. Connected to the tools your team already uses.</p>
-          <ul>
-            <li>WhatsApp, email, and form automation</li>
-            <li>Lead capture, qualification, and routing</li>
-            <li>AI agents for replies and triage</li>
-            <li>Auto-reports and weekly digests</li>
-            <li>Integrations: n8n, Make, Zapier, custom APIs</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="deep" id="websites">
-    <div class="wrap">
-      <div class="deep-grid">
-        <div class="copy reveal">
-          <div class="section-label">03 · Websites</div>
-          <h2>Sites that look like the work you actually do.</h2>
-          <p class="lede">Landing pages, agency sites, sales funnels, product pages — designed and built fast. Premium. On-brand. Built to convert, not just look pretty.</p>
-          <ul>
-            <li>Custom design — no templates</li>
-            <li>Bilingual English / Arabic</li>
-            <li>Hosted on Vercel — fast, global, auto-deploy</li>
-            <li>Forms, payments, integrations included</li>
-            <li>SEO, analytics, and tracking ready</li>
-          </ul>
-        </div>
-        <div class="reveal">
-          <div class="bigviz">
-            <div class="bv-web">
-              <div class="topbar"><span></span><span></span><span></span><div class="url">alvvoayad.ai</div></div>
-              <div class="page">
-                <div class="lp-h">Premium websites,<br>shipped fast.</div>
-                <div class="lp-s">Brand-grade design and modern stacks for businesses that take themselves seriously.</div>
-                <div class="lp-btn">Start →</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="deep" id="apps">
-    <div class="wrap">
-      <div class="deep-grid flip">
-        <div class="reveal">
-          <div class="bigviz">
-            <div class="bv-app">
-              <div class="phone">
-                <div class="phone-screen">
-                  <div class="phone-h">Your app</div>
-                  <div class="row a"></div>
-                  <div class="row b"></div>
-                  <div class="row c"></div>
-                  <div class="row b"></div>
-                  <div class="row a"></div>
-                  <div class="fab">+</div>
+          <div class="phase-viz">
+            <div class="demo">
+              <div class="dm-dash">
+                <div class="topbar">
+                  <div class="dm-brand"><span class="od"></span> ACME · Live Dashboard</div>
+                  <div class="dm-tabs"><span>Overview</span><span class="act">Live</span><span>Reports</span></div>
+                  <div class="dm-live"><span class="d"></span> Live</div>
                 </div>
-              </div>
-              <div class="phone alt">
-                <div class="phone-screen">
-                  <div class="phone-h">Today</div>
-                  <div class="row a"></div>
-                  <div class="row c"></div>
-                  <div class="row b"></div>
-                  <div class="row a"></div>
-                  <div class="row c"></div>
+                <div class="dm-body">
+                  <div class="kpi-row">
+                    <div class="kpi"><div class="lbl">Revenue MTD</div><div class="val">42,180</div><div class="delta">↑ 18% vs last month</div></div>
+                    <div class="kpi alt"><div class="lbl">Active leads</div><div class="val">127</div><div class="delta">↑ 12 today</div></div>
+                    <div class="kpi"><div class="lbl">Conversion</div><div class="val">8.4%</div><div class="delta">↑ 1.2pt</div></div>
+                  </div>
+                  <div class="chart-card">
+                    <div class="chart-head"><div class="ttl">This week · revenue</div><div class="dm-live"><span class="d"></span> Live</div></div>
+                    <svg class="chart-svg" viewBox="0 0 400 110" preserveAspectRatio="none">
+                      <path class="fill" d="M0 90 L 40 70 L 80 80 L 120 50 L 160 60 L 200 35 L 240 45 L 280 25 L 320 30 L 360 15 L 400 20 L 400 110 L 0 110 Z"/>
+                      <path class="line" d="M0 90 L 40 70 L 80 80 L 120 50 L 160 60 L 200 35 L 240 45 L 280 25 L 320 30 L 360 15 L 400 20"/>
+                      <circle class="pt" cx="40" cy="70" r="3" style="animation-delay:0.6s"/>
+                      <circle class="pt" cx="120" cy="50" r="3" style="animation-delay:1s"/>
+                      <circle class="pt" cx="200" cy="35" r="3" style="animation-delay:1.4s"/>
+                      <circle class="pt" cx="280" cy="25" r="3" style="animation-delay:1.8s"/>
+                      <circle class="pt" cx="360" cy="15" r="4" style="animation-delay:2.2s" fill="#FFB36A"/>
+                    </svg>
+                  </div>
+                  <div class="activity">
+                    <div class="act"><div class="l"><span class="dot"></span>New lead from WhatsApp · qualified</div><span class="t">just now</span></div>
+                    <div class="act"><div class="l"><span class="dot b"></span>Payment received · 245 OMR</div><span class="t">2m ago</span></div>
+                    <div class="act"><div class="l"><span class="dot c"></span>Auto-report sent to team</div><span class="t">5m ago</span></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="copy reveal">
-          <div class="section-label">04 · Apps</div>
-          <h2>Mobile and web apps, shipped in weeks.</h2>
-          <p class="lede">Whether it's a tool for your team or a product for your customers — we design, build, and ship apps using modern AI tooling. Faster than agencies. More custom than templates.</p>
-          <ul>
-            <li>iOS, Android, and web — one codebase</li>
-            <li>Internal tools for teams</li>
-            <li>Client-facing products and portals</li>
-            <li>AI-powered features baked in</li>
-            <li>From prototype to production in weeks</li>
-          </ul>
+
+        <!-- PHASE 2: AUTOMATION -->
+        <div class="phase" data-phase="1">
+          <div class="phase-copy">
+            <div class="phase-num">02 · Automation</div>
+            <h2>Work that runs itself.</h2>
+            <p class="lede">Repetitive tasks, replies, follow-ups, reports — handed off to systems that never sleep, never miss.</p>
+            <ul>
+              <li>WhatsApp, email, and form automation</li>
+              <li>Lead capture, qualification, routing</li>
+              <li>AI agents for replies and triage</li>
+              <li>Integrations: n8n, Make, Zapier, custom APIs</li>
+            </ul>
+          </div>
+          <div class="phase-viz">
+            <div class="demo">
+              <div class="dm-auto">
+                <div class="ahead">
+                  <div class="at">Workflow · live</div>
+                  <div class="ac"><span class="d"></span>1,247 events today</div>
+                </div>
+                <div class="canvas">
+                  <svg viewBox="0 0 580 360">
+                    <defs>
+                      <pattern id="g2" width="40" height="40" patternUnits="userSpaceOnUse"><path class="grid-bg" d="M 40 0 L 0 0 0 40"/></pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#g2)"/>
+
+                    <path class="link o" d="M90 180 L 220 100" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="2s" repeatCount="indefinite"/></path>
+                    <path class="link m" d="M90 180 L 220 260" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="2.3s" repeatCount="indefinite"/></path>
+                    <path class="link o" d="M280 100 L 380 180" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="2.1s" repeatCount="indefinite"/></path>
+                    <path class="link c" d="M280 260 L 380 180" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="2.5s" repeatCount="indefinite"/></path>
+                    <path class="link o" d="M440 180 L 540 180" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.9s" repeatCount="indefinite"/></path>
+
+                    <g><rect class="nbox" x="30" y="150" width="60" height="60" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/><text class="ntxt" x="60" y="178" text-anchor="middle">WA</text><text class="nsub" x="60" y="194" text-anchor="middle">IN</text></g>
+
+                    <g><rect class="nbox" x="220" y="70" width="60" height="60" fill="#15100C" stroke="#D63FFF" stroke-width="1.5"/><text class="ntxt" x="250" y="100" text-anchor="middle">Filter</text><text class="nsub" x="250" y="116" text-anchor="middle">RULE</text></g>
+
+                    <g><rect class="nbox" x="220" y="230" width="60" height="60" fill="#15100C" stroke="#3FE5FF" stroke-width="1.5"/><text class="ntxt" x="250" y="260" text-anchor="middle">AI</text><text class="nsub" x="250" y="276" text-anchor="middle">REPLY</text></g>
+
+                    <g><rect class="nbox" x="380" y="150" width="60" height="60" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/><text class="ntxt" x="410" y="180" text-anchor="middle">Route</text><text class="nsub" x="410" y="196" text-anchor="middle">SPLIT</text></g>
+
+                    <g><rect class="nbox" x="500" y="150" width="60" height="60" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/><text class="ntxt" x="530" y="178" text-anchor="middle">CRM</text><text class="nsub" x="530" y="194" text-anchor="middle">OUT</text></g>
+
+                    <circle r="4" fill="#FF6A2E"><animateMotion dur="3s" repeatCount="indefinite" path="M90 180 L 220 100 L 280 100 L 380 180 L 440 180 L 540 180"/></circle>
+                    <circle r="4" fill="#D63FFF"><animateMotion dur="3.4s" repeatCount="indefinite" begin="0.5s" path="M90 180 L 220 260 L 280 260 L 380 180 L 440 180 L 540 180"/></circle>
+                  </svg>
+                </div>
+                <div class="stats">
+                  <div class="s"><strong>2.4s</strong>avg response</div>
+                  <div class="s"><strong class="em">98.7%</strong>auto-resolved</div>
+                  <div class="s"><strong>0</strong>missed leads</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- PHASE 3: WEBSITES -->
+        <div class="phase" data-phase="2">
+          <div class="phase-copy">
+            <div class="phase-num">03 · Websites</div>
+            <h2>Sites that look like the work you actually do.</h2>
+            <p class="lede">Landing pages, agency sites, sales funnels. Premium. On-brand. Built to convert.</p>
+            <ul>
+              <li>Custom design — no templates</li>
+              <li>Bilingual English / Arabic</li>
+              <li>Hosted on Vercel — fast, global, auto-deploy</li>
+              <li>Forms, payments, SEO included</li>
+            </ul>
+          </div>
+          <div class="phase-viz">
+            <div class="demo">
+              <div class="dm-web">
+                <div class="browser-bar">
+                  <span class="light"></span><span class="light"></span><span class="light"></span>
+                  <div class="url">alvvoayad.ai</div>
+                </div>
+                <div class="page">
+                  <div class="pnav">
+                    <div class="plogo"><span class="pdot"></span> brand.ai</div>
+                    <div class="pmenu"><span>Work</span><span>About</span><span>Contact</span></div>
+                  </div>
+                  <div class="pemoji">◉</div>
+                  <div class="ph">Premium sites,<br><span class="em">shipped fast.</span></div>
+                  <div class="ps">Brand-grade design and modern stacks for businesses that take themselves seriously.</div>
+                  <div class="pcta">Start now →</div>
+                  <div class="pfeats">
+                    <div class="pfeat"><strong>48h</strong>turnaround</div>
+                    <div class="pfeat"><strong>100/100</strong>page speed</div>
+                    <div class="pfeat"><strong>2 lang</strong>EN · AR</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHASE 4: APPS -->
+        <div class="phase" data-phase="3">
+          <div class="phase-copy">
+            <div class="phase-num">04 · Apps</div>
+            <h2>Mobile and web apps,<br>shipped in weeks.</h2>
+            <p class="lede">For your team or your customers. Designed, built, and deployed with modern AI tooling.</p>
+            <ul>
+              <li>iOS, Android, and web — one codebase</li>
+              <li>Internal tools for teams</li>
+              <li>Client-facing products and portals</li>
+              <li>From prototype to production in weeks</li>
+            </ul>
+          </div>
+          <div class="phase-viz">
+            <div class="demo">
+              <div class="dm-app">
+                <div class="ph">
+                  <div class="scr">
+                    <div class="notif">
+                      <div class="nicon"></div>
+                      <div class="ntxt"><strong>New lead</strong>Khalid · qualified by AI</div>
+                    </div>
+                    <div class="scrh">
+                      <div class="ph-ttl">Today</div>
+                      <div class="ph-av"></div>
+                    </div>
+                    <div class="scr-body">
+                      <div class="card pop">
+                        <div class="crow em"></div>
+                        <div class="crow l"></div>
+                        <div class="crow s"></div>
+                      </div>
+                      <div class="card">
+                        <div class="crow l"></div>
+                        <div class="crow s"></div>
+                      </div>
+                      <div class="card">
+                        <div class="crow l"></div>
+                        <div class="crow s"></div>
+                      </div>
+                      <div class="card">
+                        <div class="crow s"></div>
+                        <div class="crow l"></div>
+                      </div>
+                    </div>
+                    <div class="tabbar">
+                      <span class="tab act"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span>
+                    </div>
+                    <div class="fab">+</div>
+                  </div>
+                </div>
+                <div class="ph b">
+                  <div class="scr">
+                    <div class="scrh">
+                      <div class="ph-ttl">Inbox</div>
+                      <div class="ph-av"></div>
+                    </div>
+                    <div class="scr-body">
+                      <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
+                      <div class="card"><div class="crow em"></div><div class="crow l"></div></div>
+                      <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
+                      <div class="card"><div class="crow s"></div><div class="crow l"></div></div>
+                    </div>
+                    <div class="tabbar">
+                      <span class="tab"></span><span class="tab act"></span><span class="tab"></span><span class="tab"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="phase-nav">
+        <button class="pd active" data-go="0" aria-label="Dashboards"></button>
+        <button class="pd" data-go="1" aria-label="Automation"></button>
+        <button class="pd" data-go="2" aria-label="Websites"></button>
+        <button class="pd" data-go="3" aria-label="Apps"></button>
       </div>
     </div>
   </section>
 
-  <section>
+  <section class="flow">
     <div class="wrap">
       <div class="stats reveal">
         <div class="stat"><div class="stat-val">10h+</div><div class="stat-label">Saved weekly per client</div></div>
@@ -650,42 +646,28 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
     </div>
   </section>
 
-  <section id="process-en">
+  <section class="flow" id="process-en">
     <div class="wrap">
-      <div class="reveal">
-        <div class="section-label">How we work</div>
-        <h2 class="section-head">Simple. Fast. Done.</h2>
-      </div>
+      <div class="reveal"><div class="section-label">How we work</div><h2 class="section-head">Simple. Fast. Done.</h2></div>
       <div class="how-grid reveal">
-        <div class="step"><div class="step-num">01 — TALK</div><h3>Tell us the problem</h3><p>Send a WhatsApp message about what's slowing you down. Plain language. No technical jargon needed.</p></div>
+        <div class="step"><div class="step-num">01 — TALK</div><h3>Tell us the problem</h3><p>Send a WhatsApp message about what's slowing you down. Plain language. No jargon.</p></div>
         <div class="step"><div class="step-num">02 — DESIGN</div><h3>We propose the solution</h3><p>Within 48 hours: clear scope, timeline, price. You decide what to ship.</p></div>
-        <div class="step"><div class="step-num">03 — RUN</div><h3>It runs while you sleep</h3><p>We build, test, deploy, and stay to make sure it keeps running perfectly.</p></div>
+        <div class="step"><div class="step-num">03 — RUN</div><h3>It runs while you sleep</h3><p>We build, test, deploy, and stay to make sure it keeps running.</p></div>
       </div>
     </div>
   </section>
 
-  <section>
+  <section class="flow">
     <div class="wrap">
-      <div class="reveal">
-        <div class="section-label">Pricing</div>
-        <h2 class="section-head">Transparent. Custom-scoped.</h2>
-      </div>
+      <div class="reveal"><div class="section-label">Pricing</div><h2 class="section-head">Transparent. Custom-scoped.</h2></div>
       <div class="price-grid reveal">
-        <div class="price">
-          <div class="price-label">Setup</div>
-          <div class="price-desc">One-time fee to design, build, and deploy your system. Scope and pricing are tailored to what you actually need.</div>
-          <div class="price-amount ember">Get a quote</div>
-        </div>
-        <div class="price pop">
-          <div class="price-label">Monthly partnership</div>
-          <div class="price-desc">Ongoing maintenance, monitoring, updates, and priority support. Your systems stay running and keep improving — without you lifting a finger.</div>
-          <div class="price-amount">From 50 OMR / month</div>
-        </div>
+        <div class="price"><div class="price-label">Setup</div><div class="price-desc">One-time fee to design, build, and deploy your system. Scope and pricing tailored to what you need.</div><div class="price-amount ember">Get a quote</div></div>
+        <div class="price pop"><div class="price-label">Monthly partnership</div><div class="price-desc">Ongoing maintenance, monitoring, updates, priority support. Systems stay running and keep improving.</div><div class="price-amount">From 50 OMR / month</div></div>
       </div>
     </div>
   </section>
 
-  <section id="contact-en">
+  <section class="flow" id="contact-en">
     <div class="wrap">
       <div class="cta-block reveal">
         <h2>Ready to stop doing it manually?</h2>
@@ -705,6 +687,7 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
   </footer>
 </div>
 
+<!-- ===== ARABIC ===== -->
 <div class="lang-content ar" id="lang-ar" dir="rtl">
 
   <section class="hero">
@@ -722,148 +705,231 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
         </svg>
       </div>
       <h1>نبني الأنظمة<br>التي تنقص <span class="ember">أعمالكم.</span></h1>
-      <p class="hero-sub">لوحات تحكّم. أتمتة. مواقع. تطبيقات. مصمَّمة حول طريقة عملكم الفعلية — لا برامج جاهزة تجبركم على التكيّف معها.</p>
+      <p class="hero-sub">مصمَّمة حول طريقة عملكم الفعلية — لا برامج جاهزة تجبركم على التكيّف معها.</p>
+      <div class="hero-pills">
+        <span class="hero-pill">لوحات تحكّم</span>
+        <span class="hero-pill">أتمتة</span>
+        <span class="hero-pill">مواقع</span>
+        <span class="hero-pill">تطبيقات</span>
+      </div>
       <a href="https://wa.me/96877056051?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" class="hero-cta" target="_blank">
         ابدأ المحادثة
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       </a>
+      <div class="scroll-hint"><span>اسحب للأسفل</span><span class="line"></span></div>
     </div>
   </section>
 
   <div class="ticker-wrap">
     <div class="ticker">
-      <span class="ticker-item">لوحات تحكّم</span>
-      <span class="ticker-item">أنظمة أتمتة</span>
-      <span class="ticker-item">مواقع إلكترونية</span>
-      <span class="ticker-item">تطبيقات</span>
-      <span class="ticker-item">n8n · Make · Zapier</span>
-      <span class="ticker-item">واتساب أعمال</span>
-      <span class="ticker-item">Claude · GPT · Gemini</span>
-      <span class="ticker-item">من سلطنة عُمان</span>
-      <span class="ticker-item">لوحات تحكّم</span>
-      <span class="ticker-item">أنظمة أتمتة</span>
-      <span class="ticker-item">مواقع إلكترونية</span>
-      <span class="ticker-item">تطبيقات</span>
-      <span class="ticker-item">n8n · Make · Zapier</span>
-      <span class="ticker-item">واتساب أعمال</span>
-      <span class="ticker-item">Claude · GPT · Gemini</span>
-      <span class="ticker-item">من سلطنة عُمان</span>
+      <span class="ticker-item">لوحات تحكّم</span><span class="ticker-item">أنظمة أتمتة</span><span class="ticker-item">مواقع إلكترونية</span><span class="ticker-item">تطبيقات</span><span class="ticker-item">n8n · Make · Zapier</span><span class="ticker-item">واتساب أعمال</span><span class="ticker-item">Claude · GPT · Gemini</span><span class="ticker-item">من سلطنة عُمان</span>
+      <span class="ticker-item">لوحات تحكّم</span><span class="ticker-item">أنظمة أتمتة</span><span class="ticker-item">مواقع إلكترونية</span><span class="ticker-item">تطبيقات</span><span class="ticker-item">n8n · Make · Zapier</span><span class="ticker-item">واتساب أعمال</span><span class="ticker-item">Claude · GPT · Gemini</span><span class="ticker-item">من سلطنة عُمان</span>
     </div>
   </div>
 
-  <section id="services-ar">
-    <div class="wrap">
-      <div class="reveal">
-        <div class="section-label">ما نبنيه</div>
-        <h2 class="section-head">أربع خدمات. نظام تشغيل واحد لأعمالكم.</h2>
-        <p class="section-lede">كل خدمة مصمّمة خصيصاً لكم، ومبنية لتستمر في العمل بعد التسليم.</p>
-      </div>
-      <div class="bento reveal">
-        <a href="#dashboards-ar" class="tile">
-          <div class="tile-head"><span class="tile-tag">لوحات تحكّم</span><div class="tile-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 17L7 7M7 17V7h10"/></svg></div></div>
-          <div class="tile-visual"><div class="viz-dash"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div></div>
-          <div><h3>لوحات تحكّم لحظية</h3><p>مؤشرات أداء فورية لإدارة الفريق والإيرادات والعمليات — رؤية شاملة لأعمالكم لم تكن متاحة من قبل.</p></div>
-        </a>
-        <a href="#automation-ar" class="tile">
-          <div class="tile-head"><span class="tile-tag">أتمتة</span><div class="tile-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 17L7 7M7 17V7h10"/></svg></div></div>
-          <div class="tile-visual"><div class="viz-auto"><svg viewBox="0 0 240 120"><path class="link" d="M30 60 L 90 30"/><path class="link" d="M30 60 L 90 90"/><path class="link" d="M90 30 L 150 60"/><path class="link" d="M90 90 L 150 60"/><path class="link" d="M150 60 L 210 60"/><circle class="node" cx="30" cy="60" r="14"/><circle class="node alt" cx="90" cy="30" r="12"/><circle class="node alt2" cx="90" cy="90" r="12"/><circle class="node" cx="150" cy="60" r="14"/><circle class="node alt" cx="210" cy="60" r="12"/></svg></div></div>
-          <div><h3>أنظمة أتمتة</h3><p>سير عمل ذكي يردّ ويصنّف ويوجّه ويتابع تلقائياً — على مدار الساعة دون تدخّل بشري.</p></div>
-        </a>
-        <a href="#websites-ar" class="tile">
-          <div class="tile-head"><span class="tile-tag">مواقع</span><div class="tile-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 17L7 7M7 17V7h10"/></svg></div></div>
-          <div class="tile-visual"><div class="viz-web"><div class="frame"><div class="top"><span></span><span></span><span></span></div><div class="body"><div class="l"></div><div class="l"></div><div class="l"></div><div class="btn"></div></div></div></div></div>
-          <div><h3>بناء المواقع</h3><p>صفحات هبوط، مواقع شركات، قمعات بيع — سريعة، احترافية، متوافقة مع هويتكم.</p></div>
-        </a>
-        <a href="#apps-ar" class="tile">
-          <div class="tile-head"><span class="tile-tag">تطبيقات</span><div class="tile-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 17L7 7M7 17V7h10"/></svg></div></div>
-          <div class="tile-visual"><div class="viz-app"><div class="screen"><div class="row h"></div><div class="row s"></div><div class="row s2"></div><div class="row s"></div><div class="fab"></div></div></div></div>
-          <div><h3>تطبيقات احترافية</h3><p>تطبيقات للجوال والويب — للفرق الداخلية أو للعملاء — مبنية بسرعة باستخدام أحدث أدوات الذكاء الاصطناعي.</p></div>
-        </a>
-      </div>
-    </div>
-  </section>
+  <section class="showcase" id="showcase-ar" data-showcase>
+    <div class="showcase-stage">
+      <div class="phase-counter"><span class="ci">01</span> / 04</div>
+      <div class="showcase-inner">
 
-  <section class="deep" id="dashboards-ar">
-    <div class="wrap">
-      <div class="deep-grid">
-        <div class="copy reveal">
-          <div class="section-label">01 · لوحات تحكّم</div>
-          <h2>رؤية شاملة لأعمالكم لم تكن متاحة من قبل.</h2>
-          <p class="lede">مؤشرات لحظية، نشاط الفريق، الإيرادات، العمليات — في شاشة واحدة من أي جهاز. نربط ما تستخدمونه ونحوّل البيانات إلى صورة قابلة للتنفيذ.</p>
-          <ul>
-            <li>مؤشرات أداء مخصصة لطبيعة عملكم</li>
-            <li>متابعة الفرق والمشاريع</li>
-            <li>رؤية واضحة للمبيعات والإيرادات</li>
-            <li>متوافقة مع الجوال — من أي مكان</li>
-            <li>صلاحيات حسب الدور للمالكين والمدراء والموظفين</li>
-          </ul>
+        <div class="phase" data-phase="0">
+          <div class="phase-copy">
+            <div class="phase-num">01 · لوحات تحكّم</div>
+            <h2>رؤية شاملة لأعمالكم لم تكن متاحة من قبل.</h2>
+            <p class="lede">مؤشرات لحظية، إيرادات، نشاط الفريق، عمليات — شاشة واحدة من أي جهاز.</p>
+            <ul>
+              <li>مؤشرات أداء مخصصة لطبيعة عملكم</li>
+              <li>متابعة الفرق والمشاريع</li>
+              <li>رؤية واضحة للمبيعات والإيرادات</li>
+              <li>صلاحيات حسب الدور للمالكين والمدراء والموظفين</li>
+            </ul>
+          </div>
+          <div class="phase-viz">
+            <div class="demo">
+              <div class="dm-dash">
+                <div class="topbar">
+                  <div class="dm-brand"><span class="od"></span> ACME · لوحة لحظية</div>
+                  <div class="dm-tabs"><span>نظرة عامة</span><span class="act">لحظي</span><span>تقارير</span></div>
+                  <div class="dm-live"><span class="d"></span>LIVE</div>
+                </div>
+                <div class="dm-body">
+                  <div class="kpi-row">
+                    <div class="kpi"><div class="lbl">الإيرادات الشهرية</div><div class="val">42,180</div><div class="delta">↑ ١٨٪</div></div>
+                    <div class="kpi alt"><div class="lbl">عملاء محتملون</div><div class="val">127</div><div class="delta">↑ ١٢ اليوم</div></div>
+                    <div class="kpi"><div class="lbl">معدل التحويل</div><div class="val">8.4%</div><div class="delta">↑ 1.2pt</div></div>
+                  </div>
+                  <div class="chart-card">
+                    <div class="chart-head"><div class="ttl">الإيرادات هذا الأسبوع</div><div class="dm-live"><span class="d"></span>LIVE</div></div>
+                    <svg class="chart-svg" viewBox="0 0 400 110" preserveAspectRatio="none">
+                      <path class="fill" d="M0 90 L 40 70 L 80 80 L 120 50 L 160 60 L 200 35 L 240 45 L 280 25 L 320 30 L 360 15 L 400 20 L 400 110 L 0 110 Z"/>
+                      <path class="line" d="M0 90 L 40 70 L 80 80 L 120 50 L 160 60 L 200 35 L 240 45 L 280 25 L 320 30 L 360 15 L 400 20"/>
+                    </svg>
+                  </div>
+                  <div class="activity">
+                    <div class="act"><div class="l"><span class="dot"></span>عميل جديد من واتساب · مؤهَّل</div><span class="t">الآن</span></div>
+                    <div class="act"><div class="l"><span class="dot b"></span>دفعة مستلمة · 245 ر.ع</div><span class="t">٢ د</span></div>
+                    <div class="act"><div class="l"><span class="dot c"></span>تقرير تلقائي أُرسل للفريق</div><span class="t">٥ د</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="reveal"><div class="bigviz"><div class="bv-dash"><div class="kpi"><div class="lbl">الإيرادات الشهرية</div><div class="val">42,180</div><div class="delta">↑ ١٨٪ مقارنة بالشهر السابق</div></div><div class="kpi"><div class="lbl">عملاء محتملون</div><div class="val">127</div><div class="delta">↑ ١٢ اليوم</div></div><div class="chart"><div class="lbl">هذا الأسبوع</div><div class="bars"><span style="height:30%"></span><span style="height:55%"></span><span style="height:42%"></span><span style="height:72%"></span><span style="height:58%"></span><span style="height:88%"></span><span style="height:95%"></span></div></div></div></div></div>
-      </div>
-    </div>
-  </section>
 
-  <section class="deep" id="automation-ar">
-    <div class="wrap">
-      <div class="deep-grid flip">
-        <div class="reveal"><div class="bigviz"><svg class="bv-auto" viewBox="0 0 400 320"><rect width="100%" height="100%" fill="url(#grid)" opacity="0.5"/><path d="M60 160 L 140 80" stroke="rgba(255,106,46,0.5)" stroke-width="2" fill="none" stroke-dasharray="6 6"/><path d="M60 160 L 140 240" stroke="rgba(214,63,255,0.5)" stroke-width="2" fill="none" stroke-dasharray="6 6"/><path d="M140 80 L 240 160" stroke="rgba(255,106,46,0.5)" stroke-width="2" fill="none" stroke-dasharray="6 6"/><path d="M140 240 L 240 160" stroke="rgba(63,229,255,0.5)" stroke-width="2" fill="none" stroke-dasharray="6 6"/><path d="M240 160 L 340 160" stroke="rgba(255,106,46,0.5)" stroke-width="2" fill="none" stroke-dasharray="6 6"/><rect x="36" y="138" width="48" height="44" rx="10" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/><rect x="116" y="58" width="48" height="44" rx="10" fill="#15100C" stroke="#D63FFF" stroke-width="1.5"/><rect x="116" y="218" width="48" height="44" rx="10" fill="#15100C" stroke="#3FE5FF" stroke-width="1.5"/><rect x="216" y="138" width="48" height="44" rx="10" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/><rect x="316" y="138" width="48" height="44" rx="10" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/></svg></div></div>
-        <div class="copy reveal">
-          <div class="section-label">02 · أتمتة</div>
-          <h2>أعمال تعمل بنفسها.</h2>
-          <p class="lede">المهام المتكررة، الردود، المتابعات، التقارير — تُسلَّم إلى أنظمة لا تنام ولا تنسى ولا تفوّت. مربوطة بالأدوات التي يستخدمها فريقكم بالفعل.</p>
-          <ul>
-            <li>أتمتة واتساب والبريد والنماذج</li>
-            <li>التقاط العملاء وتأهيلهم وتوجيههم</li>
-            <li>وكلاء ذكاء اصطناعي للردود والفرز</li>
-            <li>تقارير ومُلخّصات أسبوعية تلقائية</li>
-            <li>تكامل مع n8n و Make و Zapier وواجهات برمجية مخصصة</li>
-          </ul>
+        <div class="phase" data-phase="1">
+          <div class="phase-copy">
+            <div class="phase-num">02 · أتمتة</div>
+            <h2>أعمال تعمل بنفسها.</h2>
+            <p class="lede">المهام المتكررة، الردود، المتابعات، التقارير — تُسلَّم إلى أنظمة لا تنام ولا تنسى.</p>
+            <ul>
+              <li>أتمتة واتساب والبريد والنماذج</li>
+              <li>التقاط العملاء وتأهيلهم وتوجيههم</li>
+              <li>وكلاء ذكاء اصطناعي للردود والفرز</li>
+              <li>تكامل مع n8n و Make و Zapier</li>
+            </ul>
+          </div>
+          <div class="phase-viz">
+            <div class="demo">
+              <div class="dm-auto">
+                <div class="ahead">
+                  <div class="at">سير عمل · لحظي</div>
+                  <div class="ac"><span class="d"></span>١,٢٤٧ حدث اليوم</div>
+                </div>
+                <div class="canvas">
+                  <svg viewBox="0 0 580 360">
+                    <rect width="100%" height="100%" fill="url(#g2)"/>
+                    <path class="link o" d="M90 180 L 220 100" stroke-dasharray="6 6"/>
+                    <path class="link m" d="M90 180 L 220 260" stroke-dasharray="6 6"/>
+                    <path class="link o" d="M280 100 L 380 180" stroke-dasharray="6 6"/>
+                    <path class="link c" d="M280 260 L 380 180" stroke-dasharray="6 6"/>
+                    <path class="link o" d="M440 180 L 540 180" stroke-dasharray="6 6"/>
+                    <rect class="nbox" x="30" y="150" width="60" height="60" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/>
+                    <text class="ntxt" x="60" y="178" text-anchor="middle">WA</text>
+                    <rect class="nbox" x="220" y="70" width="60" height="60" fill="#15100C" stroke="#D63FFF" stroke-width="1.5"/>
+                    <text class="ntxt" x="250" y="100" text-anchor="middle">Filter</text>
+                    <rect class="nbox" x="220" y="230" width="60" height="60" fill="#15100C" stroke="#3FE5FF" stroke-width="1.5"/>
+                    <text class="ntxt" x="250" y="260" text-anchor="middle">AI</text>
+                    <rect class="nbox" x="380" y="150" width="60" height="60" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/>
+                    <text class="ntxt" x="410" y="180" text-anchor="middle">Route</text>
+                    <rect class="nbox" x="500" y="150" width="60" height="60" fill="#15100C" stroke="#FF6A2E" stroke-width="1.5"/>
+                    <text class="ntxt" x="530" y="178" text-anchor="middle">CRM</text>
+                    <circle r="4" fill="#FF6A2E"><animateMotion dur="3s" repeatCount="indefinite" path="M90 180 L 220 100 L 280 100 L 380 180 L 440 180 L 540 180"/></circle>
+                    <circle r="4" fill="#D63FFF"><animateMotion dur="3.4s" repeatCount="indefinite" begin="0.5s" path="M90 180 L 220 260 L 280 260 L 380 180 L 440 180 L 540 180"/></circle>
+                  </svg>
+                </div>
+                <div class="stats">
+                  <div class="s"><strong>2.4 ث</strong>متوسط الرد</div>
+                  <div class="s"><strong class="em">98.7%</strong>حلّ تلقائي</div>
+                  <div class="s"><strong>0</strong>عميل مفقود</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="deep" id="websites-ar">
-    <div class="wrap">
-      <div class="deep-grid">
-        <div class="copy reveal">
-          <div class="section-label">03 · مواقع</div>
-          <h2>مواقع تعكس مستوى أعمالكم الفعلي.</h2>
-          <p class="lede">صفحات هبوط، مواقع شركات، قمعات بيع، صفحات منتجات — تصميم وبناء سريع. احترافية. منسجمة مع هويتكم. مصمَّمة للتحويل لا للزينة.</p>
-          <ul>
-            <li>تصميم مخصص — بلا قوالب جاهزة</li>
-            <li>ثنائي اللغة عربي / إنجليزي</li>
-            <li>استضافة Vercel — سريعة، عالمية، تحديث تلقائي</li>
-            <li>نماذج ومدفوعات وتكاملات جاهزة</li>
-            <li>تحسين محركات البحث والتحليلات</li>
-          </ul>
+        <div class="phase" data-phase="2">
+          <div class="phase-copy">
+            <div class="phase-num">03 · مواقع</div>
+            <h2>مواقع تعكس مستوى أعمالكم الفعلي.</h2>
+            <p class="lede">صفحات هبوط، مواقع شركات، قمعات بيع — احترافية، منسجمة مع هويتكم، مصمَّمة للتحويل.</p>
+            <ul>
+              <li>تصميم مخصص — بلا قوالب جاهزة</li>
+              <li>ثنائي اللغة عربي / إنجليزي</li>
+              <li>استضافة Vercel — سريعة، عالمية</li>
+              <li>نماذج ومدفوعات وتحسين محركات بحث</li>
+            </ul>
+          </div>
+          <div class="phase-viz">
+            <div class="demo">
+              <div class="dm-web">
+                <div class="browser-bar">
+                  <span class="light"></span><span class="light"></span><span class="light"></span>
+                  <div class="url">alvvoayad.ai</div>
+                </div>
+                <div class="page">
+                  <div class="pnav">
+                    <div class="plogo"><span class="pdot"></span> brand.ai</div>
+                    <div class="pmenu"><span>أعمال</span><span>حول</span><span>تواصل</span></div>
+                  </div>
+                  <div class="pemoji">◉</div>
+                  <div class="ph">مواقع احترافية،<br><span class="em">سرعة في التسليم.</span></div>
+                  <div class="ps">تصميم بمستوى العلامات التجارية وأكواد حديثة للأعمال التي تأخذ نفسها على محمل الجد.</div>
+                  <div class="pcta">ابدأ ←</div>
+                  <div class="pfeats">
+                    <div class="pfeat"><strong>48س</strong>تسليم</div>
+                    <div class="pfeat"><strong>100/100</strong>سرعة</div>
+                    <div class="pfeat"><strong>لغتان</strong>عربي · إنجليزي</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="reveal"><div class="bigviz"><div class="bv-web"><div class="topbar"><span></span><span></span><span></span><div class="url">alvvoayad.ai</div></div><div class="page"><div class="lp-h">مواقع احترافية،<br>سرعة في التسليم.</div><div class="lp-s">تصميم بمستوى العلامات التجارية وأكواد حديثة للأعمال التي تأخذ نفسها على محمل الجد.</div><div class="lp-btn">ابدأ →</div></div></div></div></div>
-      </div>
-    </div>
-  </section>
 
-  <section class="deep" id="apps-ar">
-    <div class="wrap">
-      <div class="deep-grid flip">
-        <div class="reveal"><div class="bigviz"><div class="bv-app"><div class="phone"><div class="phone-screen"><div class="phone-h">تطبيقكم</div><div class="row a"></div><div class="row b"></div><div class="row c"></div><div class="row b"></div><div class="row a"></div><div class="fab">+</div></div></div><div class="phone alt"><div class="phone-screen"><div class="phone-h">اليوم</div><div class="row a"></div><div class="row c"></div><div class="row b"></div><div class="row a"></div><div class="row c"></div></div></div></div></div></div>
-        <div class="copy reveal">
-          <div class="section-label">04 · تطبيقات</div>
-          <h2>تطبيقات جوال وويب، خلال أسابيع.</h2>
-          <p class="lede">سواء كانت أداة لفريقكم أو منتجاً لعملائكم — نصمم ونبني ونُطلق التطبيقات باستخدام أدوات الذكاء الاصطناعي الحديثة. أسرع من الوكالات. أكثر تخصيصاً من القوالب.</p>
-          <ul>
-            <li>iOS و Android والويب — بقاعدة كود واحدة</li>
-            <li>أدوات داخلية للفرق</li>
-            <li>منتجات وبوابات للعملاء</li>
-            <li>ميزات مدعومة بالذكاء الاصطناعي</li>
-            <li>من النموذج الأولي إلى الإنتاج خلال أسابيع</li>
-          </ul>
+        <div class="phase" data-phase="3">
+          <div class="phase-copy">
+            <div class="phase-num">04 · تطبيقات</div>
+            <h2>تطبيقات جوال وويب،<br>خلال أسابيع.</h2>
+            <p class="lede">لفريقكم أو لعملائكم — تصميم وبناء وإطلاق بأحدث أدوات الذكاء الاصطناعي.</p>
+            <ul>
+              <li>iOS و Android والويب — بقاعدة كود واحدة</li>
+              <li>أدوات داخلية للفرق</li>
+              <li>منتجات وبوابات للعملاء</li>
+              <li>من النموذج إلى الإنتاج خلال أسابيع</li>
+            </ul>
+          </div>
+          <div class="phase-viz">
+            <div class="demo">
+              <div class="dm-app">
+                <div class="ph">
+                  <div class="scr">
+                    <div class="notif">
+                      <div class="nicon"></div>
+                      <div class="ntxt"><strong>عميل جديد</strong>خالد · مؤهَّل بالذكاء الاصطناعي</div>
+                    </div>
+                    <div class="scrh">
+                      <div class="ph-ttl">اليوم</div>
+                      <div class="ph-av"></div>
+                    </div>
+                    <div class="scr-body">
+                      <div class="card pop"><div class="crow em"></div><div class="crow l"></div><div class="crow s"></div></div>
+                      <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
+                      <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
+                      <div class="card"><div class="crow s"></div><div class="crow l"></div></div>
+                    </div>
+                    <div class="tabbar"><span class="tab act"></span><span class="tab"></span><span class="tab"></span><span class="tab"></span></div>
+                    <div class="fab">+</div>
+                  </div>
+                </div>
+                <div class="ph b">
+                  <div class="scr">
+                    <div class="scrh"><div class="ph-ttl">الوارد</div><div class="ph-av"></div></div>
+                    <div class="scr-body">
+                      <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
+                      <div class="card"><div class="crow em"></div><div class="crow l"></div></div>
+                      <div class="card"><div class="crow l"></div><div class="crow s"></div></div>
+                      <div class="card"><div class="crow s"></div><div class="crow l"></div></div>
+                    </div>
+                    <div class="tabbar"><span class="tab"></span><span class="tab act"></span><span class="tab"></span><span class="tab"></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+      </div>
+
+      <div class="phase-nav">
+        <button class="pd active" data-go="0" aria-label="لوحات تحكّم"></button>
+        <button class="pd" data-go="1" aria-label="أتمتة"></button>
+        <button class="pd" data-go="2" aria-label="مواقع"></button>
+        <button class="pd" data-go="3" aria-label="تطبيقات"></button>
       </div>
     </div>
   </section>
 
-  <section>
+  <section class="flow">
     <div class="wrap">
       <div class="stats reveal">
         <div class="stat"><div class="stat-val">+10h</div><div class="stat-label">توفير أسبوعي لكل عميل</div></div>
@@ -873,28 +939,28 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
     </div>
   </section>
 
-  <section id="process-ar">
+  <section class="flow" id="process-ar">
     <div class="wrap">
       <div class="reveal"><div class="section-label">آلية العمل</div><h2 class="section-head">بسيط. سريع. منجَز.</h2></div>
       <div class="how-grid reveal">
-        <div class="step"><div class="step-num">01 — تواصل</div><h3>أخبرونا بالمشكلة</h3><p>أرسلوا رسالة عبر واتساب عن ما يبطئ أعمالكم. بلغة بسيطة. دون مصطلحات تقنية.</p></div>
-        <div class="step"><div class="step-num">02 — تصميم</div><h3>نقترح الحل</h3><p>خلال 48 ساعة: نطاق واضح، جدول زمني، سعر. أنتم تقرّرون ما يُنفَّذ.</p></div>
-        <div class="step"><div class="step-num">03 — تشغيل</div><h3>يعمل بينما تنامون</h3><p>نبني، نختبر، ننشر، ونستمرّ في المتابعة لضمان عمله بكفاءة دائمة.</p></div>
+        <div class="step"><div class="step-num">01 — تواصل</div><h3>أخبرونا بالمشكلة</h3><p>أرسلوا رسالة عبر واتساب عن ما يبطئ أعمالكم. بلغة بسيطة.</p></div>
+        <div class="step"><div class="step-num">02 — تصميم</div><h3>نقترح الحل</h3><p>خلال 48 ساعة: نطاق واضح، جدول زمني، سعر. أنتم تقرّرون.</p></div>
+        <div class="step"><div class="step-num">03 — تشغيل</div><h3>يعمل بينما تنامون</h3><p>نبني، نختبر، ننشر، ونستمرّ في المتابعة.</p></div>
       </div>
     </div>
   </section>
 
-  <section>
+  <section class="flow">
     <div class="wrap">
       <div class="reveal"><div class="section-label">نموذج العمل</div><h2 class="section-head">أسعار واضحة. مخصّصة لكل مشروع.</h2></div>
       <div class="price-grid reveal">
-        <div class="price"><div class="price-label">التأسيس</div><div class="price-desc">رسوم لمرة واحدة لتصميم النظام وبنائه ونشره. النطاق والتسعير حسب احتياجاتكم الفعلية.</div><div class="price-amount ember">احصلوا على عرض سعر</div></div>
-        <div class="price pop"><div class="price-label">شراكة شهرية</div><div class="price-desc">صيانة مستمرة، ومراقبة الأنظمة، وتحديثات، ودعم بأولوية. أنظمتكم تستمر بالعمل والتحسّن — دون أي جهد منكم.</div><div class="price-amount">ابتداءً من 50 ر.ع / شهرياً</div></div>
+        <div class="price"><div class="price-label">التأسيس</div><div class="price-desc">رسوم لمرة واحدة لتصميم النظام وبنائه ونشره.</div><div class="price-amount ember">احصلوا على عرض سعر</div></div>
+        <div class="price pop"><div class="price-label">شراكة شهرية</div><div class="price-desc">صيانة مستمرة، ومراقبة، وتحديثات، ودعم بأولوية.</div><div class="price-amount">ابتداءً من 50 ر.ع / شهرياً</div></div>
       </div>
     </div>
   </section>
 
-  <section id="contact-ar">
+  <section class="flow" id="contact-ar">
     <div class="wrap">
       <div class="cta-block reveal">
         <h2>جاهزون للتخلّي عن العمل اليدوي؟</h2>
@@ -939,20 +1005,60 @@ footer{padding:48px 28px 36px;border-top:1px solid var(--border);margin-top:80px
   const nav=document.getElementById('nav');
   window.addEventListener('scroll',()=>{
     if(window.scrollY>20) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
-  });
+  },{passive:true});
 
+  // Reveal on scroll
   const io=new IntersectionObserver(es=>{
     es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
   },{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-  document.querySelectorAll('.tile').forEach(t=>{
-    t.addEventListener('mousemove',e=>{
-      const r=t.getBoundingClientRect();
-      t.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
-      t.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+  // SHOWCASE — scroll-driven phase progression
+  function setupShowcase(showcase){
+    const phases = showcase.querySelectorAll('.phase');
+    const dots = showcase.querySelectorAll('.phase-nav .pd');
+    const counter = showcase.querySelector('.phase-counter .ci');
+    const total = phases.length;
+    let currentIdx = -1;
+
+    function update(){
+      // Only act if this showcase's parent lang is active
+      const langParent = showcase.closest('.lang-content');
+      if (langParent && !langParent.classList.contains('active')) return;
+      // Mobile: skip pinned behavior, all phases naturally visible
+      if (window.innerWidth < 900) {
+        phases.forEach(p=>p.classList.add('active'));
+        return;
+      }
+      const rect = showcase.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const scrollable = showcase.offsetHeight - vh;
+      const scrolled = -rect.top;
+      if (scrolled < 0 || scrolled > scrollable + vh) return;
+      const progress = Math.max(0, Math.min(0.9999, scrolled / scrollable));
+      const idx = Math.min(total - 1, Math.floor(progress * total));
+      if (idx === currentIdx) return;
+      currentIdx = idx;
+      phases.forEach((p,i)=>p.classList.toggle('active', i===idx));
+      dots.forEach((d,i)=>d.classList.toggle('active', i<=idx));
+      if (counter) counter.textContent = String(idx+1).padStart(2,'0');
+    }
+
+    // Click dots to jump
+    dots.forEach((d,i)=>{
+      d.addEventListener('click', ()=>{
+        const rect = showcase.getBoundingClientRect();
+        const scrollable = showcase.offsetHeight - window.innerHeight;
+        const targetScroll = window.scrollY + rect.top + (scrollable * i / total) + 1;
+        window.scrollTo({top: targetScroll, behavior:'smooth'});
+      });
     });
-  });
+
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+    update();
+  }
+  document.querySelectorAll('[data-showcase]').forEach(setupShowcase);
 </script>
 </body>
 </html>
