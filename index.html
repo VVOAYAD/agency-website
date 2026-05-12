@@ -59,6 +59,8 @@ nav.scrolled{border-bottom-color:var(--border);background:rgba(6,6,10,0.85)}
 .phases{position:relative;width:100%;height:100%;z-index:3}
 .phase{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:110px 28px 100px;opacity:0;transform:translateX(60px) scale(0.97);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1);pointer-events:none;will-change:transform,opacity}
 .phase.active{opacity:1;transform:translateX(0) scale(1);pointer-events:auto}
+/* Service phases — content can be tall; anchor to top so the top of the headline NEVER clips */
+.ph-offer{align-items:flex-start;padding-top:108px;padding-bottom:120px}
 .ar .phase{transform:translateX(-60px) scale(0.97)}
 .ar .phase.active{transform:translateX(0) scale(1)}
 .phase-inner{width:100%;max-width:1280px;margin:0 auto;position:relative}
@@ -103,7 +105,7 @@ body[data-phase="0"] #lm-shader{display:block}
 .ph-offer .phase-inner{display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center;max-width:1180px;margin:0 auto}
 .phase-copy{position:relative;max-width:760px}
 .phase-num{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.22em;color:var(--ember);margin-bottom:12px}
-.phase-copy h2{font-family:'Geist',sans-serif;font-size:clamp(32px,4.2vw,54px);font-weight:700;letter-spacing:-0.032em;line-height:1.05;color:var(--bone);margin-bottom:14px}
+.phase-copy h2{font-family:'Geist',sans-serif;font-size:clamp(28px,3.6vw,46px);font-weight:700;letter-spacing:-0.032em;line-height:1.08;color:var(--bone);margin-bottom:14px}
 .phase-copy .lede{font-size:16px;color:var(--bone-dim);line-height:1.55;margin-bottom:0;max-width:560px;margin-left:auto;margin-right:auto}
 .phase-copy ul{display:none}
 .phase-viz{width:100%;max-width:980px}
@@ -124,7 +126,7 @@ body[data-phase="0"] #lm-shader{display:block}
 .demo{
   --d-bg:#FFFFFF;--d-surface:#F7F7F9;--d-border:#E5E5EA;--d-divider:#EFEFF3;
   --d-text:#0F0F14;--d-text-dim:#5A5A6A;--d-text-faint:#8A8A98;
-  position:relative;width:100%;aspect-ratio:1/0.7;max-height:72vh;border-radius:22px;
+  position:relative;width:100%;max-width:980px;margin:0 auto;aspect-ratio:1/0.58;max-height:56vh;border-radius:22px;
   background:var(--d-bg);color:var(--d-text);overflow:hidden;
   box-shadow:0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(245,233,216,0.08), inset 0 1px 0 rgba(255,255,255,0.5);
   border:1px solid var(--d-border);
