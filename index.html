@@ -23,15 +23,15 @@ body{background:var(--bg);color:var(--bone);font-family:'Geist','Inter',system-u
 .ar{font-family:'Tajawal',sans-serif;direction:rtl}
 
 /* ===== CHROMATIC BACKGROUND — performant, real iridescence via foil texture ===== */
-.foil-bg{position:fixed;inset:0;background:url('/foil.jpg') center/cover no-repeat;opacity:0.18;mix-blend-mode:screen;pointer-events:none;z-index:0;filter:saturate(1.4) hue-rotate(-10deg)}
-.foil-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,transparent 0%,rgba(6,6,10,0.4) 60%,var(--bg) 100%)}
+.foil-bg{position:fixed;inset:0;background:url('/foil.jpg') center/cover no-repeat;opacity:0.10;pointer-events:none;z-index:0;filter:saturate(1.3)}
+.foil-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,transparent 0%,rgba(6,6,10,0.45) 60%,var(--bg) 100%)}
 .bloom{position:fixed;border-radius:50%;filter:blur(140px);pointer-events:none;z-index:0;will-change:transform}
 .bloom-a{width:780px;height:780px;background:radial-gradient(circle,rgba(255,106,46,0.45),rgba(255,106,46,0) 65%);top:-180px;right:-180px}
 .bloom-b{width:620px;height:620px;background:radial-gradient(circle,rgba(214,63,255,0.22),rgba(214,63,255,0) 65%);bottom:-100px;left:-150px}
 .wrap{max-width:1280px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
 
 /* NAV — locked brand: orb (left) + alvvo.ai wordmark, top-left */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,10,0.55);backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3);border-bottom:1px solid transparent;transition:border-color .4s,background .4s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(6,6,10,0.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .4s,background .4s}
 nav.scrolled{border-bottom-color:var(--border);background:rgba(6,6,10,0.85)}
 .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--bone);font-family:'Geist',sans-serif}
 .brand-orb{width:32px;height:32px;flex-shrink:0;display:block;filter:drop-shadow(0 0 12px rgba(214,63,255,0.35)) drop-shadow(0 0 8px rgba(255,255,255,0.08));animation:orbBob 7s ease-in-out infinite}
@@ -79,8 +79,8 @@ nav.scrolled{border-bottom-color:var(--border);background:rgba(6,6,10,0.85)}
 .iorb-wrap{display:none}
 
 /* REAL ANIMATED CHROME — single fixed @paper-design/shaders LiquidMetal */
-#lm-shader{position:fixed;bottom:0;left:0;right:0;height:52vh;max-height:480px;min-height:280px;pointer-events:none;z-index:1;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 22%,#000 86%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 22%,#000 86%,transparent 100%);opacity:0;transition:opacity .7s cubic-bezier(.22,1,.36,1)}
-body[data-phase="0"] #lm-shader{opacity:1}
+#lm-shader{position:fixed;bottom:0;left:0;right:0;height:52vh;max-height:480px;min-height:280px;pointer-events:none;z-index:1;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 22%,#000 86%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 22%,#000 86%,transparent 100%);display:none;contain:strict;will-change:opacity}
+body[data-phase="0"] #lm-shader{display:block}
 #lm-shader>div,#lm-shader canvas{width:100%!important;height:100%!important;display:block}
 .ribbon-glow{position:absolute;left:50%;bottom:-100px;transform:translateX(-50%);width:1200px;max-width:130vw;height:340px;background:radial-gradient(ellipse at center 35%,rgba(255,106,46,0.55) 0%,rgba(255,140,80,0.25) 28%,rgba(214,63,255,0.10) 58%,transparent 82%);filter:blur(60px);pointer-events:none;z-index:0}
 
@@ -93,22 +93,10 @@ body[data-phase="0"] #lm-shader{opacity:1}
 .ph-hero .hero-cta{animation-delay:.65s}
 @keyframes heroIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-/* Liquid glass CTA button — vanilla port of 21st-dev LiquidButton */
-.hero-cta{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;color:var(--bone);font-family:'Geist',sans-serif;font-size:15px;font-weight:600;letter-spacing:-0.01em;padding:0 8px 0 28px;height:56px;border-radius:999px;text-decoration:none;background:transparent;cursor:pointer;margin-top:6px;isolation:isolate;transition:transform .3s cubic-bezier(.4,0,.2,1)}
-.hero-cta::before{content:"";position:absolute;inset:0;border-radius:999px;backdrop-filter:url(#glass-distort) blur(2px);-webkit-backdrop-filter:blur(8px);z-index:-2}
-.hero-cta::after{content:"";position:absolute;inset:0;border-radius:999px;z-index:-1;pointer-events:none;
-  box-shadow:
-    0 0 6px rgba(0,0,0,0.03),
-    0 2px 8px rgba(0,0,0,0.12),
-    inset 3px 3px 0.5px -3.5px rgba(255,255,255,0.55),
-    inset -3px -3px 0.5px -3.5px rgba(255,255,255,0.85),
-    inset 1px 1px 1px -0.5px rgba(255,255,255,0.55),
-    inset -1px -1px 1px -0.5px rgba(255,255,255,0.55),
-    inset 0 0 8px 6px rgba(255,255,255,0.10),
-    inset 0 0 2px 2px rgba(255,255,255,0.06),
-    0 0 16px rgba(255,106,46,0.18)}
-.hero-cta:hover{transform:translateY(-2px) scale(1.025)}
-.hero-cta .arr{width:42px;height:42px;border-radius:50%;background:var(--ember);display:flex;align-items:center;justify-content:center;color:var(--bg);transition:transform .35s cubic-bezier(.4,0,.2,1);flex-shrink:0;box-shadow:0 8px 24px rgba(255,106,46,0.45),inset 0 1px 0 rgba(255,255,255,0.4)}
+/* CTA — clean glass pill, no SVG turbulence (was killing perf) */
+.hero-cta{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;color:var(--bone);font-family:'Geist',sans-serif;font-size:15px;font-weight:600;letter-spacing:-0.01em;padding:0 8px 0 26px;height:54px;border-radius:999px;text-decoration:none;background:linear-gradient(180deg,rgba(255,255,255,0.10),rgba(255,255,255,0.04));border:1px solid rgba(255,255,255,0.14);cursor:pointer;margin-top:6px;transition:transform .25s cubic-bezier(.4,0,.2,1),background .25s,border-color .25s;box-shadow:0 8px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.16)}
+.hero-cta:hover{transform:translateY(-2px);background:linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.06));border-color:rgba(255,106,46,0.5)}
+.hero-cta .arr{width:40px;height:40px;border-radius:50%;background:var(--ember);display:flex;align-items:center;justify-content:center;color:var(--bg);transition:transform .35s cubic-bezier(.4,0,.2,1);flex-shrink:0;box-shadow:0 6px 18px rgba(255,106,46,0.45),inset 0 1px 0 rgba(255,255,255,0.4)}
 .hero-cta:hover .arr{transform:rotate(45deg) scale(1.05)}
 
 /* PHASES 1-4 — OFFERINGS — centered column, big demo in orb's spot */
@@ -279,7 +267,7 @@ body[data-phase="0"] #lm-shader{opacity:1}
 .ticker-item::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--ember);opacity:0.6}
 
 /* FLOW SECTIONS */
-section.flow{position:relative;padding:90px 0;z-index:2}
+section.flow{position:relative;padding:90px 0;z-index:2;content-visibility:auto;contain-intrinsic-size:600px}
 .section-label{display:inline-block;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.22em;color:var(--ember);margin-bottom:18px}
 .section-head{font-family:'Geist',sans-serif;font-weight:700;font-size:clamp(28px,4.2vw,46px);letter-spacing:-0.028em;line-height:1.1;color:var(--bone);margin-bottom:18px;max-width:780px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -390,18 +378,6 @@ button.hero-cta{border:none;cursor:pointer;font-family:'Geist',sans-serif}
 </style>
 </head>
 <body data-phase="0">
-
-<!-- Liquid glass SVG filter (used by .hero-cta backdrop-filter) -->
-<svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true">
-  <defs>
-    <filter id="glass-distort" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.012" numOctaves="2" seed="3" result="turb"/>
-      <feGaussianBlur in="turb" stdDeviation="2" result="softTurb"/>
-      <feDisplacementMap in="SourceGraphic" in2="softTurb" scale="55" xChannelSelector="R" yChannelSelector="B" result="displaced"/>
-      <feGaussianBlur in="displaced" stdDeviation="0.4"/>
-    </filter>
-  </defs>
-</svg>
 
 <div class="foil-bg"></div>
 <div class="bloom bloom-a"></div>
@@ -1176,8 +1152,11 @@ button.hero-cta{border:none;cursor:pointer;font-family:'Geist',sans-serif}
         window.scrollTo({top: targetScroll, behavior:'smooth'});
       });
     });
-    window.addEventListener('scroll', update, {passive:true});
-    window.addEventListener('resize', update);
+    let rafId = 0;
+    const tick = () => { rafId = 0; update(); };
+    const onScroll = () => { if (!rafId) rafId = requestAnimationFrame(tick); };
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
     update();
   }
   document.querySelectorAll('[data-stage]').forEach(setupStage);
@@ -1186,7 +1165,10 @@ button.hero-cta{border:none;cursor:pointer;font-family:'Geist',sans-serif}
 <!-- ===== ANIMATED CHROME (paper-design/shaders-react LiquidMetal via esm.sh) ===== -->
 <div id="lm-shader"></div>
 <script type="module">
-  try {
+  // Only load the shader on capable, non-reduced-motion devices. Skip mobile + tablets to save GPU/battery.
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = matchMedia('(max-width: 900px)').matches;
+  if (!reduce && !isMobile) try {
     const React = (await import('https://esm.sh/react@18.3.1')).default;
     const { createRoot } = await import('https://esm.sh/react-dom@18.3.1/client');
     const { LiquidMetal, liquidMetalPresets } = await import('https://esm.sh/@paper-design/shaders-react@0.0.76?deps=react@18.3.1,react-dom@18.3.1');
@@ -1199,17 +1181,29 @@ button.hero-cta{border:none;cursor:pointer;font-family:'Geist',sans-serif}
           colorBack: '#06060A',
           colorTint: '#FF6A2E',
           softness: 0.55,
-          repetition: 4,
-          shiftRed: 0.32,
-          shiftBlue: 0.28,
-          distortion: 0.34,
+          repetition: 2,           // 4 → 2 — halves per-pixel iterations
+          shiftRed: 0.28,
+          shiftBlue: 0.24,
+          distortion: 0.30,
           contour: 1,
           shape: 'circle',
           scale: 1.5,
-          speed: 0.6,
+          speed: 0.55,
+          worldWidth: 0,
+          worldHeight: 0,
+          fit: 'cover',
           style: { width: '100%', height: '100%' }
         })
       );
+      // Cap canvas backing-store DPR — large WebGL canvases at DPR 2-3 cost 4-9x the GPU
+      const capDpr = () => mount.querySelectorAll('canvas').forEach(c => {
+        const wantW = Math.floor(c.clientWidth * Math.min(window.devicePixelRatio || 1, 1.25));
+        const wantH = Math.floor(c.clientHeight * Math.min(window.devicePixelRatio || 1, 1.25));
+        if (c.width !== wantW) c.width = wantW;
+        if (c.height !== wantH) c.height = wantH;
+      });
+      requestAnimationFrame(() => requestAnimationFrame(capDpr));
+      window.addEventListener('resize', () => requestAnimationFrame(capDpr), { passive: true });
     }
   } catch (e) { console.warn('LiquidMetal shader failed to load:', e); }
 </script>
