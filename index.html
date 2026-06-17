@@ -9,7 +9,9 @@
 <meta property="og:description" content="Dashboards, automation, websites and apps. Built around how you actually work.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#050509;--bg-2:#0A0A12;--surface:#0C0C15;--surface-2:#10101B;--surface-3:#15151F;
@@ -371,10 +373,11 @@ body::after{
 
 nav{padding:20px 34px;background:rgba(5,5,8,0.26);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 nav.scrolled{background:rgba(5,5,8,0.72);border-bottom-color:rgba(255,255,255,0.08)}
-.brand{display:inline-flex;align-items:center;gap:14px;padding-left:0;font-size:17px;font-weight:300;letter-spacing:0.46em;color:var(--ink)}
+.brand{display:inline-flex;align-items:baseline;gap:0;padding-left:0;font-family:'Clash Display','Geist',sans-serif;font-size:25px;font-weight:600;letter-spacing:0.2em;color:var(--ink)}
 .brand:hover{color:#fff;text-shadow:none}
 .brand-orb{display:block;flex-shrink:0;filter:drop-shadow(0 0 16px rgba(142,109,255,0.25))}
-.brand-word{display:inline-block;padding-left:0.22em}
+.brand-word{display:inline-block;padding-left:0.2em}
+.brand-dot{color:var(--violet);-webkit-text-fill-color:var(--violet)}
 .nav-links{gap:22px}
 .nav-links a{font-size:12px;color:rgba(236,236,243,0.64)}
 .nav-cta,.lang-btn{height:42px;border-radius:999px;background:rgba(12,12,18,0.72);border:1px solid rgba(255,255,255,0.12);color:var(--ink);box-shadow:inset 0 1px 0 rgba(255,255,255,0.04)}
@@ -474,7 +477,7 @@ section.flow{padding:16px 18px 0}
 .wa-btn:hover{border-color:rgba(154,105,255,0.3)}
 
 footer{padding:34px 28px 28px;margin-top:42px;border-top-color:rgba(255,255,255,0.06)}
-.foot-mark{display:inline-flex;align-items:center;gap:12px;padding-left:0;font-size:15px;letter-spacing:0.44em}
+.foot-mark{display:inline-flex;align-items:baseline;gap:0;padding-left:0;font-family:'Clash Display','Geist',sans-serif;font-size:19px;font-weight:600;letter-spacing:0.2em}
 
 .modal-card{background:linear-gradient(180deg,rgba(14,14,22,0.98),rgba(9,10,15,0.98));border-color:rgba(255,255,255,0.08)}
 
@@ -483,7 +486,7 @@ footer{padding:34px 28px 28px;margin-top:42px;border-top-color:rgba(255,255,255,
   nav{padding:14px 18px}
   .nav-links{gap:10px}
   .nav-links a:not(.lang-btn):not(.nav-cta){display:none}
-  .brand{font-size:14px;letter-spacing:0.34em;gap:10px}
+  .brand{font-size:20px;letter-spacing:0.16em;gap:0}
   .brand-orb{width:22px;height:22px}
   .wrap{padding:0 20px}
   .hero{padding:98px 14px 24px}
@@ -560,8 +563,7 @@ footer{padding:34px 28px 28px;margin-top:42px;border-top-color:rgba(255,255,255,
 
 <nav id="nav">
   <a href="#" class="brand" aria-label="ALVVO">
-    <img class="brand-orb" src="/orb.png" alt="" width="28" height="28" decoding="async">
-    <span class="brand-word">ALVVO</span>
+    <span class="brand-word">ALVVO<span class="brand-dot">.</span></span>
   </a>
   <div class="nav-links">
     <a href="#services-en" data-en="Services" data-ar="خدماتنا">Services</a>
@@ -868,7 +870,7 @@ footer{padding:34px 28px 28px;margin-top:42px;border-top-color:rgba(255,255,255,
   </section>
 
   <footer>
-    <div class="foot-mark"><img class="brand-orb" src="/orb.png" alt="" width="24" height="24" decoding="async"><span class="brand-word">ALVVO</span></div>
+    <div class="foot-mark"><span class="brand-word">ALVVO<span class="brand-dot">.</span></span></div>
     <div class="foot-meta">&copy; 2026 — Oman · Built around how you actually work.</div>
   </footer>
 </div>
@@ -1137,7 +1139,7 @@ footer{padding:34px 28px 28px;margin-top:42px;border-top-color:rgba(255,255,255,
   </section>
 
   <footer>
-    <div class="foot-mark"><img class="brand-orb" src="/orb.png" alt="" width="24" height="24" decoding="async"><span class="brand-word">ALVVO</span></div>
+    <div class="foot-mark"><span class="brand-word">ALVVO<span class="brand-dot">.</span></span></div>
     <div class="foot-meta">&copy; 2026 — سلطنة عُمان · مبنية حول طريقة عملكم الفعلية</div>
   </footer>
 </div>
