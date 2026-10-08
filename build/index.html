@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ALVVO Build — build websites, bots & apps with AI</title>
+<meta name="description" content="I don't code. I built a Gulf gaming ladder, a WhatsApp booking bot and 23 products by talking to AI. Learn exactly how — in Arabic and English.">
+<meta property="og:title" content="ALVVO Build">
+<meta property="og:description" content="Build websites, bots & apps with AI — no code. نعلّمك تبني بالذكاء الاصطناعي، أو نبنيها لك.">
+<meta property="og:image" content="https://alvvoayad.com/build/blob.png">
+<meta name="theme-color" content="#06060A">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --midnight:#06060A; --ember:#FF6A2E; --halo:#FFB36A; --bone:#F5E9D8; --mute:rgba(245,233,216,.6); --line:rgba(245,233,216,.12); }
+  * { box-sizing:border-box; }
+  html { background:var(--midnight); }
+  body { margin:0; color:var(--bone); font:400 17px/1.6 Geist, system-ui, sans-serif; background:
+    radial-gradient(60vmax 50vmax at 85% -10%, rgba(255,106,46,.18), transparent 60%),
+    radial-gradient(50vmax 40vmax at -10% 30%, rgba(255,179,106,.08), transparent 60%), var(--midnight);
+    padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); }
+  .ar { font-family:Tajawal, Geist, sans-serif; direction:rtl; }
+  .wrap { max-width:980px; margin:0 auto; padding:0 22px; }
+  nav { display:flex; align-items:center; gap:12px; padding:22px 0; }
+  nav img { width:44px; height:auto; }
+  nav span { font-weight:500; letter-spacing:.55em; font-size:15px; }
+  header { padding:56px 0 40px; display:grid; gap:28px; }
+  .mark { width:min(260px,60vw); filter:drop-shadow(0 0 40px rgba(255,106,46,.25)); }
+  h1 { margin:0; font-weight:500; font-size:clamp(34px,6.4vw,64px); line-height:1.05; letter-spacing:-.02em; }
+  h1 em { font-style:normal; color:var(--ember); }
+  .lede { margin:0; max-width:640px; color:var(--mute); font-size:19px; }
+  .lede.ar { font-size:20px; }
+  .cta { display:inline-flex; align-items:center; gap:10px; width:max-content; padding:15px 26px; border-radius:999px; background:var(--ember); color:var(--midnight); font-weight:600; text-decoration:none; box-shadow:0 0 30px rgba(255,106,46,.45); }
+  .proof { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin:36px 0 70px; }
+  .proof div { border:1px solid var(--line); border-radius:18px; padding:20px; background:rgba(245,233,216,.03); }
+  .proof b { display:block; font-size:30px; font-weight:500; color:var(--halo); }
+  .proof small { color:var(--mute); font-size:14px; }
+  h2 { font-weight:500; font-size:clamp(26px,4vw,38px); margin:0 0 6px; letter-spacing:-.01em; }
+  .sub { color:var(--mute); margin:0 0 26px; }
+  .ladder { display:grid; gap:14px; margin-bottom:80px; }
+  .step { display:grid; grid-template-columns:auto 1fr auto; gap:18px; align-items:start; border:1px solid var(--line); border-radius:20px; padding:22px; background:rgba(245,233,216,.025); }
+  .step.hot { border-color:rgba(255,106,46,.6); box-shadow:0 0 0 1px rgba(255,106,46,.2), 0 0 40px rgba(255,106,46,.12); }
+  .n { width:34px; height:34px; border-radius:50%; display:grid; place-items:center; border:1px solid var(--line); color:var(--halo); font-size:14px; }
+  .step h3 { margin:0 0 4px; font-weight:600; font-size:19px; }
+  .step p { margin:0; color:var(--mute); font-size:15.5px; }
+  .step p.ar { margin-top:6px; }
+  .price { text-align:right; font-weight:500; white-space:nowrap; }
+  .price small { display:block; color:var(--mute); font-weight:400; font-size:13px; }
+  @media (max-width:640px) { .step { grid-template-columns:auto 1fr; } .price { grid-column:2; text-align:left; } }
+  form { border:1px solid rgba(255,106,46,.5); border-radius:24px; padding:clamp(18px,5vw,28px); background:rgba(255,106,46,.05); display:grid; gap:14px; margin-bottom:60px; }
+  label { display:grid; gap:6px; font-size:14px; color:var(--mute); }
+  label, .row > * { min-width:0; }
+  input, select { width:100%; min-width:0; max-width:100%; font:inherit; color:var(--bone); background:rgba(6,6,10,.7); border:1px solid var(--line); border-radius:12px; padding:13px 14px; }
+  input:focus, select:focus { outline:none; border-color:var(--ember); }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:640px) { .row { grid-template-columns:1fr; } }
+  button { font:inherit; font-weight:600; border:0; border-radius:999px; padding:15px; background:var(--ember); color:var(--midnight); cursor:pointer; }
+  button:disabled { opacity:.5; cursor:default; }
+  .msg { min-height:1.4em; margin:0; font-size:15px; }
+  .hp { position:absolute; left:-9999px; }
+  footer { padding:30px 0 50px; color:var(--mute); font-size:14px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+  footer a { color:var(--bone); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><img src="/build/blob.png" alt=""><span>ALVVO</span></nav>
+
+  <header>
+    <img class="mark" src="/build/blob.png" alt="ALVVO">
+    <h1>I don't code.<br>I built <em>23 products</em><br>by talking to AI.</h1>
+    <p class="lede">A Gulf gaming ladder with 768,000 page views a month. A WhatsApp bot that confirms deposits by itself. Now I'm teaching exactly how — in Arabic and English.</p>
+    <p class="lede ar">ما أبرمج. بنيت ٢٣ منتج بالكلام مع الذكاء الاصطناعي. الحين أعلّمك نفس الطريقة بالضبط — بالعربي والإنجليزي.</p>
+    <a class="cta" href="#join">Join the founding cohort · انضم →</a>
+  </header>
+
+  <section class="proof">
+    <div><b>768K</b><small>page views in 30 days, across 6 Gulf countries — built and live in one day</small></div>
+    <div><b>&lt; 1 min</b><small>for a booking bot to confirm a real deposit from the bank's email, nobody touching it</small></div>
+    <div><b>23 min</b><small>from idea to a working website</small></div>
+    <div><b>−79%</b><small>server bill, cut in one conversation</small></div>
+  </section>
+
+  <section>
+    <h2>Learn it, or we build it.</h2>
+    <p class="sub">تعلّمها، أو نبنيها لك.</p>
+    <div class="ladder">
+      <div class="step">
+        <span class="n">1</span>
+        <div><h3>Starter Pack</h3><p>The exact prompts, templates and method behind my live products. Credited toward the cohort.</p><p class="ar">البرومبتات والقوالب والطريقة اللي بنيت فيها منتجاتي — بالضبط.</p></div>
+        <div class="price">$29<small>one time</small></div>
+      </div>
+      <div class="step hot">
+        <span class="n">2</span>
+        <div><h3>ALVVO Build — Founding Cohort</h3><p>Four live weeks with me. Your website live by week 2. Your first AI system — a bot or an app — by week 4. Five seats.</p><p class="ar">أربع أسابيع مباشرة معي. موقعك أونلاين بالأسبوع الثاني، ونظامك الذكي الأول بالأسبوع الرابع. ٥ مقاعد فقط.</p></div>
+        <div class="price">$297<small>founding price</small></div>
+      </div>
+      <div class="step">
+        <span class="n">3</span>
+        <div><h3>ALVVO Circle</h3><p>AI tools change every few months, so the recipes go stale. A weekly live build, new recipes every month, and feedback on what you're making.</p><p class="ar">أدوات الذكاء الاصطناعي تتغير كل كم شهر. بث أسبوعي، وصفات جديدة كل شهر، ورأيي في شغلك.</p></div>
+        <div class="price">$129<small>per quarter · founders locked for life</small></div>
+      </div>
+      <div class="step">
+        <span class="n">4</span>
+        <div><h3>Done for you</h3><p>No time? We build it: booking bots, booking sites, league platforms. Your cohort fee counts toward it.</p><p class="ar">ما عندك وقت؟ نبنيه لك: بوت حجوزات، موقع حجوزات، منصة دوري.</p></div>
+        <div class="price">from 300 OMR<small>project</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="join">
+    <h2>Get a seat before doors open.</h2>
+    <p class="sub">سجّل وأرسل لك أول ما يفتح التسجيل.</p>
+    <form id="f" novalidate>
+      <div class="row">
+        <label>Name · الاسم<input name="name" autocomplete="name" required maxlength="80"></label>
+        <label>WhatsApp · واتساب<input name="whatsapp" type="tel" autocomplete="tel" placeholder="+968 …" maxlength="30"></label>
+      </div>
+      <label>Email · الإيميل<input name="email" type="email" autocomplete="email" required maxlength="120"></label>
+      <label>I want… · أبغى…
+        <select name="interest">
+          <option value="cohort">A seat in the founding cohort · مقعد بالدفعة الأولى</option>
+          <option value="starter">The $29 Starter Pack · حزمة البداية</option>
+          <option value="circle">ALVVO Circle · الدائرة</option>
+          <option value="done-for-you">You to build it for me · تبنونه لي</option>
+        </select>
+      </label>
+      <input class="hp" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit">Save my seat · احجز مكاني</button>
+      <p class="msg" id="m" role="status"></p>
+    </form>
+  </section>
+
+  <footer><span>ALVVO · Muscat · <a href="https://instagram.com/alvvo.om">@alvvo.om</a></span><span><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></span></footer>
+</div>
+<script>
+  const f = document.getElementById("f"), m = document.getElementById("m"), b = f.querySelector("button");
+  f.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(f));
+    if (!data.name.trim() || !/^\S+@\S+\.\S+$/.test(data.email)) { m.textContent = "Add your name and a real email · أضف اسمك وإيميل صحيح"; return; }
+    b.disabled = true; m.textContent = "Saving… · جاري الحفظ…";
+    try {
+      const r = await fetch("/api/waitlist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      if (!r.ok) throw new Error(String(r.status));
+      f.reset(); m.textContent = "You're in. I'll message you the moment doors open. · تم! بأرسل لك أول ما يفتح التسجيل.";
+    } catch {
+      m.textContent = "That didn't save — try once more · ما انحفظ، جرّب مرة ثانية";
+    } finally { b.disabled = false; }
+  });
+</script>
+</body>
+</html>
