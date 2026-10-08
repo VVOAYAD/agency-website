@@ -2,6 +2,8 @@
 
 ### Alvvo Ayad
 
+> **Before you begin.** This guide is education, not medical or psychological treatment. If you live with trauma, PTSD, panic attacks, epilepsy or seizures, a heart condition, or you are pregnant, talk to a doctor or therapist before the tremoring, shaking and breath practices (Days 3, 6, 8, 9, 10). Go at your own pace: if a practice brings up more than you can hold, stop, open your eyes, feel your feet, and come back another day. If you are in crisis, contact local emergency services.
+
 ---
 
 ## You're Not Broken. You're Stuck.
