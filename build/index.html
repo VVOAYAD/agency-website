@@ -48,7 +48,8 @@
   .step p.ar { margin-top:6px; }
   .price { text-align:right; font-weight:500; white-space:nowrap; }
   .price small { display:block; color:var(--mute); font-weight:400; font-size:13px; }
-  @media (max-width:640px) { .step { grid-template-columns:auto 1fr; } .price { grid-column:2; text-align:left; } }
+  .step > * { min-width:0; }
+  @media (max-width:640px) { .step { grid-template-columns:auto 1fr; } .price { grid-column:2; text-align:left; white-space:normal; } }
   form { border:1px solid rgba(255,106,46,.5); border-radius:24px; padding:clamp(18px,5vw,28px); background:rgba(255,106,46,.05); display:grid; gap:14px; margin-bottom:60px; }
   label { display:grid; gap:6px; font-size:14px; color:var(--mute); }
   label, .row > * { min-width:0; }
@@ -72,7 +73,7 @@
     <img class="mark" src="/build/blob.png" alt="ALVVO">
     <h1>I don't code.<br>I built <em>23 products</em><br>by talking to AI.</h1>
     <p class="lede ar">ما أبرمج. بنيت ٢٣ منتج بالكلام مع الذكاء الاصطناعي. الحين أعلّمك نفس الطريقة بالضبط — بالعربي والإنجليزي.</p>
-    <p class="lede">A Gulf gaming ladder with 768,000 page views a month. A WhatsApp bot that confirms deposits by itself. Now I'm teaching exactly how — in Arabic and English.</p>
+    <p class="lede">A Gulf gaming ladder with 768,479 page views in 30 days. A WhatsApp bot that confirms deposits by itself. Now I'm teaching exactly how — in Arabic and English.</p>
     <a class="cta" href="#join">Join the founding cohort · انضم →</a>
   </header>
 
