@@ -24,20 +24,17 @@ GitHub: https://github.com/VVOAYAD/agency-website
 ## Improvements
 *(add your ideas here)*
 
-## Last session — 2026-05-11
-- Full skeleton rebuild aligned to alvvo.ai visual DNA (ember/chrome/midnight)
-- New 4-service offering: Dashboards / Automation / Websites / Apps (bento 2×2 + 4 deep sections each with custom SVG mockups)
-- New logo: chrome orb + `alvvoayad.ai` wordmark (live animated SVG orb in hero, static in nav/footer)
-- Killed all modals — content is now inline
-- New typography: Geist + DM Sans + Tajawal (replaces Outfit/Sora/Noto Kufi)
-- Bilingual structurally parallel (Arabic now has all sections, not a stub)
-- Wordmark displays `alvvoayad.ai`; actual domain stays `alvvoayad.com` (the .ai domain is NOT registered yet — separate decision)
+## Last session — 2026-10-14
+- Homepage replaced by the ONE-SCREEN design (his ask 10-14): blob mark + ALVVO / ألفو top-left, one bilingual headline,
+  WebGL heat ring (same thermal ramp as the "This is ALVVO" reel), and a left-right rail of 12 cards
+  (6 systems + 6 ALVVO Studio). Wheel/drag/arrows drive the rail; each card opens WhatsApp pre-filled (EN + AR).
+- Assets: `blob.webp` (cleaned cutout of the chrome blob master), `favicon-blob.png`. Old homepage = git history (2210ce1).
+- Preview/source of the design: `design/v2/` (not committed — design/ is a scratch folder).
 
 ## Next step
-- Visit live site, confirm vibe
-- Decide if we want to register the actual `.ai` domain
-- Add real client logos / case study section once we have proof to show
-- Consider replacing the SVG hero orb with a WebGL chrome torus matching `icon_v1.png` exactly
+- Domain: alvvo.ai + alvvo.om are unregistered (whois 2026-10-14); alvvo.ai ~$160 / 2 yrs waits on his GO,
+  then add to Vercel + 301 alvvoayad.com → alvvo.ai.
+- Check live fps of the heat ring on a real GPU / phone.
 
 ---
 *Update "Last session" and "Next step" above at the end of every session.*
