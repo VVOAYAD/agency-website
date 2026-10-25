@@ -18,3 +18,12 @@
 - v3: headline he killed is back · ink is dark purple smoke · 3D cheap/emoji, rings tacky, show real websites · "ANNUAL" in big · too much scrolling + services twice · add WhatsApp + Instagram logos
 - v3.1: Dar Zafran / demo «مثال توضيحي» screens → show OLH · icon-pack objects, glossy pink seal · below contract = text on black · phone hero opens dark
 - v3.2 (2026-10-25): HE'D POST IT · nits: Arabic sublines too faint (fixed, .72) · «مثال توضيحي» pill on Films frame · empty black under contract (desktop)
+
+## 2026-10-25 · v3.3 (his notes from his phone on the live site)
+- [x] "im on my website now on my fone the shapes are not showing" — lazy 3D build + mobile limits + still-image fallback (obj-NN.webp) shown at once; real iPhone not tested
+- [x] "i love the pattern so much" — keep the ink as is · untouched
+- [x] "the 3d models need a bit work regarding color grading .. however imobssesed with their animation" — keep the animation · rial-chrome studio grade, animations untouched
+- [x] "with each project once its showing top in the main scree maybe down you can show our projects in that aspect .. for chat bots maybe show live work which is alomara chat bot and people can message ... for the sites show all sites we made olh , gamershub , asma .. the live ones -- minus the squ one maybe" — Our-work cards per service + Live Work gallery (OLH, Gamers Hub, Al Omara "Try it live"); Asma held: asmaalriyami.com fails TLS; no SQU
+- [x] "for the contratc i feel like i want it like two options payment but dont give too much details like dont show the 100 omr . - make it clicakble that people can request a quotation" — Monthly / Yearly tiles, no price, "Request a quotation"
+- [x] "systems building service did u include this? cz ive 2 people messaged me they want to create systems for their job so thats a big one" — "Custom systems / أنظمة خاصة لشغلك" = service #3 + in the contract inclusions
+- v3.3 (2026-10-25): HE'D SEND IT BACK · cards swap under his thumb · sites not shown, Live Work contradicts cards → both fixed in v3.3b
