@@ -217,7 +217,7 @@ footer{max-width:1360px;margin:0 auto;padding:6px var(--gut) calc(26px + env(saf
   .pcard{gap:10px}
   .lw .lt{width:104px;height:70px}
 }
-@media (prefers-reduced-motion:reduce){.chrome{animation:none;background-position:100% 0,0 0}.dots button.on i::after{animation:none}.fbf{animation:none}.btn,.swap-grp,.proj,.fb{transition:none}}
+@media (prefers-reduced-motion:reduce){.chrome{animation:none;background-position:100% 0,0 0}.dots button.on i::after{animation:none}.fbf{animation-duration:14s}.btn,.swap-grp,.proj,.fb{transition:none}}
 </style>
 </head>
 <body>
@@ -431,7 +431,7 @@ const quoteMsg=s=>`Hi ALVVO — I'd like a quotation for: ${s.ask}\nهلا أل�
   gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
   const loc=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
   const uR=gl.getUniformLocation(pr,'R'),uT=gl.getUniformLocation(pr,'T'),uS=gl.getUniformLocation(pr,'S');
-  const still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const still=false, calm=matchMedia('(prefers-reduced-motion:reduce)').matches?.4:1; // Reduce Motion = slower ink, never frozen (frozen read as broken on his iPhone, 2026-10-25)
   let sc=0;
   const onScroll=()=>{sc=Math.max(0,Math.min(1,scrollY/(innerHeight*.6)));if(still)draw();};
   function size(){ // ink is soft: render at ~half the CSS pixels, DPR capped at 1
@@ -441,7 +441,7 @@ const quoteMsg=s=>`Hi ALVVO — I'd like a quotation for: ${s.ask}\nهلا أل�
   function draw(){gl.uniform2f(uR,cv.width,cv.height);gl.uniform1f(uT,still?12.5:clock);gl.uniform1f(uS,sc);gl.drawArrays(gl.TRIANGLES,0,3);}
   function frame(now){
     raf=0; if(document.hidden||window.__inkFreeze)return;
-    if(now-last>=33){ clock+=Math.min((now-(prev||now))/1000,.1); prev=now; last=now; draw(); }
+    if(now-last>=33){ clock+=Math.min((now-(prev||now))/1000,.1)*calm; prev=now; last=now; draw(); }
     raf=requestAnimationFrame(frame);
   }
   function kick(){ if(still||raf||document.hidden)return; prev=0; raf=requestAnimationFrame(frame); }
@@ -458,7 +458,7 @@ const quoteMsg=s=>`Hi ALVVO — I'd like a quotation for: ${s.ask}\nهلا أل�
 (async()=>{
 const $=id=>document.getElementById(id);
 const wrap=$('glwrap'), canvas=$('gl'), fbw=$('fbw');
-const still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const still=false, calm=matchMedia('(prefers-reduced-motion:reduce)').matches; // Reduce Motion = slower turns and swaps, never frozen
 const mobile=matchMedia('(pointer:coarse)').matches||innerWidth<820;
 const N=SERVICES.length;
 const IMG=i=>`obj-${String(i).padStart(2,'0')}.webp`;
@@ -509,7 +509,7 @@ function setImg(i){const nx=fbTop===fbA?fbB:fbA;nx.src=IMG(i);nx.classList.add('
 /* the one switch */
 let inView=true,heroVis=true,tm=0,holdUntil=0;
 const hold=(ms=8000)=>{holdUntil=performance.now()+ms;};          // the page never changes under a finger: any touch pauses the rotation for 8s
-function schedule(){clearInterval(tm);if(!still)tm=setInterval(()=>{if(document.hidden||!inView||!heroVis||performance.now()<holdUntil)return;go(cur+1);},4000);}
+function schedule(){clearInterval(tm);if(!still)tm=setInterval(()=>{if(document.hidden||!inView||!heroVis||performance.now()<holdUntil)return;go(cur+1);},calm?7000:4000);}
 function go(n,manual){
   n=(n+N)%N;if(manual)hold();
   if(n===cur)return;
@@ -843,7 +843,7 @@ let visible=true,raf=0,pt=0;
 function frame(now){
   raf=0;if(document.hidden||!visible||!api.live)return;
   try{
-    const dt=Math.min((now-(pt||now))/1000,.1);pt=now;acc+=dt;
+    const dt=Math.min((now-(pt||now))/1000,.1);pt=now;acc+=dt*(calm?.5:1);
     if(swapT<1){swapT=Math.min(1,(now-swapAt)/900);if(swapT>=1){prev=-1;trim();}}
     draw(acc);
     if(first){first=false;canvas.classList.add('show');fbw.classList.add('gone');}
