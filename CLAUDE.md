@@ -24,17 +24,17 @@ GitHub: https://github.com/VVOAYAD/agency-website
 ## Improvements
 *(add your ideas here)*
 
-## Last session — 2026-10-14
-- Homepage replaced by the ONE-SCREEN design (his ask 10-14): blob mark + ALVVO / ألفو top-left, one bilingual headline,
-  WebGL heat ring (same thermal ramp as the "This is ALVVO" reel), and a left-right rail of 12 cards
-  (6 systems + 6 ALVVO Studio). Wheel/drag/arrows drive the rail; each card opens WhatsApp pre-filled (EN + AR).
-- Assets: `blob.webp` (cleaned cutout of the chrome blob master), `favicon-blob.png`. Old homepage = git history (2210ce1).
-- Preview/source of the design: `design/v2/` (not committed — design/ is a scratch folder).
+## Last session — 2026-10-25
+- Homepage v3 (his brief 10-24, checklist in ASKS.md): frosted logo tile + Michroma ALVVO, own ink-burst shader (violet + rainbow
+  fronts, fixed dim layer behind the boxes), three.js r170 stage swapping 12 chrome service objects (chatbots first, websites =
+  laptop + phone with real omanlifestylehub screens, photos blurred for consent), monthly contract box (chrome 100 + rial, 12-month
+  row, no upfront price), live work, films, contact with WhatsApp + Instagram logos. The killed 10-14 headline is gone.
+- Gates passed: art-director (round 3 fixes) + almoayad-eye "HE'D POST IT" (v4.1). Arabic is my Gulf phrasing, not a native read.
+- Not verified: real-GPU / phone frame rate (ink 0.75x desktop, 0.6x phone; drop to 0.65 if heavy), Safari/Firefox.
 
 ## Next step
-- Domain: alvvo.ai + alvvo.om are unregistered (whois 2026-10-14); alvvo.ai ~$160 / 2 yrs waits on his GO,
-  then add to Vercel + 301 alvvoayad.com → alvvo.ai.
-- Check live fps of the heat ring on a real GPU / phone.
+- Domain: stays alvvoayad.com (his call 2026-10-24); alvvo.com is a $3,499 Atom listing, not bought.
+- Check live fps of the ink + 3D stage on his real phone.
 
 ---
 *Update "Last session" and "Next step" above at the end of every session.*
