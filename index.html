@@ -209,6 +209,42 @@ a.work:hover b{text-decoration:underline;text-underline-offset:4px;text-decorati
 .ch+.ch{border-top:1px solid var(--line);padding-top:6px}
 footer{max-width:1360px;margin:0 auto;padding:6px var(--gut) calc(26px + env(safe-area-inset-bottom));display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--faint);letter-spacing:.06em}
 
+/* our work: every project, one card each */
+.allwork{grid-column:1/-1;display:flex;flex-direction:column;gap:14px;min-width:0}
+.wrail{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.wk{display:flex;flex-direction:column;gap:12px;padding:10px 10px 14px;border-radius:18px;border:1px solid var(--line);background:rgba(10,11,20,.5);min-width:0;
+  transition:border-color var(--t-base) var(--e-out),transform var(--t-base) var(--e-out),background var(--t-base)}
+.wk:hover{border-color:rgba(143,211,255,.5);transform:translateY(-3px);background:rgba(14,15,28,.62)}
+.wk:active{transform:scale(.985);transition-duration:.08s}
+.wk-im{display:block;aspect-ratio:16/10;border-radius:12px;overflow:hidden;background:#0b0c18;box-shadow:0 0 0 1px rgba(245,233,216,.14)}
+.wk-im img{display:block;width:100%;height:100%;object-fit:cover;object-position:left top;transition:transform .9s var(--e-out)}
+.wk:hover .wk-im img{transform:scale(1.04)}
+.wk-im.dk img{object-fit:contain;padding:14px;background:linear-gradient(160deg,#171a2e,#0b0c18)}
+.wk-b{display:flex;flex-direction:column;gap:3px;padding:0 4px;min-width:0}
+.wk-t{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.wk b{font-weight:500;font-size:16.5px;letter-spacing:-.005em}
+.wk .l{font-size:14px;line-height:1.4;color:var(--muted)}
+.wk .a{font-size:14.5px;color:var(--faint);text-align:left}
+.wk .u{margin-top:4px;font-size:13px;font-weight:500;background:var(--chrome);-webkit-background-clip:text;background-clip:text;color:transparent;align-self:flex-start}
+.pill{font-style:normal;font-size:11px;letter-spacing:.06em;white-space:nowrap;padding:3px 8px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.pill.live{color:#7ee2b0;border-color:rgba(126,226,176,.35)}
+.pill.building{color:var(--halo);border-color:rgba(255,179,106,.35)}
+.pill.private{color:#b7a6ff;border-color:rgba(122,92,255,.45)}
+/* the Chimera viewer */
+.dlg{margin:auto;padding:0;border:0;background:transparent;color:var(--bone);max-width:min(1100px,94vw);overflow:visible}
+.dlg::backdrop{background:rgba(4,4,8,.78);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.dlg[open]{animation:dlg-in .42s var(--e-out)}
+.dlg[open]::backdrop{animation:dlg-fade .3s var(--e-out)}
+@keyframes dlg-in{from{opacity:0;transform:translateY(14px) scale(.97)}}
+@keyframes dlg-fade{from{opacity:0}}
+.dlg figure{display:flex;flex-direction:column;gap:14px}
+.dlg img{display:block;width:100%;height:auto;border-radius:16px;box-shadow:0 0 0 1px rgba(245,233,216,.18),0 30px 80px rgba(0,0,0,.6)}
+.dlg figcaption{font-size:15px;line-height:1.55;color:var(--muted)}
+.dlg figcaption b{color:var(--bone);font-weight:500}
+.dlg figcaption .ar{display:block;margin-top:4px;color:var(--faint);text-align:left}
+.dlg-x{position:absolute;top:-14px;right:-14px;width:40px;height:40px;border-radius:50%;cursor:pointer;background:rgba(14,15,28,.92);border:1px solid rgba(245,233,216,.2);color:var(--bone);transition:transform var(--t-fast) var(--e-out)}
+.dlg-x:hover{transform:scale(1.08)}
+
 /* tablet */
 @media (max-width:1000px){
   .hero{min-height:0}
@@ -243,12 +279,17 @@ footer{max-width:1360px;margin:0 auto;padding:6px var(--gut) calc(26px + env(saf
   .proj::-webkit-scrollbar{display:none}
   .pcard{scroll-snap-align:start}
   .lw{grid-template-columns:104px minmax(0,1fr);gap:12px}
+  .wrail{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:80%;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;padding-bottom:4px;scrollbar-width:none;margin:0 calc(-1*var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut)}
+  .wrail::-webkit-scrollbar{display:none}
+  .wk{scroll-snap-align:start}
+  .dlg-x{top:-48px;right:0}
   .th{width:60px;height:46px}
   .pcard{gap:10px}
   .lw .lt{width:104px;height:70px}
 }
 @media (prefers-reduced-motion:reduce){.chrome{animation:none;background-position:100% 0,0 0}.dots s{visibility:hidden}.fbf{animation-duration:14s}.btn,.fb{transition:none}
-  .js .hi,.js .rv{transform:none}.films:hover #filmVid,.btn:hover,.opt:hover,.pcard:hover{transform:none}
+  .js .hi,.js .rv{transform:none}.films:hover #filmVid,.btn:hover,.opt:hover,.pcard:hover,.wk:hover,.wk:hover .wk-im img{transform:none}
+  .dlg[open]{animation-name:dlg-fade}
   ::view-transition-new(root){animation-name:vt-fade}}
 </style>
 </head>
@@ -296,6 +337,11 @@ footer{max-width:1360px;margin:0 auto;padding:6px var(--gut) calc(26px + env(saf
 
 <main class="bento">
 
+  <section class="allwork rv" id="live">
+    <div class="k"><span>Our work</span><span class="ar" lang="ar">شغلنا</span></div>
+    <div class="wrail" id="workRail"></div>
+  </section>
+
   <article class="contract rv" id="contract">
     <div>
       <div class="k"><span>Contract</span><span class="ar" lang="ar">عقد</span></div>
@@ -322,9 +368,6 @@ footer{max-width:1360px;margin:0 auto;padding:6px var(--gut) calc(26px + env(saf
     <a class="btn wa" data-msg="Hi ALVVO — I'd like a quotation to work with ALVVO&#10;هلا ألفو، أبغى عرض سعر للاشتغال مع ألفو" href="https://wa.me/96877056051" target="_blank" rel="noopener"><span>Request a quotation</span><span class="ar" lang="ar">اطلب عرض سعر</span></a>
   </article>
 
-  <section class="open proof rv" style="--i:1" id="live">
-    <div class="k"><span>Live work</span><span class="ar" lang="ar">شغل شغّال</span></div>
-  </section>
 
   <a class="open films rv" style="--i:2" href="https://instagram.com/alvvo.om" target="_blank" rel="noopener">
     <div class="k"><span>ALVVO Studio</span><span class="ar" lang="ar">استوديو ألفو</span></div>
@@ -350,6 +393,14 @@ footer{max-width:1360px;margin:0 auto;padding:6px var(--gut) calc(26px + env(saf
     </a>
   </section>
 </main>
+
+<dialog class="dlg" id="chimeraDlg" aria-label="Chimera — the interface">
+  <figure>
+    <img src="work-chimera-full.webp" alt="Chimera's interface: the mission-control sidebar and the live ink canvas" width="1440" height="820" loading="lazy" decoding="async">
+    <figcaption><b>Chimera</b> — a private command center we built and run every day. This is the interface only; the app itself is closed.<span class="ar" lang="ar">كيميرا — مركز تحكّم خاص نبنيه ونشغّله كل يوم. هذي الواجهة بس، والتطبيق نفسه مقفول.</span></figcaption>
+  </figure>
+  <button class="dlg-x" aria-label="Close">✕</button>
+</dialog>
 
 <footer><span>© 2026 ALVVO — Muscat, Oman · <span class="ar" lang="ar">مسقط، سلطنة عُمان</span></span></footer>
 
@@ -529,13 +580,18 @@ const P={
  olh:{n:'Oman Lifestyle Hub',l:'A live booking marketplace in Muscat',a:'منصة حجوزات شغّالة في مسقط',u:'https://omanlifestylehub.com',c:'Visit',ca:'زوره',th:'thumb-olh.webp',site:0,ul:'omanlifestylehub.com'},
  olhBook:{n:'Oman Lifestyle Hub',l:'Class and session bookings',a:'حجوزات الحصص والجلسات',u:'https://omanlifestylehub.com',c:'Visit',ca:'زوره',th:'thumb-olh.webp',site:0},
  gh:{n:'Gamers Hub',l:'6v6 Call of Duty ladder',a:'تصنيف 6 ضد 6 لكول أوف ديوتي',u:'https://gamershub.fyi',c:'Visit',ca:'زوره',th:'thumb-gh.webp',site:1,ul:'gamershub.fyi'},
+ mw:{n:'MW Events',l:'Self-serve booking atelier for a Muscat event planner',a:'منصة حجز ذاتي لمنظّمة فعاليات في مسقط',u:'https://mw-events.vercel.app',c:'Visit',ca:'زوره',th:'thumb-mw.webp',big:'work-mw.webp',ul:'mw-events.vercel.app',st:'live'},
+ mwBook:{n:'MW Events',l:'Clients pick their own setup and book',a:'العميل يختار تجهيزه ويحجز بنفسه',u:'https://mw-events.vercel.app',c:'Visit',ca:'زوره',th:'thumb-mw.webp'},
+ kombucha:{n:'Fizzy Karma Kombucha',l:'Flavour shop with WhatsApp ordering',a:'متجر نكهات بطلب على الواتساب',u:'https://fizzykarmakombucha.com',c:'Visit',ca:'زوره',th:'thumb-kombucha.webp',big:'work-kombucha.webp',ul:'fizzykarmakombucha.com',st:'building'},
+ asma:{n:'Asma Al Riyami',l:'Portfolio for a radio host and MC',a:'موقع شخصي لمذيعة ومقدّمة فعاليات',u:'https://www.asmaalriyami.com',c:'Visit',ca:'زوره',th:'thumb-asma.webp',big:'work-asma.webp',ul:'asmaalriyami.com',st:'building'},
+ chimera:{n:'Chimera',l:'A private command center — the interface only',a:'مركز تحكّم خاص — الواجهة فقط',priv:1,c:'See the interface',ca:'شوف الواجهة',th:'thumb-chimera.webp',big:'work-chimera.webp',ul:'Private — see the interface',st:'private'},
  ig:{n:'ALVVO films',l:'@alvvo.om on Instagram',a:'أفلامنا على إنستغرام',u:'https://instagram.com/alvvo.om',c:'Watch',ca:'شوف',th:'film-offer-poster.webp'}
 };
-const PROJ={0:[P.omaraBot],1:[P.olh,P.gh],3:[P.olhBook,P.omaraBook],6:[P.ig],7:[P.ig],8:[P.ig]};
+const PROJ={0:[P.omaraBot],1:[P.olh,P.gh],2:[P.chimera],3:[P.mwBook,P.olhBook],5:[P.chimera],6:[P.ig],7:[P.ig],8:[P.ig]};
 const projEl=$('proj');
 function renderProj(i){
   const s=SERVICES[i],list=PROJ[i];
-  const card=c=>`<a class="pcard" href="${c.u}" target="_blank" rel="noopener"${c.site!=null?` data-site="${c.site}"`:''}><img class="th${c.dk?' dk':''}" src="${c.th}" alt="" width="76" height="58" loading="lazy"><span class="pb"><span class="pt"><b>${c.n}</b><i class="go">${c.c} ↗</i></span><span class="pl">${c.l}</span><span class="pa ar" lang="ar">${c.a}</span></span></a>`;
+  const card=c=>`<a class="pcard" ${c.priv?'href="#chimera" data-priv="1"':`href="${c.u}" target="_blank" rel="noopener"`}${c.site!=null?` data-site="${c.site}"`:''}><img class="th${c.dk?' dk':''}" src="${c.th}" alt="" width="76" height="58" loading="lazy"><span class="pb"><span class="pt"><b>${c.n}</b><i class="go">${c.c}${c.priv?'':' ↗'}</i></span><span class="pl">${c.l}</span><span class="pa ar" lang="ar">${c.a}</span></span></a>`;
   projEl.innerHTML=list
     ? `<div class="pk"><span>Our work</span><span class="ar" lang="ar">شغلنا</span></div>`+list.map(card).join('')
     : `<a class="pcard nothumb" href="${wa(quoteMsg(s))}" target="_blank" rel="noopener"><span class="pb"><span class="pt"><b>Want one?</b><i class="go">Request a quote ↗</i></span><span class="pl">Tell us what you need — we reply on WhatsApp.</span><span class="pa ar" lang="ar">تبي واحد؟ اطلب عرض سعر</span></span></a>`;
@@ -544,8 +600,15 @@ function renderProj(i){
 /* an image that is not in the cache yet fades in when it lands, never pops */
 function softImgs(root){root.querySelectorAll('img').forEach(im=>{if(im.complete&&im.naturalWidth)return;im.classList.add('lz');const ok=()=>im.classList.add('ok');im.addEventListener('load',ok,{once:true});im.addEventListener('error',ok,{once:true});});}
 /* live work: every live project, same names as the cards */
-$('live').insertAdjacentHTML('beforeend',[P.olh,P.gh,P.omaraBot].map(c=>`<a class="lw" href="${c.u}" target="_blank" rel="noopener"><img class="lt${c.dk?' dk':''}" src="${c.th}" alt="${c.n}" width="132" height="80" loading="lazy"><span><b>${c.n}</b><span class="l">${c.l}</span><span class="a ar" lang="ar">${c.a}</span><span class="u">${c.ul||c.c} ↗</span></span></a>`).join(''));
+/* everything we have built, one card each: live sites link out, Chimera is private and only shows its interface */
+const ST={live:['Live','شغّال'],building:['In progress','قيد البناء'],private:['Private','خاص']};
+const WORK=[{...P.olh,big:'site-olh-d.webp',st:'live'},{...P.gh,big:'site-gh-d.webp',st:'live'},{...P.omaraBot,st:'live'},P.mw,P.kombucha,P.asma,P.chimera];
+$('workRail').innerHTML=WORK.map(c=>`<a class="wk" ${c.priv?'href="#chimera" data-priv="1"':`href="${c.u}" target="_blank" rel="noopener"`}><span class="wk-im${c.dk?' dk':''}"><img src="${c.big||c.th}" alt="${c.n}" width="880" height="550" loading="lazy" decoding="async"></span><span class="wk-b"><span class="wk-t"><b>${c.n}</b><i class="pill ${c.st}">${ST[c.st][0]} · <span lang="ar">${ST[c.st][1]}</span></i></span><span class="l">${c.l}</span><span class="a ar" lang="ar">${c.a}</span><span class="u">${c.ul||c.c}${c.priv?'':' ↗'}</span></span></a>`).join('');
 softImgs($('live'));
+/* Chimera: never a link to the app — a viewer of the interface */
+const dlg=$('chimeraDlg');
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('[data-priv]');if(!a)return;e.preventDefault();hold();if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','');});
+dlg.addEventListener('click',e=>{if(e.target===dlg||e.target.closest('.dlg-x'))dlg.close();});
 
 /* captions + dashes */
 const dotsEl=$('dots');
@@ -635,7 +698,11 @@ window.__stage={get cur(){return cur;},go,get mode(){return gl&&gl.live?'gl':'im
 const toImages=why=>{if(gl)gl.live=false;fbw.classList.remove('gone');canvas.classList.remove('show');window.__stageWhy=why;};
 if(window.__noThree||/nothree/.test(location.search)||!window.WebGL2RenderingContext){toImages(window.WebGL2RenderingContext?'off':'no webgl2');return;}
 let THREE;
-try{ THREE=await import('https://cdnjs.cloudflare.com/ajax/libs/three.js/0.170.0/three.module.min.js'); }catch(e){ toImages('import'); return; }
+// three.js is served from this site (his iPhone sat on 'loading' forever waiting on cdnjs, 2026-10-26); the CDN is only the backup
+window.__stageWhy='loading 3D';
+try{ THREE=await import('/vendor/three-0.170.0.module.min.js'); }
+catch(e){ try{ THREE=await import('https://cdnjs.cloudflare.com/ajax/libs/three.js/0.170.0/three.module.min.js'); }catch(e2){ toImages('import'); return; } }
+window.__stageWhy='building 3D';
 try{ gl=initThree(THREE); }catch(e){ console.warn('stage',e); gl=null; toImages('init'); return; }
 
 function initThree(THREE){

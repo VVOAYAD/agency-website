@@ -37,6 +37,11 @@ GitHub: https://github.com/VVOAYAD/agency-website
 - His note 10-26 "still not working": my first commits used vvoayad@gmail.com, not the GitHub noreply author every earlier deploy used —
   Vercel may have blocked them. Commit as `VVOAYAD <201911905+VVOAYAD@users.noreply.github.com>`. Fallback stills now sway/tilt/lift
   (never frozen when three.js can't run). `alvvoayad.com/?why` shows stage mode + why + GPU on any device.
+- His ?why screenshot 10-26 (iPhone): "stage: still images (loading)" = three.js never arrived from cdnjs. three.js 0.170.0 now
+  self-hosted at `vendor/three-0.170.0.module.min.js` (cdnjs only as backup); ?why shows loading 3D / building 3D / 3D live.
+- "Our work" gallery (his ask 10-26: every project, links out): OLH, Gamers Hub, Al Omara, MW Events, Fizzy Karma Kombucha (in progress),
+  Asma Al Riyami (in progress, thumb is her wordmark only — no face on ALVVO's page), Chimera (Private: opens a viewer of the
+  interface, never links to the app). Screens: `work-*.webp` (captured locally from each repo; Chimera with empty data, no PII).
 - Fixed: re-rendering the phone project row fired a scroll that paused rotation for 8s.
 - Measured (headless Chromium, software GPU): desktop long tasks 126 → 1, frame p50 183ms → 16.7ms, LCP 1412 → 520ms; phone CLS .0031 → 0.
 - Not verified: real-GPU fps, iPhone Safari, Firefox (no cross-doc VT there → normal navigation).
