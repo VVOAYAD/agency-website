@@ -18,13 +18,14 @@ GitHub: https://github.com/VVOAYAD/agency-website
 2. `git add . && git commit -m "message" && git push` → Vercel auto-deploys
 
 ## Rules
+- His standing order (2026-10-26): ship every change he asks for straight to `main` (live). Don't park it on a branch or wait for a "merge".
 - Read `index.html` fully before making any changes
 - No frameworks, no build step — keep it a single file
 
 ## Improvements
 *(add your ideas here)*
 
-## Last session — 2026-10-26 (smoothness pass, branch `smooth-transitions`, not on main)
+## Last session — 2026-10-26 (smoothness pass — live on main)
 - Page to page: cross-document View Transitions on every page (old dissolves, new rises 10px) + speculation-rules prefetch.
 - One motion system: `--e-out/--e-in/--t-fast/--t-base/--t-slow` tokens drive every transition; press states on buttons/cards/arrows.
 - Hero settles in once fonts land (cap 450ms); boxes rise on scroll (IntersectionObserver, once). Reduce Motion = fades only.
@@ -41,7 +42,7 @@ GitHub: https://github.com/VVOAYAD/agency-website
 - Domain: stays alvvoayad.com (his call 2026-10-24); alvvo.com is a $3,499 Atom listing, not bought.
 - Check live fps of the ink + 3D stage on his real phone.
 
-- Merge `smooth-transitions` after checking the Vercel preview on his phone.
+- Check the ink + 3D on his real phone now that the smoothness pass is live.
 - Self-host Geist so the last font-swap shift (CLS .014, desktop) goes.
 
 ---
