@@ -10,6 +10,9 @@
 <meta property="og:image" content="https://alvvoayad.com/logo.webp">
 <meta name="theme-color" content="#06060A">
 <link rel="icon" href="favicon-blob.png">
+<script>/* .js hides the hero for one beat; .ready lets it in once the fonts land (never later than 450ms), so the first paint never jumps */
+(function(d){var h=d.documentElement,go=function(){h.classList.add('ready')};h.classList.add('js');setTimeout(go,450);if(d.fonts&&d.fonts.ready)d.fonts.ready.then(go);})(document);</script>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/api/*"}}]},"eagerness":"moderate"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500;600&family=Michroma&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -19,7 +22,17 @@
   --muted:rgba(245,233,216,.66); --faint:rgba(245,233,216,.4); --line:rgba(245,233,216,.12);
   --chrome:linear-gradient(172deg,#ffffff 0%,#f5e9d8 14%,#9da3ab 34%,#f5e9d8 46%,#8fd3ff 58%,#7a5cff 72%,#ffb36a 86%,#f5e9d8 100%);
   --gut:clamp(16px,3.4vw,56px);
+  /* one motion system: every transition on the page uses these */
+  --e-out:cubic-bezier(.2,.8,.2,1); --e-in:cubic-bezier(.4,0,1,1);
+  --t-fast:.18s; --t-base:.32s; --t-slow:.6s;
 }
+/* page to page: the old page dissolves, the new one rises into place */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-out .22s var(--e-in) both}
+::view-transition-new(root){animation:vt-in .44s var(--e-out) both}
+@keyframes vt-out{to{opacity:0}}
+@keyframes vt-in{from{opacity:0;transform:translateY(10px)}}
+@keyframes vt-fade{from{opacity:0}}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--midnight);scroll-behavior:smooth}
 body{color:var(--bone);font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -39,6 +52,13 @@ button{font:inherit;color:inherit;background:none;border:0}
 
 /* the ink lives on one fixed layer behind everything */
 #ink{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+
+/* first paint: the hero settles in, the boxes rise as they reach the screen */
+.js .hi{opacity:0;transform:translateY(12px)}
+.js.ready .hi{opacity:1;transform:none;transition:opacity .7s var(--e-out),transform .9s var(--e-out);transition-delay:calc(var(--i,0)*70ms)}
+.js .rv{opacity:0;transform:translateY(18px)}
+.js .rv.in{opacity:1;transform:none;transition:opacity .7s var(--e-out),transform .9s var(--e-out);transition-delay:calc(var(--i,0)*80ms)}
+img.lz{opacity:0}img.lz.ok{opacity:1;transition:opacity var(--t-slow) var(--e-out)}
 
 /* ── HERO ── */
 .hero{position:relative;min-height:100dvh;display:flex;flex-direction:column;padding:0 var(--gut)}
@@ -61,33 +81,32 @@ header{display:flex;align-items:center;justify-content:space-between;padding-top
 .kick{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .kick i{width:28px;height:1px;background:var(--chrome)}
 .kick .ar{letter-spacing:0;font-size:14px;text-transform:none}
-.swap-grp{display:flex;flex-direction:column;gap:clamp(8px,1.4vh,14px);transition:opacity .25s,transform .25s}
-.swap-grp.out{opacity:0;transform:translateY(8px)}
+.swap-grp{display:flex;flex-direction:column;gap:clamp(8px,1.4vh,14px)}
 .name{font-weight:500;font-size:clamp(34px,min(4.3vw,8vh),84px);line-height:1.08;letter-spacing:-.035em;white-space:nowrap}
 .name-ar{font-family:Tajawal,sans-serif;direction:rtl;text-align:left;font-weight:400;font-size:clamp(26px,min(3.2vw,5.4vh),52px);line-height:1.25;color:rgba(245,233,216,.92)}
 .name-ar span{display:inline-block;direction:rtl}
 .one{max-width:520px;font-size:clamp(15px,1.1vw,17px);line-height:1.55;color:var(--muted);min-height:3.1em}
 .one-ar{font-family:Tajawal,sans-serif;direction:rtl;text-align:left;max-width:520px;font-size:clamp(15px,1.1vw,17px);line-height:1.5;color:rgba(245,233,216,.72);min-height:1.5em}
 .btn{align-self:flex-start;display:inline-flex;align-items:center;gap:14px;min-height:48px;padding:0 22px;border-radius:12px;font-size:15px;font-weight:500;
-  color:var(--midnight);background:linear-gradient(172deg,#fff,#f5e9d8 40%,#c4c8cf 70%,#f5e9d8);transition:transform .25s,filter .25s}
+  color:var(--midnight);background:linear-gradient(172deg,#fff,#f5e9d8 40%,#c4c8cf 70%,#f5e9d8);transition:transform var(--t-fast) var(--e-out),filter var(--t-fast)}
 .btn .ar{font-size:15px;font-weight:500;color:rgba(6,6,10,.7)}
 .btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.btn:active{transform:translateY(0) scale(.98);transition-duration:.08s}
 
 /* stage */
 .stage{position:relative;display:flex;flex-direction:column;gap:8px;min-width:0}
 .gl-wrap{position:relative;height:clamp(300px,min(60vh,44vw),640px);cursor:pointer;touch-action:pan-y}
-#gl{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity .6s}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity var(--t-slow) var(--e-out)}
 #gl.show{opacity:1}
 /* the still renders of the same objects: shown at once, kept if three.js cannot run, gently floating */
-.fbw{position:absolute;inset:0;transition:opacity .6s}
+.fbw{position:absolute;inset:0;transition:opacity var(--t-slow) var(--e-out)}
 .fbw.gone{opacity:0;pointer-events:none}
 .fbf{position:absolute;inset:0;animation:float 6s ease-in-out infinite}
-.fb{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transform:scale(.9);transition:opacity .5s,transform .6s cubic-bezier(.2,.8,.2,1)}
+.fb{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transform:scale(.9);transition:opacity .5s var(--e-out),transform var(--t-slow) var(--e-out)}
 .fb.on{opacity:1;transform:scale(1)}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 /* projects under the current service */
-.proj{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;max-width:660px;transition:opacity .25s,transform .25s}
-.proj.out{opacity:0;transform:translateY(8px)}
+.proj{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;max-width:660px;align-content:start}
 .lw{display:grid;grid-template-columns:132px minmax(0,1fr);gap:16px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
 .lw:first-of-type{border-top:0;padding-top:4px}
 .lw .lt{width:132px;height:80px;border-radius:12px;object-fit:cover;object-position:left top;box-shadow:0 0 0 1px rgba(245,233,216,.18);background:#0b0c18}
@@ -96,11 +115,13 @@ header{display:flex;align-items:center;justify-content:space-between;padding-top
 .lw .l{display:block;font-size:14.5px;line-height:1.45;color:var(--muted);margin-top:3px}
 .lw .a{display:block;font-size:15px;color:var(--faint);text-align:left;margin-top:2px}
 .lw .u{display:inline-block;margin-top:6px;font-size:13.5px;font-weight:500;background:var(--chrome);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lw b{transition:text-decoration-color var(--t-base)}
 .lw:hover b{text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(143,211,255,.6)}
 .pk{grid-column:1/-1;display:flex;gap:10px;align-items:baseline;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint)}
 .pk .ar{letter-spacing:0;font-size:14px;text-transform:none}
-.pcard{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:center;padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--line);background:rgba(10,11,20,.55);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);min-width:0;transition:border-color .25s,transform .25s}
+.pcard{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:center;padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--line);background:rgba(10,11,20,.55);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);min-width:0;transition:border-color var(--t-base) var(--e-out),transform var(--t-base) var(--e-out)}
 .pcard:hover{border-color:rgba(143,211,255,.5);transform:translateY(-2px)}
+.pcard:active{transform:scale(.985);transition-duration:.08s}
 .pcard.nothumb{grid-template-columns:1fr;padding:12px 14px}
 .pb{display:flex;flex-direction:column;gap:3px;min-width:0}
 .th{display:block;width:76px;height:58px;border-radius:9px;object-fit:cover;object-position:left top;background:#0b0c18;box-shadow:0 0 0 1px rgba(245,233,216,.16)}
@@ -114,14 +135,15 @@ header{display:flex;align-items:center;justify-content:space-between;padding-top
 .num{font-size:12px;letter-spacing:.2em;color:var(--faint);font-variant-numeric:tabular-nums;min-width:58px}
 .dots{display:flex;gap:3px;flex:1}
 .dots button{flex:1;height:28px;display:flex;align-items:center;cursor:pointer;min-width:0}
-.dots button i{display:block;width:100%;height:3px;background:var(--line);border-radius:2px;position:relative;overflow:hidden;transition:background .25s}
+.dots button i{display:block;width:100%;height:3px;background:var(--line);border-radius:2px;position:relative;overflow:hidden;transition:background var(--t-base) var(--e-out)}
 .dots button:hover i{background:rgba(245,233,216,.5)}
 .dots button.done i{background:rgba(245,233,216,.42)}
-.dots button.on i::after{content:"";position:absolute;inset:0;background:var(--chrome);transform-origin:0 50%;animation:fill 4s linear forwards}
-@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+/* the fill is driven from JS so it pauses under a finger and picks up where it stopped */
+.dots s{position:absolute;inset:0;background:var(--chrome);transform-origin:0 50%;transform:scaleX(0)}
 .nav{display:flex;gap:8px}
-.arrow{cursor:pointer;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(245,233,216,.18);background:rgba(11,12,24,.5);color:var(--muted);transition:border-color .25s,color .25s}
+.arrow{cursor:pointer;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(245,233,216,.18);background:rgba(11,12,24,.5);color:var(--muted);transition:border-color var(--t-base) var(--e-out),color var(--t-base),transform var(--t-fast) var(--e-out)}
 .arrow:hover{border-color:rgba(143,211,255,.6);color:var(--bone)}
+.arrow:active{transform:scale(.92);transition-duration:.08s}
 
 /* ── BOXES: only the contract is framed; the rest sit on open midnight ── */
 .bento{max-width:1360px;margin:0 auto;padding:clamp(8px,2vh,24px) var(--gut) 24px;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(28px,3vw,48px) 14px}
@@ -136,8 +158,9 @@ header{display:flex;align-items:center;justify-content:space-between;padding-top
 .c-title{font-weight:300;font-size:clamp(26px,2.5vw,40px);letter-spacing:-.025em;line-height:1.1}
 .c-title .ar{display:block;font-size:.72em;color:var(--muted);margin-top:6px;text-align:left;font-weight:400}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.opt{display:flex;flex-direction:column;gap:6px;padding:18px 18px 16px;border-radius:16px;border:1px solid rgba(245,233,216,.16);background:rgba(8,9,16,.5);transition:transform .25s,border-color .25s}
+.opt{display:flex;flex-direction:column;gap:6px;padding:18px 18px 16px;border-radius:16px;border:1px solid rgba(245,233,216,.16);background:rgba(8,9,16,.5);transition:transform var(--t-base) var(--e-out),border-color var(--t-base)}
 .opt:hover{transform:translateY(-3px);border-color:rgba(143,211,255,.55)}
+.opt:active{transform:scale(.985);transition-duration:.08s}
 .opt b{font-weight:500;font-size:clamp(30px,3.4vw,52px);letter-spacing:-.03em;line-height:1}
 .opt .ar-t{font-family:Tajawal,sans-serif;direction:rtl;text-align:left;font-size:clamp(20px,1.8vw,28px);line-height:1.2}
 .opt p{font-size:14px;line-height:1.45;color:var(--muted);margin-top:6px}
@@ -169,12 +192,15 @@ a.work:hover b{text-decoration:underline;text-underline-offset:4px;text-decorati
 .films .go{font-size:15px;font-weight:500}
 .films .go span{background:var(--chrome);-webkit-background-clip:text;background-clip:text;color:transparent}
 .films:hover .go{text-decoration:underline;text-underline-offset:4px}
+.films #filmVid{transition:transform var(--t-slow) var(--e-out)}
+.films:hover #filmVid{transform:translateY(-4px) rotate(-1deg)}
 .contact h3{font-weight:300;font-size:clamp(24px,2.2vw,34px);letter-spacing:-.025em;line-height:1.15}
 .contact h3 .ar{display:block;font-size:.8em;color:var(--muted);margin-top:4px;text-align:left}
 .ch{display:flex;align-items:center;gap:14px;min-height:52px}
 .ch svg{width:30px;height:30px;flex:none}
 .ch .big{font-weight:600;font-size:clamp(26px,2.9vw,42px);letter-spacing:-.03em;direction:ltr;line-height:1}
 .ch .mid{font-weight:500;font-size:clamp(18px,1.6vw,22px);letter-spacing:-.01em}
+.ch .big,.ch .mid{transition:filter var(--t-base)}
 .ch:hover .big,.ch:hover .mid{filter:brightness(1.15)}
 .ch+.ch{border-top:1px solid var(--line);padding-top:6px}
 footer{max-width:1360px;margin:0 auto;padding:6px var(--gut) calc(26px + env(safe-area-inset-bottom));display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--faint);letter-spacing:.06em}
@@ -209,7 +235,7 @@ footer{max-width:1360px;margin:0 auto;padding:6px var(--gut) calc(26px + env(saf
   .inc li{padding:8px 0}
   .films video,.films #filmVid{width:104px}
   .bento{gap:26px 12px}
-  .proj{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:82%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;scrollbar-width:none}
+  .proj{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:82%;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;padding-bottom:4px;scrollbar-width:none}
   .proj::-webkit-scrollbar{display:none}
   .pcard{scroll-snap-align:start}
   .lw{grid-template-columns:104px minmax(0,1fr);gap:12px}
@@ -217,14 +243,16 @@ footer{max-width:1360px;margin:0 auto;padding:6px var(--gut) calc(26px + env(saf
   .pcard{gap:10px}
   .lw .lt{width:104px;height:70px}
 }
-@media (prefers-reduced-motion:reduce){.chrome{animation:none;background-position:100% 0,0 0}.dots button.on i::after{animation:none}.fbf{animation-duration:14s}.btn,.swap-grp,.proj,.fb{transition:none}}
+@media (prefers-reduced-motion:reduce){.chrome{animation:none;background-position:100% 0,0 0}.dots s{visibility:hidden}.fbf{animation-duration:14s}.btn,.fb{transition:none}
+  .js .hi,.js .rv{transform:none}.films:hover #filmVid,.btn:hover,.opt:hover,.pcard:hover{transform:none}
+  ::view-transition-new(root){animation-name:vt-fade}}
 </style>
 </head>
 <body>
 <canvas id="ink" aria-hidden="true"></canvas>
 
 <section class="hero" id="top">
-  <header>
+  <header class="hi">
     <a class="lockup" href="/" aria-label="ALVVO — home">
       <span class="mark"><img src="blob.webp" alt="" width="120" height="131"></span>
       <span class="names">
@@ -237,18 +265,18 @@ footer{max-width:1360px;margin:0 auto;padding:6px var(--gut) calc(26px + env(saf
 
   <div class="hero-grid">
     <div class="copy">
-      <div class="kick"><i></i><span class="en-only">ALVVO — Muscat</span><span class="ar" lang="ar">ألفو — مسقط</span></div>
-      <div class="swap-grp" id="grp" aria-live="polite">
+      <div class="kick hi" style="--i:1"><i></i><span class="en-only">ALVVO — Muscat</span><span class="ar" lang="ar">ألفو — مسقط</span></div>
+      <div class="swap-grp hi" id="grp" style="--i:2" aria-live="polite">
         <h1 class="name chrome" id="svcEn">Chatbots</h1>
         <div class="name-ar" lang="ar"><span class="chrome" id="svcAr">شات بوت</span></div>
         <p class="one" id="svcD"></p>
         <p class="one-ar" id="svcDa" lang="ar"></p>
       </div>
-      <a class="btn" id="cta" href="https://wa.me/96877056051" target="_blank" rel="noopener"><span>Start a project</span><span class="ar" lang="ar">ابدأ مشروعك</span></a>
-      <div class="proj" id="proj"></div>
+      <a class="btn hi" style="--i:3" id="cta" href="https://wa.me/96877056051" target="_blank" rel="noopener"><span>Start a project</span><span class="ar" lang="ar">ابدأ مشروعك</span></a>
+      <div class="proj hi" style="--i:4" id="proj"></div>
     </div>
 
-    <div class="stage" aria-label="ALVVO services">
+    <div class="stage hi" style="--i:1" aria-label="ALVVO services">
       <div class="gl-wrap" id="glwrap"><div class="fbw" id="fbw"><div class="fbf"><img id="fbA" class="fb on" src="obj-00.webp" alt="" width="600" height="600" fetchpriority="high" decoding="async"><img id="fbB" class="fb" alt="" width="600" height="600" decoding="async"></div></div><canvas id="gl" aria-hidden="true"></canvas></div>
       <div class="ctl">
         <span class="num" id="svcNum">01 / 12</span>
@@ -264,7 +292,7 @@ footer{max-width:1360px;margin:0 auto;padding:6px var(--gut) calc(26px + env(saf
 
 <main class="bento">
 
-  <article class="contract" id="contract">
+  <article class="contract rv" id="contract">
     <div>
       <div class="k"><span>Contract</span><span class="ar" lang="ar">عقد</span></div>
       <h2 class="c-title" style="margin-top:12px">Work with ALVVO<span class="ar" lang="ar">اشتغل مع ألفو</span></h2>
@@ -290,11 +318,11 @@ footer{max-width:1360px;margin:0 auto;padding:6px var(--gut) calc(26px + env(saf
     <a class="btn wa" data-msg="Hi ALVVO — I'd like a quotation to work with ALVVO&#10;هلا ألفو، أبغى عرض سعر للاشتغال مع ألفو" href="https://wa.me/96877056051" target="_blank" rel="noopener"><span>Request a quotation</span><span class="ar" lang="ar">اطلب عرض سعر</span></a>
   </article>
 
-  <section class="open proof" id="live">
+  <section class="open proof rv" style="--i:1" id="live">
     <div class="k"><span>Live work</span><span class="ar" lang="ar">شغل شغّال</span></div>
   </section>
 
-  <a class="open films" href="https://instagram.com/alvvo.om" target="_blank" rel="noopener">
+  <a class="open films rv" style="--i:2" href="https://instagram.com/alvvo.om" target="_blank" rel="noopener">
     <div class="k"><span>ALVVO Studio</span><span class="ar" lang="ar">استوديو ألفو</span></div>
     <div class="films-row">
       <div class="films-t">
@@ -305,7 +333,7 @@ footer{max-width:1360px;margin:0 auto;padding:6px var(--gut) calc(26px + env(saf
     </div>
   </a>
 
-  <section class="open contact">
+  <section class="open contact rv" style="--i:3">
     <div class="k"><span>Contact</span><span class="ar" lang="ar">تواصل</span></div>
     <h3>Message us on WhatsApp.<span class="ar" lang="ar">كلّمنا على الواتساب.</span></h3>
     <a class="ch" href="https://wa.me/96877056051" target="_blank" rel="noopener" aria-label="WhatsApp +968 7705 6051">
@@ -320,6 +348,14 @@ footer{max-width:1360px;margin:0 auto;padding:6px var(--gut) calc(26px + env(saf
 </main>
 
 <footer><span>© 2026 ALVVO — Muscat, Oman · <span class="ar" lang="ar">مسقط، سلطنة عُمان</span></span></footer>
+
+<script>
+/* boxes rise once as they reach the screen; without an observer they simply show */
+(function(){const els=[...document.querySelectorAll('.rv')];
+  if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return;}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(e=>io.observe(e));})();
+</script>
 
 <script>
 const WA='96877056051';
@@ -431,25 +467,42 @@ const quoteMsg=s=>`Hi ALVVO — I'd like a quotation for: ${s.ask}\nهلا أل�
   gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
   const loc=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
   const uR=gl.getUniformLocation(pr,'R'),uT=gl.getUniformLocation(pr,'T'),uS=gl.getUniformLocation(pr,'S');
-  const still=false, calm=matchMedia('(prefers-reduced-motion:reduce)').matches?.4:1; // Reduce Motion = slower ink, never frozen (frozen read as broken on his iPhone, 2026-10-25)
+  // a software GPU (no graphics card / blocklisted driver) cannot run this shader live: it froze Chrome on his machine.
+  // There the ink is one still frame and the 3D stage stays on its images. ?forceink overrides for testing.
+  const dbg=gl.getExtension('WEBGL_debug_renderer_info'), gpu=dbg?String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)):'';
+  window.__inkGpu=gpu;
+  let still=/swiftshader|llvmpipe|softpipe|software|basic render/i.test(gpu)&&!/forceink/.test(location.search);
+  if(still)window.__noThree=true;
+  const calm=matchMedia('(prefers-reduced-motion:reduce)').matches?.4:1; // Reduce Motion = slower ink, never frozen (frozen read as broken on his iPhone, 2026-10-25)
   let sc=0;
-  const onScroll=()=>{sc=Math.max(0,Math.min(1,scrollY/(innerHeight*.6)));if(still)draw();};
+  // a still frame dims by opacity on the compositor instead of re-rendering on every scroll event
+  const onScroll=()=>{sc=Math.max(0,Math.min(1,scrollY/(innerHeight*.6)));if(still)cv.style.opacity=String(1-.72*sc);};
+  let q=1, W=0, H=0; // q: quality, lowered by the governor below when frames run late
   function size(){ // ink is soft: render at ~half the CSS pixels, DPR capped at 1
-    const s=Math.min(devicePixelRatio||1,1)*(innerWidth<700?.6:.75);
+    const s=Math.min(devicePixelRatio||1,1)*(innerWidth<700?.6:.75)*q*(still?.66:1);
+    W=innerWidth;H=innerHeight;
     cv.width=Math.max(2,Math.round(innerWidth*s));cv.height=Math.max(2,Math.round(innerHeight*s));gl.viewport(0,0,cv.width,cv.height);}
-  let raf=0,last=0,clock=5,prev=0;
-  function draw(){gl.uniform2f(uR,cv.width,cv.height);gl.uniform1f(uT,still?12.5:clock);gl.uniform1f(uS,sc);gl.drawArrays(gl.TRIANGLES,0,3);}
+  let raf=0,last=0,clock=5,prev=0,slow=0,born=performance.now();
+  function draw(){gl.uniform2f(uR,cv.width,cv.height);gl.uniform1f(uT,still?12.5:clock);gl.uniform1f(uS,still?0:sc);gl.drawArrays(gl.TRIANGLES,0,3);}
   function frame(now){
-    raf=0; if(document.hidden||window.__inkFreeze)return;
-    if(now-last>=33){ clock+=Math.min((now-(prev||now))/1000,.1)*calm; prev=now; last=now; draw(); }
+    raf=0; if(document.hidden||window.__inkFreeze||still)return;
+    // ~30fps, steady: the 4ms slack keeps every 2nd (60Hz) or 4th (120Hz) vsync instead of randomly skipping a third
+    if(now-last>=29){
+      const gap=now-(prev||now);
+      // governor: a run of late frames means the GPU is drowning. Step quality down, and at the floor settle on a still frame.
+      if(now-born>2000){ if(gap>50)slow++; else if(slow>0)slow--;
+        if(slow>10){slow=0; if(q>.5){q*=.75;size();} else {still=true;size();draw();onScroll();return;}} }
+      clock+=Math.min(gap/1000,.1)*calm; prev=now; last=now; draw();
+    }
     raf=requestAnimationFrame(frame);
   }
   function kick(){ if(still||raf||document.hidden)return; prev=0; raf=requestAnimationFrame(frame); }
-  addEventListener('resize',()=>{size();draw();});
+  // a phone's URL bar sliding away is a height-only resize: the fixed canvas just stretches, no reallocation mid-scroll
+  addEventListener('resize',()=>{if(innerWidth===W&&Math.abs(innerHeight-H)<160)return;size();draw();});
   addEventListener('scroll',onScroll,{passive:true});
   document.addEventListener('visibilitychange',kick);
   size();onScroll();draw();kick();
-  window.__inkScroll=v=>{sc=v;draw();};window.__inkAt=v=>{window.__inkFreeze=true;clock=v;draw();};
+  window.__inkScroll=v=>{sc=v;draw();};window.__inkStill=()=>still;window.__inkAt=v=>{window.__inkFreeze=true;clock=v;draw();};
 })();
 </script>
 
@@ -481,35 +534,71 @@ function renderProj(i){
   projEl.innerHTML=list
     ? `<div class="pk"><span>Our work</span><span class="ar" lang="ar">شغلنا</span></div>`+list.map(card).join('')
     : `<a class="pcard nothumb" href="${wa(quoteMsg(s))}" target="_blank" rel="noopener"><span class="pb"><span class="pt"><b>Want one?</b><i class="go">Request a quote ↗</i></span><span class="pl">Tell us what you need — we reply on WhatsApp.</span><span class="pa ar" lang="ar">تبي واحد؟ اطلب عرض سعر</span></span></a>`;
+  softImgs(projEl);
 }
+/* an image that is not in the cache yet fades in when it lands, never pops */
+function softImgs(root){root.querySelectorAll('img').forEach(im=>{if(im.complete&&im.naturalWidth)return;im.classList.add('lz');const ok=()=>im.classList.add('ok');im.addEventListener('load',ok,{once:true});im.addEventListener('error',ok,{once:true});});}
 /* live work: every live project, same names as the cards */
 $('live').insertAdjacentHTML('beforeend',[P.olh,P.gh,P.omaraBot].map(c=>`<a class="lw" href="${c.u}" target="_blank" rel="noopener"><img class="lt${c.dk?' dk':''}" src="${c.th}" alt="${c.n}" width="132" height="80" loading="lazy"><span><b>${c.n}</b><span class="l">${c.l}</span><span class="a ar" lang="ar">${c.a}</span><span class="u">${c.ul||c.c} ↗</span></span></a>`).join(''));
+softImgs($('live'));
 
 /* captions + dashes */
 const dotsEl=$('dots');
-SERVICES.forEach((s,i)=>{const b=document.createElement('button');b.title=s.en;b.setAttribute('aria-label',s.en);b.innerHTML='<i></i>';b.onclick=()=>go(i,true);dotsEl.appendChild(b);});
+SERVICES.forEach((s,i)=>{const b=document.createElement('button');b.title=s.en;b.setAttribute('aria-label',s.en);b.innerHTML='<i><s></s></i>';b.onclick=()=>go(i,true);dotsEl.appendChild(b);});
 const dotEls=[...dotsEl.children], grp=$('grp');
-let cur=0,capTimer=0,gl=null;
+let cur=0,capTok=0,gl=null,quiet=0;
+function fill(i){quiet=performance.now()+250; // re-rendering the cards fires a scroll on the phone row: that is not a finger
+  const s=SERVICES[i];$('svcEn').textContent=s.en;$('svcAr').textContent=s.ar;$('svcD').textContent=s.d;$('svcDa').textContent=s.da;renderProj(i);}
+/* the swap: the old line lifts away fast, the new one rises in line by line. Heights are locked, so nothing around it moves. */
+const EO='cubic-bezier(.2,.8,.2,1)', EI='cubic-bezier(.4,0,1,1)';
 function caption(i,instant){
   const s=SERVICES[i];
-  const apply=()=>{ $('svcNum').textContent=String(i+1).padStart(2,'0')+' / '+N;$('svcEn').textContent=s.en;$('svcAr').textContent=s.ar;$('svcD').textContent=s.d;$('svcDa').textContent=s.da;
-    $('cta').href=wa(askMsg(s));renderProj(i);
-    dotEls.forEach((d,k)=>{d.className=k<i?'done':'';});
-    const on=dotEls[i];on.className='';void on.offsetWidth;on.className='on';grp.classList.remove('out');projEl.classList.remove('out');};
-  clearTimeout(capTimer);
-  if(instant){apply();return;}
-  grp.classList.add('out');projEl.classList.add('out');capTimer=setTimeout(apply,200);
+  const apply=()=>{fill(i);$('svcNum').textContent=String(i+1).padStart(2,'0')+' / '+N;$('cta').href=wa(askMsg(s));
+    dotEls.forEach((d,k)=>{d.className=k<i?'done':k===i?'on':'';});};
+  const tok=++capTok, outs=[grp,projEl];
+  outs.forEach(e=>e.getAnimations().forEach(a=>a.cancel()));
+  [...grp.children].forEach(e=>e.getAnimations().forEach(a=>a.cancel()));
+  if(instant||!grp.animate){apply();return;}
+  const oa=outs.map(e=>e.animate([{opacity:1,transform:'none'},{opacity:0,transform:calm?'none':'translateY(-6px)'}],{duration:calm?140:170,easing:EI,fill:'forwards'}));
+  oa[0].finished.then(()=>{
+    if(tok!==capTok)return;
+    apply();
+    const ins=[...grp.children,projEl];
+    ins.forEach((e,k)=>e.animate([{opacity:0,transform:calm?'none':'translateY(10px)'},{opacity:1,transform:'none'}],{duration:calm?220:460,delay:k*45,easing:EO,fill:'backwards'}));
+    oa.forEach(a=>a.cancel());
+  },()=>{});
+}
+/* reserve the tallest caption + project row once, so a swap never shifts the page (measured, not guessed: fonts and widths vary) */
+let lockW=0;
+function lockSizes(){
+  if(innerWidth===lockW)return;lockW=innerWidth;
+  grp.style.minHeight=projEl.style.minHeight='';let gh=0,ph=0;
+  for(let i=0;i<N;i++){fill(i);gh=Math.max(gh,grp.offsetHeight);ph=Math.max(ph,projEl.offsetHeight);}
+  fill(cur);grp.style.minHeight=gh+'px';projEl.style.minHeight=ph+'px';
 }
 
 /* still images: the same twelve objects, crossfaded */
-const fbA=$('fbA'),fbB=$('fbB');let fbTop=fbA;
-function setImg(i){const nx=fbTop===fbA?fbB:fbA;nx.src=IMG(i);nx.classList.add('on');fbTop.classList.remove('on');fbTop=nx;
-  const j=(i+1)%N;setTimeout(()=>{const im=new Image();im.src=IMG(j);},400);}
+const fbA=$('fbA'),fbB=$('fbB');let fbTop=fbA,imgTok=0;
+const warm=i=>{const im=new Image();im.decoding='async';im.src=IMG((i+N)%N);};
+function setImg(i){const nx=fbTop===fbA?fbB:fbA,tok=++imgTok;nx.src=IMG(i);
+  const show=()=>{if(tok!==imgTok)return;nx.classList.add('on');fbTop.classList.remove('on');fbTop=nx;};
+  (nx.decode?nx.decode():Promise.resolve()).then(show,show); // never crossfade into a half-loaded frame
+  setTimeout(()=>{warm(i+1);warm(i-1);},400);}
 
 /* the one switch */
-let inView=true,heroVis=true,tm=0,holdUntil=0;
-const hold=(ms=8000)=>{holdUntil=performance.now()+ms;};          // the page never changes under a finger: any touch pauses the rotation for 8s
-function schedule(){clearInterval(tm);if(!still)tm=setInterval(()=>{if(document.hidden||!inView||!heroVis||performance.now()<holdUntil)return;go(cur+1);},calm?7000:4000);}
+let inView=true,heroVis=true,tm=0,holdUntil=0,bar=null;
+const PERIOD=calm?7000:4000;
+const paused=()=>document.hidden||!inView||!heroVis||performance.now()<holdUntil;
+// the dash fill IS the timer: it pauses while held / off screen and resumes where it stopped, so the swap always lands as the bar fills
+function sync(){if(!bar)return;clearTimeout(tm);
+  if(paused()){if(bar.playState==='running')bar.pause();const w=holdUntil-performance.now();if(w>0)tm=setTimeout(sync,w+20);}
+  else if(bar.playState==='paused')bar.play();}
+const hold=(ms=8000)=>{holdUntil=performance.now()+ms;sync();};          // the page never changes under a finger: any touch pauses the rotation for 8s
+function schedule(){if(bar)bar.cancel();bar=null;if(still)return;
+  const f=dotEls[cur].querySelector('s');
+  const me=bar=f.animate([{transform:'scaleX(0)'},{transform:'scaleX(1)'}],{duration:PERIOD,easing:'linear',fill:'forwards'});
+  me.onfinish=()=>{if(me===bar)go(cur+1);};sync();}
+document.addEventListener('visibilitychange',()=>sync());
 function go(n,manual){
   n=(n+N)%N;if(manual)hold();
   if(n===cur)return;
@@ -518,19 +607,22 @@ function go(n,manual){
 $('next').onclick=()=>go(cur+1,true);$('prev').onclick=()=>go(cur-1,true);
 addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(cur+1,true);if(e.key==='ArrowLeft')go(cur-1,true);});
 ['pointerdown','touchstart','focusin','pointermove','wheel'].forEach(ev=>{[projEl,$('dots'),$('prev'),$('next'),wrap].forEach(el=>el.addEventListener(ev,()=>hold(),{passive:true}));});
-projEl.addEventListener('scroll',()=>hold(),{passive:true});
+projEl.addEventListener('scroll',()=>{if(performance.now()>quiet)hold();},{passive:true});
 let sx=null;
 wrap.addEventListener('pointerdown',e=>{sx=e.clientX;});
 wrap.addEventListener('pointerup',e=>{if(sx===null)return;const dx=e.clientX-sx;sx=null;go(Math.abs(dx)>40?cur+(dx<0?1:-1):cur+1,true);});
 wrap.addEventListener('pointercancel',()=>{sx=null;});
-new IntersectionObserver(e=>{inView=e[0].isIntersecting;}).observe(wrap);
-new IntersectionObserver(e=>{heroVis=e[0].isIntersecting;},{threshold:.4}).observe($('top'));
+new IntersectionObserver(e=>{inView=e[0].isIntersecting;sync();}).observe(wrap);
+new IntersectionObserver(e=>{heroVis=e[0].isIntersecting;sync();},{threshold:.4}).observe($('top'));
 // pointing at (or tapping) a project card puts that site on the 3D screens
 const siteTo=k=>{if(gl&&gl.site)gl.site(k);};
 projEl.addEventListener('pointerover',e=>{const c=e.target.closest&&e.target.closest('[data-site]');if(c)siteTo(+c.dataset.site);});
 projEl.addEventListener('click',e=>{const c=e.target.closest&&e.target.closest('[data-site]');if(c)siteTo(+c.dataset.site);});
 caption(0,true);schedule();
-window.__stage={get cur(){return cur;},go,get mode(){return gl&&gl.live?'gl':'img';},get why(){return window.__stageWhy;},snap:(i,z,t)=>gl&&gl.snap(i,z,t),pause(){clearInterval(tm);}};
+lockSizes();(document.fonts?document.fonts.ready:Promise.resolve()).then(()=>{lockW=0;lockSizes();});
+let rzT=0;addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout(lockSizes,150);});
+setTimeout(()=>{for(let i=1;i<N;i++)warm(i);},2500); // all twelve stills are small; have them ready before anyone taps
+window.__stage={get cur(){return cur;},go,get mode(){return gl&&gl.live?'gl':'img';},get why(){return window.__stageWhy;},snap:(i,z,t)=>gl&&gl.snap(i,z,t),pause(){clearTimeout(tm);if(bar)bar.pause();}};
 
 /* ── three.js: only if WebGL2 is really there; any failure leaves the images in place ── */
 const toImages=why=>{if(gl)gl.live=false;fbw.classList.remove('gone');canvas.classList.remove('show');window.__stageWhy=why;};

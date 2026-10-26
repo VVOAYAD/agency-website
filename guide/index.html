@@ -345,7 +345,18 @@ footer a { color: var(--g1); text-decoration: none; }
   .about-box { flex-direction: column; align-items: center; text-align: center; }
   .price-big { font-size: 44px; }
 }
+
+/* page to page: the old page dissolves, the new one rises into place (same motion as the homepage) */
+html{background:#0a0a0e}
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-out .22s cubic-bezier(.4,0,1,1) both}
+::view-transition-new(root){animation:vt-in .44s cubic-bezier(.2,.8,.2,1) both}
+@keyframes vt-out{to{opacity:0}}
+@keyframes vt-in{from{opacity:0;transform:translateY(10px)}}
+@keyframes vt-fade{from{opacity:0}}
+@media (prefers-reduced-motion:reduce){::view-transition-new(root){animation-name:vt-fade}}
 </style>
+<script type="speculationrules">{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/api/*"}}]},"eagerness":"moderate"}]}</script>
 </head>
 <body>
 

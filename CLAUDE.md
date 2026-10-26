@@ -24,17 +24,24 @@ GitHub: https://github.com/VVOAYAD/agency-website
 ## Improvements
 *(add your ideas here)*
 
-## Last session — 2026-10-25
-- Homepage v3 (his brief 10-24, checklist in ASKS.md): frosted logo tile + Michroma ALVVO, own ink-burst shader (violet + rainbow
-  fronts, fixed dim layer behind the boxes), three.js r170 stage swapping 12 chrome service objects (chatbots first, websites =
-  laptop + phone with real omanlifestylehub screens, photos blurred for consent), monthly contract box (chrome 100 + rial, 12-month
-  row, no upfront price), live work, films, contact with WhatsApp + Instagram logos. The killed 10-14 headline is gone.
-- Gates passed: art-director (round 3 fixes) + almoayad-eye "HE'D POST IT" (v4.1). Arabic is my Gulf phrasing, not a native read.
-- Not verified: real-GPU / phone frame rate (ink 0.75x desktop, 0.6x phone; drop to 0.65 if heavy), Safari/Firefox.
+## Last session — 2026-10-26 (smoothness pass, branch `smooth-transitions`, not on main)
+- Page to page: cross-document View Transitions on every page (old dissolves, new rises 10px) + speculation-rules prefetch.
+- One motion system: `--e-out/--e-in/--t-fast/--t-base/--t-slow` tokens drive every transition; press states on buttons/cards/arrows.
+- Hero settles in once fonts land (cap 450ms); boxes rise on scroll (IntersectionObserver, once). Reduce Motion = fades only.
+- Service swap: old line lifts out fast, new one rises in line by line (WAAPI); caption + project row heights locked → swaps shift nothing.
+  Still images crossfade only after decode. Dash fill is the timer: pauses under a finger / off screen, resumes where it stopped.
+- Ink guard: software GPU (SwiftShader/llvmpipe) → one still frame, scroll dims by opacity, 3D stays on images (`?forceink` overrides).
+  Governor steps quality down after a run of late frames, settles on still at the floor. 30fps pacing fixed (4ms slack). URL-bar resizes no longer reallocate.
+- Fixed: re-rendering the phone project row fired a scroll that paused rotation for 8s.
+- Measured (headless Chromium, software GPU): desktop long tasks 126 → 1, frame p50 183ms → 16.7ms, LCP 1412 → 520ms; phone CLS .0031 → 0.
+- Not verified: real-GPU fps, iPhone Safari, Firefox (no cross-doc VT there → normal navigation).
 
 ## Next step
 - Domain: stays alvvoayad.com (his call 2026-10-24); alvvo.com is a $3,499 Atom listing, not bought.
 - Check live fps of the ink + 3D stage on his real phone.
+
+- Merge `smooth-transitions` after checking the Vercel preview on his phone.
+- Self-host Geist so the last font-swap shift (CLS .014, desktop) goes.
 
 ---
 *Update "Last session" and "Next step" above at the end of every session.*
