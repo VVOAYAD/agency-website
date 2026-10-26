@@ -468,11 +468,11 @@ const quoteMsg=s=>`Hi ALVVO — I'd like a quotation for: ${s.ask}\nهلا أل�
   const loc=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
   const uR=gl.getUniformLocation(pr,'R'),uT=gl.getUniformLocation(pr,'T'),uS=gl.getUniformLocation(pr,'S');
   // a software GPU (no graphics card / blocklisted driver) cannot run this shader live: it froze Chrome on his machine.
-  // There the ink is one still frame and the 3D stage stays on its images. ?forceink overrides for testing.
+  // There the full-screen ink is one still frame; the 3D stage (a small box) keeps animating in its lite mode. ?forceink overrides for testing.
   const dbg=gl.getExtension('WEBGL_debug_renderer_info'), gpu=dbg?String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)):'';
   window.__inkGpu=gpu;
   let still=/swiftshader|llvmpipe|softpipe|software|basic render/i.test(gpu)&&!/forceink/.test(location.search);
-  if(still)window.__noThree=true;
+  window.__softGpu=still;
   const calm=matchMedia('(prefers-reduced-motion:reduce)').matches?.4:1; // Reduce Motion = slower ink, never frozen (frozen read as broken on his iPhone, 2026-10-25)
   let sc=0;
   // a still frame dims by opacity on the compositor instead of re-rendering on every scroll event
@@ -513,6 +513,7 @@ const $=id=>document.getElementById(id);
 const wrap=$('glwrap'), canvas=$('gl'), fbw=$('fbw');
 const still=false, calm=matchMedia('(prefers-reduced-motion:reduce)').matches; // Reduce Motion = slower turns and swaps, never frozen
 const mobile=matchMedia('(pointer:coarse)').matches||innerWidth<820;
+const lite=mobile||!!window.__softGpu; // phones and software GPUs: lighter meshes, lower resolution, same animation
 const N=SERVICES.length;
 const IMG=i=>`obj-${String(i).padStart(2,'0')}.webp`;
 
@@ -632,9 +633,9 @@ try{ THREE=await import('https://cdnjs.cloudflare.com/ajax/libs/three.js/0.170.0
 try{ gl=initThree(THREE); }catch(e){ console.warn('stage',e); gl=null; toImages('init'); return; }
 
 function initThree(THREE){
-const Q=mobile?.6:1, sg=(n,min=8)=>Math.max(min,Math.round(n*Q));
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:mobile?'default':'high-performance'});
-renderer.setPixelRatio(Math.min(devicePixelRatio||1,mobile?1.5:1.75));
+const Q=lite?.6:1, sg=(n,min=8)=>Math.max(min,Math.round(n*Q));
+const renderer=new THREE.WebGLRenderer({canvas,antialias:!window.__softGpu,alpha:true,powerPreference:mobile?'default':'high-performance'});
+renderer.setPixelRatio(window.__softGpu?.75:Math.min(devicePixelRatio||1,mobile?1.5:1.75));
 renderer.outputColorSpace=THREE.SRGBColorSpace;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;
 renderer.setClearColor(0x000000,0);
@@ -651,7 +652,7 @@ envS.add(new THREE.Mesh(new THREE.BoxGeometry(30,30,30),new THREE.MeshBasicMater
   const top=new THREE.Mesh(new THREE.PlaneGeometry(14,3),new THREE.MeshBasicMaterial({color:new THREE.Color(0xffffff).multiplyScalar(24),side:THREE.DoubleSide}));top.position.set(0,11,2);top.lookAt(0,0,0);envS.add(top);
   const bot=new THREE.Mesh(new THREE.PlaneGeometry(14,2),new THREE.MeshBasicMaterial({color:new THREE.Color(0xffb36a).multiplyScalar(9),side:THREE.DoubleSide}));bot.position.set(0,-10,3);bot.lookAt(0,0,0);envS.add(bot); }
 const pm=new THREE.PMREMGenerator(renderer);
-scene.environment=pm.fromScene(envS,0.04,0.1,100,{size:mobile?128:256}).texture; scene.environmentIntensity=.95;
+scene.environment=pm.fromScene(envS,0.04,0.1,100,{size:lite?128:256}).texture; scene.environmentIntensity=.95;
 pm.dispose();envS.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material)o.material.dispose();});
 const rimIce=new THREE.DirectionalLight(0x8fd3ff,1.5);rimIce.position.set(-4,3,-2);scene.add(rimIce);
 const rimViolet=new THREE.DirectionalLight(0x7a5cff,1.4);rimViolet.position.set(4,-1,-3);scene.add(rimViolet);

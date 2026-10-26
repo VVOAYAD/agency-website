@@ -30,7 +30,8 @@ GitHub: https://github.com/VVOAYAD/agency-website
 - Hero settles in once fonts land (cap 450ms); boxes rise on scroll (IntersectionObserver, once). Reduce Motion = fades only.
 - Service swap: old line lifts out fast, new one rises in line by line (WAAPI); caption + project row heights locked → swaps shift nothing.
   Still images crossfade only after decode. Dash fill is the timer: pauses under a finger / off screen, resumes where it stopped.
-- Ink guard: software GPU (SwiftShader/llvmpipe) → one still frame, scroll dims by opacity, 3D stays on images (`?forceink` overrides).
+- Ink guard: software GPU (SwiftShader/llvmpipe) → ink is one still frame, scroll dims by opacity (`?forceink` overrides). 3D shapes stay live in lite mode
+  (his note 10-26 "the shapes arent animating" — first cut had put them on stills). Software GPU: main 4fps → branch ~30fps, shapes moving.
   Governor steps quality down after a run of late frames, settles on still at the floor. 30fps pacing fixed (4ms slack). URL-bar resizes no longer reallocate.
 - Fixed: re-rendering the phone project row fired a scroll that paused rotation for 8s.
 - Measured (headless Chromium, software GPU): desktop long tasks 126 → 1, frame p50 183ms → 16.7ms, LCP 1412 → 520ms; phone CLS .0031 → 0.
