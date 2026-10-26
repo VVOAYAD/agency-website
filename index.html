@@ -101,10 +101,14 @@ header{display:flex;align-items:center;justify-content:space-between;padding-top
 /* the still renders of the same objects: shown at once, kept if three.js cannot run, gently floating */
 .fbw{position:absolute;inset:0;transition:opacity var(--t-slow) var(--e-out)}
 .fbw.gone{opacity:0;pointer-events:none}
-.fbf{position:absolute;inset:0;animation:float 6s ease-in-out infinite}
+.fbw{perspective:900px}
+.fbf{position:absolute;inset:0;animation:float 6s ease-in-out infinite;transform-style:preserve-3d}
+/* when three.js cannot run, the stills still turn and breathe like the 3D: a slow sway on Y, a tilt, a lift */
+.fb.on{animation:sway 9s ease-in-out infinite}
 .fb{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transform:scale(.9);transition:opacity .5s var(--e-out),transform var(--t-slow) var(--e-out)}
 .fb.on{opacity:1;transform:scale(1)}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes sway{0%,100%{transform:rotateY(-14deg) rotateZ(-2deg) scale(1)}50%{transform:rotateY(14deg) rotateZ(2deg) scale(1.04)}}
 /* projects under the current service */
 .proj{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;max-width:660px;align-content:start}
 .lw{display:grid;grid-template-columns:132px minmax(0,1fr);gap:16px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
@@ -623,11 +627,13 @@ caption(0,true);schedule();
 lockSizes();(document.fonts?document.fonts.ready:Promise.resolve()).then(()=>{lockW=0;lockSizes();});
 let rzT=0;addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout(lockSizes,150);});
 setTimeout(()=>{for(let i=1;i<N;i++)warm(i);},2500); // all twelve stills are small; have them ready before anyone taps
+if(/[?&]why/.test(location.search))setInterval(()=>{let d=$('why');if(!d){d=document.createElement('div');d.id='why';d.style.cssText='position:fixed;left:8px;bottom:8px;z-index:9;padding:6px 10px;border-radius:8px;background:#000c;color:#fff;font:12px/1.4 monospace;max-width:94vw';document.body.appendChild(d);}
+  d.textContent='stage: '+(gl&&gl.live?'3D live':'still images ('+(window.__stageWhy||'loading')+')')+' · ink: '+(window.__inkStill&&window.__inkStill()?'still':'live')+' · gpu: '+(window.__inkGpu||'?');},1000); // ?why: what the stage is doing on this device
 window.__stage={get cur(){return cur;},go,get mode(){return gl&&gl.live?'gl':'img';},get why(){return window.__stageWhy;},snap:(i,z,t)=>gl&&gl.snap(i,z,t),pause(){clearTimeout(tm);if(bar)bar.pause();}};
 
 /* ── three.js: only if WebGL2 is really there; any failure leaves the images in place ── */
 const toImages=why=>{if(gl)gl.live=false;fbw.classList.remove('gone');canvas.classList.remove('show');window.__stageWhy=why;};
-if(window.__noThree||/nothree/.test(location.search)||!window.WebGL2RenderingContext) return;
+if(window.__noThree||/nothree/.test(location.search)||!window.WebGL2RenderingContext){toImages(window.WebGL2RenderingContext?'off':'no webgl2');return;}
 let THREE;
 try{ THREE=await import('https://cdnjs.cloudflare.com/ajax/libs/three.js/0.170.0/three.module.min.js'); }catch(e){ toImages('import'); return; }
 try{ gl=initThree(THREE); }catch(e){ console.warn('stage',e); gl=null; toImages('init'); return; }

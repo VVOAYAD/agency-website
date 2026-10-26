@@ -34,6 +34,9 @@ GitHub: https://github.com/VVOAYAD/agency-website
 - Ink guard: software GPU (SwiftShader/llvmpipe) → ink is one still frame, scroll dims by opacity (`?forceink` overrides). 3D shapes stay live in lite mode
   (his note 10-26 "the shapes arent animating" — first cut had put them on stills). Software GPU: main 4fps → branch ~30fps, shapes moving.
   Governor steps quality down after a run of late frames, settles on still at the floor. 30fps pacing fixed (4ms slack). URL-bar resizes no longer reallocate.
+- His note 10-26 "still not working": my first commits used vvoayad@gmail.com, not the GitHub noreply author every earlier deploy used —
+  Vercel may have blocked them. Commit as `VVOAYAD <201911905+VVOAYAD@users.noreply.github.com>`. Fallback stills now sway/tilt/lift
+  (never frozen when three.js can't run). `alvvoayad.com/?why` shows stage mode + why + GPU on any device.
 - Fixed: re-rendering the phone project row fired a scroll that paused rotation for 8s.
 - Measured (headless Chromium, software GPU): desktop long tasks 126 → 1, frame p50 183ms → 16.7ms, LCP 1412 → 520ms; phone CLS .0031 → 0.
 - Not verified: real-GPU fps, iPhone Safari, Firefox (no cross-doc VT there → normal navigation).
